@@ -6,9 +6,15 @@ public class HealthBar : MonoBehaviour
 {
     private int maxHealth;
     private int currentHealth;
-
+    private Transform bar;
     [SerializeField] private Transform barTransform; // Reference to the health bar object (the fill part)
+    
 
+    private void Awake()
+    {
+        bar = transform.Find("Bar");
+
+    }
     public void Setup(int maxHealth, int currentHealth)
     {
         this.maxHealth = maxHealth;
@@ -34,4 +40,11 @@ public class HealthBar : MonoBehaviour
         currentHealth = newHealth;
         UpdateHealthBar();
     }
+    public void SetSize(float sizeNormalized)
+    {
+        bar.localScale = new Vector3(sizeNormalized, 1f);
+
+    }
+
+
 }

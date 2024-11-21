@@ -3,15 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using CodeMonkey.Utils;
+using CodeMonkey;
 
 public class Testing : MonoBehaviour
 {
     private Pathfinding pathfinding;
-
+    private float cellSize = 1f;
 
     void Start()
     {
-        Pathfinding pathfinding = new Pathfinding(100, 100);
+        pathfinding = new Pathfinding(100, 100);
     }
 
     private void Update()
@@ -27,9 +29,9 @@ public class Testing : MonoBehaviour
                 for (int i = 0; i < path.Count - 1; i++)
                 {
                     Debug.DrawLine(
-                        new Vector3(path[i].x, path[i].y) * 5f,  // Scale the node's position
-                        new Vector3(path[i + 1].x, path[i + 1].y) * 5f,  // Scale the next node's position
-                        Color.green
+                    new Vector3(path[i].x * cellSize, path[i].y * cellSize, 0),
+                    new Vector3(path[i + 1].x * cellSize, path[i + 1].y * cellSize, 0),
+                    Color.green, 2f
                     );
                 }
 

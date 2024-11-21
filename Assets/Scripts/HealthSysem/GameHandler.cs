@@ -6,9 +6,11 @@ public class GameHandler : MonoBehaviour
 {
     public Transform pfHealthBar;  // Reference to the HealthBar prefab
     public Transform player;       // Reference to the player object
-
+    [SerializeField] private HealthBar healthBar;
     private void Start()
     {
+        
+
         // Initialize max health and current health
         int maxHealth = 100;
         int currentHealth = maxHealth;
@@ -20,11 +22,12 @@ public class GameHandler : MonoBehaviour
 
         // Get the HealthBar component and set it up with max and current health
         HealthBar healthBar = healthBarTransform.GetComponent<HealthBar>();
+        healthBar.SetSize(.4f);
         if (healthBar != null)
         {
             healthBar.Setup(maxHealth, currentHealth);
         }
-
+        healthBar.SetSize(.4f);
         // Debug log the initial health
         Debug.Log("Health: " + currentHealth);
     }

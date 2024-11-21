@@ -1,12 +1,14 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
+using UnityEngine;
 
-public class HealthSystem
+public class HealthSystem : MonoBehaviour
 {
     public event EventHandler OnHealthChanged;
     public event EventHandler OnDead;
 
-    private int health;
-    private int maxHealth;
+    public int health;
+    public int maxHealth;
 
     public HealthSystem(int maxHealth)
     {

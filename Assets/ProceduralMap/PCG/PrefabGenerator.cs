@@ -21,6 +21,7 @@ public class PrefabGenerator : MonoBehaviour
 
     private Vector2 center;
 
+
     public void PlacePrefabs(HashSet<Vector2Int> positions)
     {
         // Duvar ve köşe pozisyonlarını al

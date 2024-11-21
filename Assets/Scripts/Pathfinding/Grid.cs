@@ -41,7 +41,7 @@ public class Grid<TGridObject> {
             }
         }
 
-                bool showDebug = true;
+                bool showDebug = false;
         if (showDebug)
         {
             for (int x = 0; x < gridArray.GetLength(0); x++)
@@ -53,10 +53,10 @@ public class Grid<TGridObject> {
                     Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
                 }
             }
-            Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
-            Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
+                Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
 
-            OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) =>{
+                OnGridObjectChanged += (object sender, OnGridObjectChangedEventArgs eventArgs) =>{
                 debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y]?.ToString();
             };
         }
@@ -125,6 +125,10 @@ public class Grid<TGridObject> {
     public int GetHeight(){
         return height;
     }
+    public void SetOriginPosition(Vector3 newOrigin)
+    {
+        originPosition = newOrigin; // Update the origin position
+    }
 
-    
+
 }

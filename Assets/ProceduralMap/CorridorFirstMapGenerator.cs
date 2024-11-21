@@ -12,11 +12,23 @@ public class CorridorFirstMapGenerator : SimpleRandomWalkMapGenerator
     [Range(0.1f, 1)]
     private float roomPercent = 0.8f;
 
+    private Vector2Int lastMapDimensions;
+
+    private void StoreMapDimensions(HashSet<Vector2Int> floorPositions)
+    {
+        lastMapDimensions = CalculateMapBounds(floorPositions);
+    }
+
+    public Vector2Int GetMapDimensions()
+    {
+        return lastMapDimensions;
+    }
+
     protected override void RunProceduralGeneration()
     {
         CorridorFirstGeneration();
     }
-
+    
     private void CorridorFirstGeneration()
     {
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
@@ -36,6 +48,14 @@ public class CorridorFirstMapGenerator : SimpleRandomWalkMapGenerator
         {
             floorPositions.UnionWith(IncreaseCorridorSizeTo2x2(corridor));
         }
+
+        // Calculate map bounds
+        Vector2Int mapDimensions = CalculateMapBounds(floorPositions);
+
+        // Store the map dimensions for later use
+        StoreMapDimensions(floorPositions);
+
+        Debug.Log($"Map Dimensions: Width = {mapDimensions.x}, Height = {mapDimensions.y}");
 
         tilemapVisualizer.PaintFloorTiles(floorPositions);
         WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);
@@ -148,4 +168,31 @@ public class CorridorFirstMapGenerator : SimpleRandomWalkMapGenerator
         }
         return corridors;
     }
+    private Vector2Int CalculateMapBounds(HashSet<Vector2Int> floorPositions)
+    {
+        if (floorPositions == null || floorPositions.Count == 0)
+        {
+            Debug.LogError("No floor positions available to calculate bounds.");
+            return Vector2Int.zero;
+        }
+
+        int minX = int.MaxValue, maxX = int.MinValue;
+        int minY = int.MaxValue, maxY = int.MinValue;
+
+        foreach (Vector2Int position in floorPositions)
+        {
+            if (position.x < minX) minX = position.x;
+            if (position.x > maxX) maxX = position.x;
+            if (position.y < minY) minY = position.y;
+            if (position.y > maxY) maxY = position.y;
+        }
+
+        // Map width = maxX - minX + 1, Map height = maxY - minY + 1
+        return new Vector2Int(maxX - minX + 1, maxY - minY + 1);
+    }
+    public Vector3 GetMapOrigin()
+    {
+        return new Vector3(startPosition.x, startPosition.y, 0); // Assuming startPosition is a Vector2Int
+    }
+
 }
