@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 8586788147368457985}
   - component: {fileID: 3519137538142069038}
   - component: {fileID: 6293424717974160568}
+  - component: {fileID: 735897403858962996}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -195,3 +196,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 2
   healthSystem: {fileID: 8460260547609086461, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
+--- !u!114 &735897403858962996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7695977696948407202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8a02621649b8c64ca0cb275b39a241a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 2
+  pathUpdateInterval: 1
+  targetReachThreshold: 0.1

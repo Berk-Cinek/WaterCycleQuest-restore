@@ -129,6 +129,8 @@ public class Grid<TGridObject> {
     {
         originPosition = newOrigin; // Update the origin position
     }
-
+    public float GetCellSize() {  
+        return cellSize; 
+    }
 
 }
