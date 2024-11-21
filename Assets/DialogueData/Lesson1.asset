@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ae2f62d08dd8544bd426c20bd0caeb, type: 3}
+  m_Name: Lesson1
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Oh welcome kid! So you want to become a water cycle expert?
+  - You are at the right place!
+  - I will teach you the basics.
+  - We are going to have five lessons here.
+  - 'After each lesson, I will send you into a simulation where you will play as
+    the Water Spirit to deepen your understanding while having fun.
+
+
+'
+  - Your mission will be to defeat the threats endangering the water cycle and help
+    people preserve their water resources!
+  - But the lessons are still incomplete, so for now, let's enter the simulation
+    and observe the atmosphere!
+  - Are you ready to save the world???!
+  responses:
+  - responseText: Yes
+    dialogueObject: {fileID: 11400000, guid: d9e3a486d73db2c40aa06dd707a334c0, type: 2}
+  - responseText: No
+    dialogueObject: {fileID: 11400000, guid: 9faab0822faaa8949ac67813994904fa, type: 2}
