@@ -1,0 +1,118 @@
+{
+    "name": "GameInput",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "12cea164-00b5-4bee-adb4-3ab4e364e996",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "03e8d1e6-f930-49e1-aef2-3f2cd721a036",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Shooting",
+                    "type": "Button",
+                    "id": "1f90a84e-b0a6-4053-8157-f54565e8f593",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "f87365f9-8c5d-4782-aaba-646ea7eb4ff5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "03ffe872-228c-4db8-87fd-9ff774ca73fc",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1802229b-c251-4e5e-ab6a-a66f3ff39e0e",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "f1e8b2b9-b028-4398-9930-c922140f6d7c",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "250ab70b-93f8-408e-8dad-743c439b3613",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "2c62ca64-e772-41b6-9649-004986952ad0",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "ba261a62-6917-4b19-a053-2522b3d0affb",
+                    "path": "<Mouse>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shooting",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5792a624-cf8a-4c20-8bf2-655059e9a924",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
