@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: bbac4185609e75348bcda1419b9501e8
+  - enabled: 1
+    path: Assets/Scenes/Facility.unity
+    guid: 8ef8ae8e09fb52e439333d3dc2ce00eb
+  - enabled: 1
+    path: Assets/Scenes/RuledProceduralMap.unity
+    guid: 39144b99dd0de9b428966fbea57feb61
+  - enabled: 0
     path: Assets/Settings/Scenes/URP2DSceneTemplate.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}
