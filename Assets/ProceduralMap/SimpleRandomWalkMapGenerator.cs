@@ -7,13 +7,13 @@ public class SimpleRandomWalkMapGenerator : AbstractMapGenerator
     [SerializeField]
     protected SimpleRandomWalkSO randomWalkParameters;
 
-    [SerializeField]
-    private PrefabGenerator prefabGenerator;
+    //[SerializeField]
+    //private PrefabGenerator prefabGenerator;
 
     protected override void RunProceduralGeneration()
     {
         HashSet<Vector2Int> floorPositions = RunRandomWalk(randomWalkParameters, startPosition);
-        prefabGenerator.PlacePrefabs(floorPositions);
+        //prefabGenerator.PlacePrefabs(floorPositions);
         tilemapVisualizer.Clear();
         tilemapVisualizer.PaintFloorTiles(floorPositions);
         WallGenerator.CreateWalls(floorPositions, tilemapVisualizer);

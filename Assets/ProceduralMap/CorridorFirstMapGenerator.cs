@@ -12,6 +12,9 @@ public class CorridorFirstMapGenerator : SimpleRandomWalkMapGenerator
     [Range(0.1f, 1)]
     private float roomPercent = 0.8f;
 
+    [SerializeField]
+    private PrefabGenerator prefabGenerator;
+
     private Vector2Int lastMapDimensions;
 
     private void StoreMapDimensions(HashSet<Vector2Int> floorPositions)
@@ -33,6 +36,10 @@ public class CorridorFirstMapGenerator : SimpleRandomWalkMapGenerator
     {
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
         HashSet<Vector2Int> potentialRoomPositions = new HashSet<Vector2Int>();
+
+
+        prefabGenerator.GetPosition(floorPositions);
+        //prefabGenerator.PlacePrefabs(floorPositions);
 
         List<List<Vector2Int>> corridors = CreateCorridors(floorPositions, potentialRoomPositions);
 

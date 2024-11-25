@@ -6,12 +6,17 @@ using Random = UnityEngine.Random;
 
 public class PrefabGenerator : MonoBehaviour
 {
+    private HashSet<Vector2Int> positions;
     [SerializeField]
     private TilemapVisualizer tilemapVisualizer;
     [SerializeField]
-    private int coinNumber = 10;
+    private int bushNumber = 10;
     [SerializeField]
-    private GameObject coin;
+    private int treeNumber = 5;
+    [SerializeField]
+    private List<GameObject> bushPrefabs; // Farklı çalı türleri için prefab listesi
+    [SerializeField]
+    private List<GameObject> treePrefabs; // Farklı ağaç türleri için prefab listesi
     [SerializeField]
     private GameObject playerPrefab;
     [SerializeField]
@@ -21,8 +26,66 @@ public class PrefabGenerator : MonoBehaviour
 
     private Vector2 center;
 
+    public void GetPosition(HashSet<Vector2Int> positions)
+    {
+        this.positions = positions;
+    }
 
-    public void PlacePrefabs(HashSet<Vector2Int> positions)
+
+    //public void PlacePrefabs()
+    //{
+    //    // Duvar ve köşe pozisyonlarını al
+    //    var (wallPositions, cornerPositions) = WallGenerator.CreateWalls(positions, tilemapVisualizer);
+
+    //    // Pozisyonları listeye dönüştür
+    //    List<Vector2Int> positionList = new List<Vector2Int>(positions);
+
+    //    // Eğer pozisyon yoksa işlem yapma
+    //    if (positionList.Count == 0) return;
+
+    //    // Alanın merkezini hesapla
+    //    center = CalculateCenter(positions);
+
+    //    // Geçerli pozisyonları ve ağırlıkları hesapla
+    //    PrecomputeValidPositions(positionList, wallPositions, cornerPositions);
+
+    //    // Kullanılan pozisyonları takip etmek için bir set
+    //    HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
+
+    //    // Çalılar için prefab yerleştir
+    //    for (int i = 0; i < bushNumber; i++)
+    //    {
+    //        Vector2Int randomPosition = GetWeightedRandomPosition();
+
+    //        if (randomPosition != Vector2Int.zero && !usedPositions.Contains(randomPosition))
+    //        {
+    //            GameObject randomBush = bushPrefabs[Random.Range(0, bushPrefabs.Count)];
+    //            Instantiate(randomBush, new Vector3(randomPosition.x, randomPosition.y, -2), Quaternion.identity);
+
+    //            // Kullanılan pozisyonu kaydet
+    //            usedPositions.Add(randomPosition);
+    //        }
+    //    }
+
+    //    // Ağaçlar için prefab yerleştir
+    //    for (int i = 0; i < treeNumber; i++)
+    //    {
+    //        Vector2Int randomPosition = GetWeightedRandomPosition();
+
+    //        if (randomPosition != Vector2Int.zero &&
+    //            !usedPositions.Contains(randomPosition) && // Pozisyon daha önce kullanılmamış olmalı
+    //            !wallPositions.Contains(randomPosition)) // Duvarlara denk gelmemeli
+    //        {
+    //            GameObject randomTree = treePrefabs[Random.Range(0, treePrefabs.Count)];
+    //            Instantiate(randomTree, new Vector3(randomPosition.x, randomPosition.y, -3), Quaternion.identity);
+
+    //            // Kullanılan pozisyonu kaydet
+    //            usedPositions.Add(randomPosition);
+    //        }
+    //    }
+    //}
+
+    public void PlacePrefabs()
     {
         // Duvar ve köşe pozisyonlarını al
         var (wallPositions, cornerPositions) = WallGenerator.CreateWalls(positions, tilemapVisualizer);
@@ -39,18 +102,52 @@ public class PrefabGenerator : MonoBehaviour
         // Geçerli pozisyonları ve ağırlıkları hesapla
         PrecomputeValidPositions(positionList, wallPositions, cornerPositions);
 
-        // Prefab yerleştir
-        for (int i = 0; i < coinNumber; i++)
+        // Kullanılan pozisyonları takip etmek için bir set
+        HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
+
+        // Hierarchy altında çalılar ve ağaçlar için ebeveyn objeler oluştur
+        GameObject bushParent = new GameObject("Bushes");
+        GameObject treeParent = new GameObject("Trees");
+
+        // Çalılar için prefab yerleştir
+        for (int i = 0; i < bushNumber; i++)
         {
             Vector2Int randomPosition = GetWeightedRandomPosition();
 
-            if (randomPosition != Vector2Int.zero)
+            if (randomPosition != Vector2Int.zero && !usedPositions.Contains(randomPosition))
             {
-                // Prefab oluştur
-                Instantiate(coin, new Vector3(randomPosition.x, randomPosition.y, -1), Quaternion.identity);
+                GameObject randomBush = bushPrefabs[Random.Range(0, bushPrefabs.Count)];
+                GameObject instantiatedBush = Instantiate(randomBush, new Vector3(randomPosition.x, randomPosition.y, -2), Quaternion.identity);
+
+                // Çalıyı Bushes objesinin child'ı yap
+                instantiatedBush.transform.parent = bushParent.transform;
+
+                // Kullanılan pozisyonu kaydet
+                usedPositions.Add(randomPosition);
+            }
+        }
+
+        // Ağaçlar için prefab yerleştir
+        for (int i = 0; i < treeNumber; i++)
+        {
+            Vector2Int randomPosition = GetWeightedRandomPosition();
+
+            if (randomPosition != Vector2Int.zero &&
+                !usedPositions.Contains(randomPosition) && // Pozisyon daha önce kullanılmamış olmalı
+                !wallPositions.Contains(randomPosition)) // Duvarlara denk gelmemeli
+            {
+                GameObject randomTree = treePrefabs[Random.Range(0, treePrefabs.Count)];
+                GameObject instantiatedTree = Instantiate(randomTree, new Vector3(randomPosition.x, randomPosition.y, -3), Quaternion.identity);
+
+                // Ağacı Trees objesinin child'ı yap
+                instantiatedTree.transform.parent = treeParent.transform;
+
+                // Kullanılan pozisyonu kaydet
+                usedPositions.Add(randomPosition);
             }
         }
     }
+
 
     public GameObject PlacePlayer()
     {
