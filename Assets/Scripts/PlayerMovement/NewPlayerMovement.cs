@@ -15,7 +15,10 @@ public class NewPlayerMovement : MonoBehaviour
     [SerializeField] private float dashSpeed = 20f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
+    [SerializeField] private int maxHealth = 100; // Maximum player health
+    public int health = 100;
 
+    private int currentHealth; // Current player health
     private float dashTimer;
     private float dashCooldownTimer;
     private bool isDashing;
@@ -30,6 +33,7 @@ public class NewPlayerMovement : MonoBehaviour
     private void Awake()
     {
         gameInput = new GameInput();
+        currentHealth = maxHealth; // Initialize health
     }
 
     private void OnEnable()
@@ -140,17 +144,15 @@ public class NewPlayerMovement : MonoBehaviour
         {
             Vector2 dashStep = lastMoveDir * dashSpeed * Time.fixedDeltaTime;
 
-            
             RaycastHit2D[] hitResults = new RaycastHit2D[1];
             int hitCount = rigidbody2D.Cast(dashStep.normalized, new ContactFilter2D(), hitResults, dashStep.magnitude);
 
             if (hitCount > 0)
             {
                 Debug.Log("Dash hit: " + hitResults[0].collider.name);
-                break; 
+                break;
             }
 
-            
             rigidbody2D.MovePosition(rigidbody2D.position + dashStep);
 
             elapsedTime += Time.fixedDeltaTime;
@@ -164,5 +166,22 @@ public class NewPlayerMovement : MonoBehaviour
     {
         isDashing = false;
         rigidbody2D.velocity = Vector2.zero;
+    }
+
+    public void Damage(int damageAmount)
+    {
+        health -= damageAmount;
+        Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
+
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log(gameObject.name + " has died!");
+        Destroy(gameObject); // Destroy the target
     }
 }

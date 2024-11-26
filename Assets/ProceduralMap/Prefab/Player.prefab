@@ -216,6 +216,8 @@ MonoBehaviour:
   dashSpeed: 20
   dashDuration: 0.2
   dashCooldown: 1
+  maxHealth: 200
+  health: 200
   rigidbody2D: {fileID: 9194462844290473160}
   animator: {fileID: 294034887408761958}
 --- !u!61 &1365982529303708620
