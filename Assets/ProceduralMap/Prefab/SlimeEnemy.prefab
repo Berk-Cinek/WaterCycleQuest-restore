@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 735897403858962996}
   m_Layer: 0
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,6 +208,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a02621649b8c64ca0cb275b39a241a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
-  pathUpdateInterval: 1
-  targetReachThreshold: 0.1
