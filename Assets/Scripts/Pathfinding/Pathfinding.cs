@@ -13,7 +13,7 @@ public class Pathfinding
     public Pathfinding(int width, int height)
     {
 
-        grid = new Grid<PathNode>(width, height, 1f, new Vector3 (-28, -46, 0), (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
+        grid = new Grid<PathNode>(width, height, 1f, new Vector3 (-28f, -46f, 0f), (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
     }
 
     public Grid<PathNode> GetGrid()

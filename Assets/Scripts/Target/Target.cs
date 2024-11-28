@@ -4,62 +4,118 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100; // Max health of the target
-    private int currentHealth;
+    public int health = 100; 
+    public Transform target;
+    public float speed = 3f;
+    public float rotateSpeed = 0.0025f;
+    private Rigidbody2D rb;
+    public GameObject bulletPrefab;
 
-    [SerializeField] private HealthBar healthBar; // Reference to the health bar
-    [SerializeField] private GameObject hitEffect; // Optional hit effect prefab
-    [SerializeField] private AudioSource audioSource; // Optional audio source for sound effects
-    [SerializeField] private AudioClip hitSound; // Sound played when target is hit
+    public float distanceToShoot = 5f;
+    public float distanceToStop = 3f;
+
+    public float fireRate;
+    private float timeToFire;
+
+    public Transform firingPoint;
 
     private void Start()
     {
-        // Initialize the target's health
-        currentHealth = maxHealth;
+        rb = GetComponent<Rigidbody2D>();
+    }
 
-        // Setup health bar with the target's max and current health
-        if (healthBar != null)
+    private void Update()
+    {
+        if (!target)
         {
-            healthBar.Setup(maxHealth, currentHealth);
+            GetTarget();
+        }
+        else
+        {
+            RotateTowardsTarget();
+        }
+
+        if (Vector2.Distance(target.position, transform.position) <= distanceToShoot)
+        {
+            Shoot();
         }
     }
 
-    // This method is called when the target takes damage
+    private void Shoot()
+    {
+        if (timeToFire <= 0f)
+        {
+            Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
+            Debug.Log("Shoot");
+            timeToFire = fireRate;
+        }
+        else
+        {
+            timeToFire -= Time.deltaTime;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (target != null)
+        {
+            if (Vector2.Distance(target.position, transform.position) >= distanceToStop)
+            {
+                rb.velocity = transform.up * speed;
+            }
+
+            else
+            {
+                rb.velocity = Vector2.zero;
+
+            }
+        }
+    }
+
+    private void RotateTowardsTarget()
+    {
+        Vector2 targetDirection = target.position - transform.position;
+        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
+        Quaternion q = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.localRotation = Quaternion.Slerp(transform.localRotation, q, rotateSpeed);
+    }
+
+    private void GetTarget()
+    {
+        if (GameObject.FindGameObjectWithTag("Player"))
+        {
+            target = GameObject.FindGameObjectWithTag("Player").transform;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Destroy(other.gameObject);
+            target = null;
+        }
+        else if (other.gameObject.CompareTag("Bullet"))
+        {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+    }
+
     public void Damage(int damageAmount)
     {
-        // Reduce health
-        currentHealth -= damageAmount;
-        Debug.Log($"Target {gameObject.name} hit! Remaining health: {currentHealth}");
+        health -= damageAmount;
+        Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
 
-        // Update health bar
-        if (healthBar != null)
+        if (health <= 0)
         {
-            healthBar.UpdateHealth(currentHealth);
-        }
-
-        // Play hit effects
-        if (hitEffect != null)
-        {
-            Instantiate(hitEffect, transform.position, Quaternion.identity);
-        }
-
-        if (audioSource != null && hitSound != null)
-        {
-            audioSource.PlayOneShot(hitSound);
-        }
-
-        // Check if health is zero or below
-        if (currentHealth <= 0)
-        {
-            HandleDestruction();
+            Die();
         }
     }
 
-    // This method handles target destruction when health reaches zero
-    private void HandleDestruction()
+    private void Die()
     {
-        // Handle destruction logic here (e.g., animation, sound, etc.)
-        Destroy(gameObject);
-        Debug.Log($"Target {gameObject.name} destroyed!");
+        Debug.Log(gameObject.name + " has died!");
+        Destroy(gameObject); // Destroy the target
     }
 }
