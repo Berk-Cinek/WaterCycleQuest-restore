@@ -17,16 +17,14 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
         this.range = range;
 
-        startPosition = transform.position; 
+        startPosition = transform.position;
         transform.eulerAngles = new Vector3(0, 0, GetAngleFromVectorFloat(shootDir));
     }
 
     private void Update()
     {
-        
         transform.position += shootDir * moveSpeed * Time.deltaTime;
 
-        
         if (Vector3.Distance(startPosition, transform.position) >= range)
         {
             Destroy(gameObject);
@@ -35,15 +33,15 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        Target target = collider.GetComponent<Target>();
-        if (target != null)
+        IDamageable damageable = collider.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            target.Damage(damage); 
-            Destroy(gameObject); 
+            damageable.Damage(damage);
+            Destroy(gameObject);
         }
         else
         {
-            Debug.Log("Bullet hit something else: " + collider.name); 
+            Debug.Log("Bullet hit something else: " + collider.name);
         }
     }
 
@@ -54,5 +52,3 @@ public class Bullet : MonoBehaviour
         return n < 0 ? n + 360 : n;
     }
 }
-
-
