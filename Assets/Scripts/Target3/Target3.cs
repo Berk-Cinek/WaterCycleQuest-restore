@@ -3,19 +3,20 @@ using UnityEngine;
 
 public class Target3 : MonoBehaviour, IDamageable
 {
-    public int health = 100; 
-    public Transform target; 
-    public float speed = 2f; 
-    public float dashSpeed = 10f; 
-    public float detectionRange = 5f; 
-    public float dashRange = 1f; 
-    public int damage = 10; 
-    public float dashCooldown = 3f; 
+    public int health = 100;
+    public Transform target;
+    public float speed = 2f;
+    public float dashSpeed = 10f;
+    public float detectionRange = 5f;
+    public float dashRange = 1f;
+    public int damage = 10;
+    public float dashCooldown = 3f;
 
     private Rigidbody2D rb;
     private bool isDashing = false;
-    private bool hasDealtDamage = false; 
+    private bool hasDealtDamage = false;
     private float dashCooldownTimer;
+    public GameObject healthItemPrefab;
 
     private void Start()
     {
@@ -52,12 +53,12 @@ public class Target3 : MonoBehaviour, IDamageable
     private IEnumerator Dash()
     {
         isDashing = true;
-        hasDealtDamage = false; 
+        hasDealtDamage = false;
         rb.velocity = (target.position - transform.position).normalized * dashSpeed;
 
-        yield return new WaitForSeconds(0.5f); 
+        yield return new WaitForSeconds(0.5f);
 
-        rb.velocity = Vector2.zero; 
+        rb.velocity = Vector2.zero;
         dashCooldownTimer = dashCooldown;
 
         isDashing = false;
@@ -74,7 +75,7 @@ public class Target3 : MonoBehaviour, IDamageable
             if (player != null)
             {
                 player.Damage(damage);
-                hasDealtDamage = true; 
+                hasDealtDamage = true;
             }
         }
     }
@@ -93,7 +94,10 @@ public class Target3 : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log(gameObject.name + " has died!");
-        Destroy(gameObject); 
+
+        DropHealthItem();
+
+        Destroy(gameObject);
     }
 
     private void GetTarget()
@@ -104,4 +108,13 @@ public class Target3 : MonoBehaviour, IDamageable
             target = player.transform;
         }
     }
+
+    private void DropHealthItem()
+    {
+        if (healthItemPrefab != null)
+        {
+            Instantiate(healthItemPrefab, transform.position, Quaternion.identity); 
+        }
+    }
+
 }

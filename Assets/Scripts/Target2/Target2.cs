@@ -13,6 +13,7 @@ public class Target2 : MonoBehaviour, IDamageable
 
     private Rigidbody2D rb;
     private float timeSinceLastAttack;
+    public GameObject healthItemPrefab;
 
     private void Start()
     {
@@ -91,7 +92,10 @@ public class Target2 : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log(gameObject.name + " has died!");
-        Destroy(gameObject); // Destroy the enemy
+
+        DropHealthItem();
+
+        Destroy(gameObject); 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -99,6 +103,14 @@ public class Target2 : MonoBehaviour, IDamageable
         if (collision.gameObject.CompareTag("Player"))
         {
             target = collision.transform;
+        }
+    }
+
+    private void DropHealthItem()
+    {
+        if (healthItemPrefab != null)
+        {
+            Instantiate(healthItemPrefab, transform.position, Quaternion.identity); 
         }
     }
 }

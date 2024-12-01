@@ -177,3 +177,4 @@ MonoBehaviour:
   attackRange: 1.5
   damage: 20
   attackCooldown: 1
+  healthItemPrefab: {fileID: 7705171074137219524, guid: e733c4c51a32f434ea31936128cf20ca, type: 3}

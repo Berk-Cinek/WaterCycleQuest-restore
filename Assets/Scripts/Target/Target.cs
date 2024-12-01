@@ -18,6 +18,7 @@ public class Target : MonoBehaviour, IDamageable
     private float timeToFire;
 
     public Transform firingPoint;
+    public GameObject healthItemPrefab;
 
     private void Start()
     {
@@ -116,6 +117,17 @@ public class Target : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log(gameObject.name + " has died!");
-        Destroy(gameObject); // Destroy the target
+
+        DropHealthItem();
+
+        Destroy(gameObject); 
+    }
+
+    private void DropHealthItem()
+    {
+        if (healthItemPrefab != null)
+        {
+            Instantiate(healthItemPrefab, transform.position, Quaternion.identity); 
+        }
     }
 }

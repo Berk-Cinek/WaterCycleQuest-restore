@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class NewPlayerMovement : MonoBehaviour
 {
     [SerializeField] private DialogueUI dialogueUI;
-
     public DialogueUI DialogueUI => dialogueUI;
 
     public IInteractable Interactable { get; set; }
@@ -15,10 +14,10 @@ public class NewPlayerMovement : MonoBehaviour
     [SerializeField] private float dashSpeed = 20f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
-    [SerializeField] private int maxHealth = 100; // Maximum player health
+    [SerializeField] public int maxHealth = 100; 
     public int health = 100;
 
-    private int currentHealth; // Current player health
+    private int currentHealth; 
     private float dashTimer;
     private float dashCooldownTimer;
     private bool isDashing;
@@ -33,7 +32,7 @@ public class NewPlayerMovement : MonoBehaviour
     private void Awake()
     {
         gameInput = new GameInput();
-        currentHealth = maxHealth; // Initialize health
+        currentHealth = maxHealth; 
     }
 
     private void OnEnable()
@@ -182,6 +181,12 @@ public class NewPlayerMovement : MonoBehaviour
     private void Die()
     {
         Debug.Log(gameObject.name + " has died!");
-        Destroy(gameObject); // Destroy the target
+        Destroy(gameObject); 
+    }
+    public void RestoreHealth(int amount)
+    {
+        health += amount;
+        if (health > maxHealth) health = maxHealth; 
+        Debug.Log(gameObject.name + " restored " + amount + " health. Current health: " + health);
     }
 }
