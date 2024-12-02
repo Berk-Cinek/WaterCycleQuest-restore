@@ -14,6 +14,7 @@ public class Target2 : MonoBehaviour, IDamageable
     private Rigidbody2D rb;
     private float timeSinceLastAttack;
     public GameObject healthItemPrefab;
+    public GameObject coinPrefab;
 
     private void Start()
     {
@@ -95,6 +96,8 @@ public class Target2 : MonoBehaviour, IDamageable
 
         DropHealthItem();
 
+        DropCoin();
+
         Destroy(gameObject); 
     }
 
@@ -111,6 +114,20 @@ public class Target2 : MonoBehaviour, IDamageable
         if (healthItemPrefab != null)
         {
             Instantiate(healthItemPrefab, transform.position, Quaternion.identity); 
+        }
+    }
+
+    private void DropCoin()
+    {
+        if (coinPrefab != null)
+        {
+            
+            float spawnOffset = Random.Range(-3f, 1f); 
+
+            // Adjust spawn position based on the offset
+            Vector2 spawnPosition = new Vector2(transform.position.x + spawnOffset, transform.position.y);
+
+            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);  
         }
     }
 }

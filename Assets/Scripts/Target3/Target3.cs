@@ -17,6 +17,7 @@ public class Target3 : MonoBehaviour, IDamageable
     private bool hasDealtDamage = false;
     private float dashCooldownTimer;
     public GameObject healthItemPrefab;
+    public GameObject coinPrefab;
 
     private void Start()
     {
@@ -97,6 +98,8 @@ public class Target3 : MonoBehaviour, IDamageable
 
         DropHealthItem();
 
+        DropCoin();
+
         Destroy(gameObject);
     }
 
@@ -116,5 +119,20 @@ public class Target3 : MonoBehaviour, IDamageable
             Instantiate(healthItemPrefab, transform.position, Quaternion.identity); 
         }
     }
+
+    private void DropCoin()
+    {
+        if (coinPrefab != null)
+        {
+            
+            float spawnOffset = Random.Range(-3f, 1f); 
+
+            
+            Vector2 spawnPosition = new Vector2(transform.position.x + spawnOffset, transform.position.y);
+
+            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);  
+        }
+    }
+
 
 }

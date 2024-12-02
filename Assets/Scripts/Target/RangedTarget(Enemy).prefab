@@ -185,6 +185,7 @@ MonoBehaviour:
   fireRate: 0.5
   firingPoint: {fileID: 1056383505219122392}
   healthItemPrefab: {fileID: 7705171074137219524, guid: e733c4c51a32f434ea31936128cf20ca, type: 3}
+  coinPrefab: {fileID: 1717945976952784386, guid: ab63f39d5947e6f4aa86d0b2b0f363d8, type: 3}
 --- !u!1 &7092862585268073090
 GameObject:
   m_ObjectHideFlags: 0

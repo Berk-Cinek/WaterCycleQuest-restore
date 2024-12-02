@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Target : MonoBehaviour, IDamageable
 {
-    public int health = 100; 
+    public int health = 100;
     public Transform target;
     public float speed = 3f;
     public float rotateSpeed = 0.0025f;
@@ -19,6 +19,7 @@ public class Target : MonoBehaviour, IDamageable
 
     public Transform firingPoint;
     public GameObject healthItemPrefab;
+    public GameObject coinPrefab;
 
     private void Start()
     {
@@ -120,14 +121,33 @@ public class Target : MonoBehaviour, IDamageable
 
         DropHealthItem();
 
-        Destroy(gameObject); 
+        DropCoin();
+
+        Destroy(gameObject);
     }
 
     private void DropHealthItem()
     {
         if (healthItemPrefab != null)
         {
-            Instantiate(healthItemPrefab, transform.position, Quaternion.identity); 
+            Instantiate(healthItemPrefab, transform.position, Quaternion.identity);
         }
     }
+
+    private void DropCoin()
+    {
+        if (coinPrefab != null)
+        {
+            
+            float spawnOffset = Random.Range(-3f, 1f); 
+
+            
+            Vector2 spawnPosition = new Vector2(transform.position.x + spawnOffset, transform.position.y);
+
+            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);  
+        }
+    }
+
+
+
 }
