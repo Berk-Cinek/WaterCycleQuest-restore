@@ -155,10 +155,10 @@ MonoBehaviour:
   tilemapVisualizer: {fileID: 2101860329}
   startPosition: {x: 0, y: 0}
   randomWalkParameters: {fileID: 11400000, guid: 2770d06bc315eb146aa75907320a3fa7, type: 2}
-  prefabGenerator: {fileID: 0}
   corridorLength: 14
   corridorCount: 5
   roomPercent: 0.8
+  prefabGenerator: {fileID: 0}
 --- !u!4 &206041757
 Transform:
   m_ObjectHideFlags: 0
@@ -265,8 +265,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemapVisualizer: {fileID: 2101860329}
-  coinNumber: 10
-  coin: {fileID: 1717945976952784386, guid: ab63f39d5947e6f4aa86d0b2b0f363d8, type: 3}
+  bushNumber: 10
+  treeNumber: 5
+  bushPrefabs:
+  - {fileID: 4662556810578485477, guid: 8acb05739917e05419fd7bc6d8320fb3, type: 3}
+  - {fileID: 4662556810578485477, guid: 595ba366170ace448a49ab28d0457f16, type: 3}
+  - {fileID: 4662556810578485477, guid: 63247f1cf2096b54fb72e22c2962254f, type: 3}
+  - {fileID: 4662556810578485477, guid: 8ae5c90e794f58d46ad1490206611fce, type: 3}
+  - {fileID: 4662556810578485477, guid: c9b07b15c6fbeca44a0c64c01b5ca609, type: 3}
+  treePrefabs:
+  - {fileID: 4662556810578485477, guid: a2a5ead1c6296584c9d102d756469f6e, type: 3}
+  - {fileID: 4662556810578485477, guid: 444c3b56083bcc24c8f19877d500dbfa, type: 3}
+  - {fileID: 4662556810578485477, guid: cfd4e07dd8c09714a9d449fe2bf9b057, type: 3}
   playerPrefab: {fileID: 1407959022413416075, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
   minDistanceFromWalls: 2
   minDistanceFromCorners: 2
@@ -505,7 +515,6 @@ MonoBehaviour:
   tilemapVisualizer: {fileID: 2101860329}
   startPosition: {x: 0, y: 0}
   randomWalkParameters: {fileID: 11400000, guid: 2770d06bc315eb146aa75907320a3fa7, type: 2}
-  prefabGenerator: {fileID: 338830331}
 --- !u!4 &604103591
 Transform:
   m_ObjectHideFlags: 0
@@ -46512,7 +46521,6 @@ MonoBehaviour:
   tilemapVisualizer: {fileID: 2101860329}
   startPosition: {x: 0, y: 0}
   randomWalkParameters: {fileID: 11400000, guid: 2770d06bc315eb146aa75907320a3fa7, type: 2}
-  prefabGenerator: {fileID: 0}
   minRoomWidth: 10
   minRoomHeight: 10
   dungeonWidth: 50
