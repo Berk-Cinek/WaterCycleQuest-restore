@@ -515,6 +515,7 @@ MonoBehaviour:
   initialEnemyCount: 10
   enemyIncrementPerWave: 5
   enemyTag: Enemy
+  waiteWave: 3
 --- !u!4 &1007886614
 Transform:
   m_ObjectHideFlags: 0

@@ -14,6 +14,8 @@ public class WaveGenerator : MonoBehaviour
     private int enemyIncrementPerWave = 2; // Her dalgada artan düşman sayısı
     [SerializeField]
     private string enemyTag = "Enemy"; // Düşman GameObject'lerinin etiketi
+    [SerializeField]
+    private int waiteWave = 5;
 
     private int currentWave = 1; // Şu anki dalga sayısı
     private int enemiesToSpawn; // O dalgada yaratılacak düşman sayısı
@@ -32,11 +34,16 @@ public class WaveGenerator : MonoBehaviour
 
     void Update()
     {
+        if (currentWave == waiteWave)
+        {
+            timeBetweenWaves = 20f;
+        }
         if (isWaveActive && AreAllEnemiesDead())
         {
             isWaveActive = false;
             StartCoroutine(StartNextWave());
         }
+        
     }
 
     private bool AreAllEnemiesDead()
@@ -78,5 +85,6 @@ public class WaveGenerator : MonoBehaviour
 
         // Dalga tamamlandıktan sonra sonraki dalgaya geçiş için dalga sayısını arttır
         currentWave++;
+        timeBetweenWaves = 5f;
     }
 }
