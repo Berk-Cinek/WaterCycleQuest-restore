@@ -171,10 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d65f75c879e3a4a86bb105d3f84503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 10
   target: {fileID: 0}
   speed: 10
   attackRange: 1.5
   damage: 20
   attackCooldown: 1
   healthItemPrefab: {fileID: 7705171074137219524, guid: e733c4c51a32f434ea31936128cf20ca, type: 3}
+  coinPrefab: {fileID: 0}
