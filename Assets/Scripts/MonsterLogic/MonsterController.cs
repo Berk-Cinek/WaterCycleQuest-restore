@@ -18,7 +18,7 @@ public class MonsterController : MonoBehaviour
      Pathfinding pathfinding = new Pathfinding(100, 100);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         Vector3 enemyPosition = GameObject.FindGameObjectWithTag("Enemy").transform.position;
