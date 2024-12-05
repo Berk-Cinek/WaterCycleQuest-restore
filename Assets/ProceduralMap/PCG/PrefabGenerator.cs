@@ -14,15 +14,17 @@ public class PrefabGenerator : MonoBehaviour
     [SerializeField]
     private int treeNumber = 5;
     [SerializeField]
-    private List<GameObject> bushPrefabs; // Farklı çalı türleri için prefab listesi
+    private List<GameObject> bushPrefabs;
     [SerializeField]
-    private List<GameObject> treePrefabs; // Farklı ağaç türleri için prefab listesi
+    private List<GameObject> treePrefabs;
+    [SerializeField]
+    private List<GameObject> enemyPrefabs;
     [SerializeField]
     private GameObject playerPrefab;
     [SerializeField]
-    private float minDistanceFromWalls = 2.0f; // Duvarlardan minimum uzaklık
+    private float minDistanceFromWalls = 2.0f;
     [SerializeField]
-    private float minDistanceFromCorners = 2.0f; // Köşelerden minimum uzaklık
+    private float minDistanceFromCorners = 2.0f;
 
     private Vector2 center;
 
@@ -30,60 +32,59 @@ public class PrefabGenerator : MonoBehaviour
     {
         this.positions = positions;
     }
+    public void SpawnEnemy(int enemyCount)
+    {
+        // Eğer pozisyonlar tanımlı değilse işlem yapma
+        if (positions == null || positions.Count == 0)
+        {
+            Debug.LogWarning("SpawnEnemy için geçerli pozisyonlar mevcut değil.");
+            return;
+        }
 
+        // Kullanılan pozisyonları takip etmek için bir set
+        HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
 
-    //public void PlacePrefabs()
-    //{
-    //    // Duvar ve köşe pozisyonlarını al
-    //    var (wallPositions, cornerPositions) = WallGenerator.CreateWalls(positions, tilemapVisualizer);
+        // Enemy Parent nesnesi oluştur
+        GameObject enemyParent = new GameObject("Enemies");
 
-    //    // Pozisyonları listeye dönüştür
-    //    List<Vector2Int> positionList = new List<Vector2Int>(positions);
+        // Pozisyonları listeye dönüştür
+        List<Vector2Int> positionList = new List<Vector2Int>(positions);
 
-    //    // Eğer pozisyon yoksa işlem yapma
-    //    if (positionList.Count == 0) return;
+        // Eğer pozisyon yoksa işlem yapma
+        if (positionList.Count == 0) return;
 
-    //    // Alanın merkezini hesapla
-    //    center = CalculateCenter(positions);
+        // Geçerli pozisyonları ve ağırlıkları hesapla
+        PrecomputeValidPositions(positionList, new HashSet<Vector2Int>(), new HashSet<Vector2Int>());
 
-    //    // Geçerli pozisyonları ve ağırlıkları hesapla
-    //    PrecomputeValidPositions(positionList, wallPositions, cornerPositions);
+        // Düşmanları oluştur
+        for (int i = 0; i < enemyCount; i++)
+        {
+            Vector2Int randomPosition = GetWeightedRandomPosition();
 
-    //    // Kullanılan pozisyonları takip etmek için bir set
-    //    HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
+            // Pozisyon kullanılabilir mi kontrol et
+            if (randomPosition != Vector2Int.zero && !usedPositions.Contains(randomPosition))
+            {
+                // Düşman prefab'ını rastgele seç
+                GameObject randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 
-    //    // Çalılar için prefab yerleştir
-    //    for (int i = 0; i < bushNumber; i++)
-    //    {
-    //        Vector2Int randomPosition = GetWeightedRandomPosition();
+                // Enemy prefab'ını instantiate et
+                GameObject instantiatedEnemy = Instantiate(randomEnemy, new Vector3(randomPosition.x, randomPosition.y, -1), Quaternion.identity);
 
-    //        if (randomPosition != Vector2Int.zero && !usedPositions.Contains(randomPosition))
-    //        {
-    //            GameObject randomBush = bushPrefabs[Random.Range(0, bushPrefabs.Count)];
-    //            Instantiate(randomBush, new Vector3(randomPosition.x, randomPosition.y, -2), Quaternion.identity);
+                // Düşmanı Enemies objesinin child'ı yap
+                instantiatedEnemy.transform.parent = enemyParent.transform;
 
-    //            // Kullanılan pozisyonu kaydet
-    //            usedPositions.Add(randomPosition);
-    //        }
-    //    }
+                // Kullanılan pozisyonu kaydet
+                usedPositions.Add(randomPosition);
 
-    //    // Ağaçlar için prefab yerleştir
-    //    for (int i = 0; i < treeNumber; i++)
-    //    {
-    //        Vector2Int randomPosition = GetWeightedRandomPosition();
+                Debug.Log($"Enemy spawned at {randomPosition}");
+            }
+            else
+            {
+                Debug.LogWarning("Geçerli bir pozisyon bulunamadı, düşman spawn edilemedi.");
+            }
+        }
+    }
 
-    //        if (randomPosition != Vector2Int.zero &&
-    //            !usedPositions.Contains(randomPosition) && // Pozisyon daha önce kullanılmamış olmalı
-    //            !wallPositions.Contains(randomPosition)) // Duvarlara denk gelmemeli
-    //        {
-    //            GameObject randomTree = treePrefabs[Random.Range(0, treePrefabs.Count)];
-    //            Instantiate(randomTree, new Vector3(randomPosition.x, randomPosition.y, -3), Quaternion.identity);
-
-    //            // Kullanılan pozisyonu kaydet
-    //            usedPositions.Add(randomPosition);
-    //        }
-    //    }
-    //}
 
     public void PlacePrefabs()
     {
