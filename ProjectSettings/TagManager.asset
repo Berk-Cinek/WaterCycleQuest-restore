@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Target
   - EnemyBullet
+  - Enemy
+  - Coin
   layers:
   - Default
   - TransparentFX
