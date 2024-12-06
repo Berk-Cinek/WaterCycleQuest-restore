@@ -14,10 +14,20 @@ public class BossController : MonoBehaviour, IDamageable
     public float attackCooldown = 2f;
     private float lastAttackTime;
 
+    public Transform player;
+    public GameObject aoeMarkerPrefab; 
+    public float jumpHeight = 5f; 
+    public float jumpDuration = 1f; 
+    public float slamDelay = 1f; 
+    public float slamRadius = 2f;
+    public int damage = 20;
+    private Vector3 originalPosition;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        GetTarget(); // Initialize the target
+        GetTarget(); // Initialize target
+        originalPosition = transform.position; // Save starting position
     }
 
     private void FixedUpdate()
@@ -36,7 +46,6 @@ public class BossController : MonoBehaviour, IDamageable
             }
             else
             {
-                // Stop the boss when
                 rb.velocity = Vector2.zero;
             }
         }
@@ -51,7 +60,7 @@ public class BossController : MonoBehaviour, IDamageable
 
         if (target != null && Vector2.Distance(target.position, transform.position) <= stoppingDistance)
         {
-            Attack();
+            StartJumpAttack();
         }
     }
 
@@ -64,18 +73,49 @@ public class BossController : MonoBehaviour, IDamageable
         }
     }
 
-    void Attack()
+    private IEnumerator JumpAttack()
     {
-        if (Time.time > lastAttackTime + attackCooldown)
-        {
-            Debug.Log("Boss attacks the player!");
-            lastAttackTime = Time.time;
+        //Jump
+        Vector3 peakPosition = new Vector3(transform.position.x, transform.position.y + jumpHeight, transform.position.z);
+        float elapsedTime = 0f;
 
-            // Implement attack logic here (e.g., instantiate bullets or deal damage to player)
+        while (elapsedTime < jumpDuration)
+        {
+            transform.position = Vector3.Lerp(transform.position, peakPosition, elapsedTime / jumpDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
+
+        // AoE Marker
+        GameObject aoeMarker = Instantiate(aoeMarkerPrefab, player.position, Quaternion.identity);
+        Destroy(aoeMarker, slamDelay); // Auto-destroy marker 
+
+        yield return new WaitForSeconds(slamDelay);
+
+        //Slam
+        transform.position = originalPosition;
+
+        // Check players in AoE
+        Collider2D[] hits = Physics2D.OverlapCircleAll(target.position, slamRadius);
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                // Deal damage to the player
+                Debug.Log("Player hit by slam!");
+                // Add player damage logic here
+            }
+        }
+    }   
+
+    private void OnDrawGizmosSelected()
+    {
+        // Visualize the slam radius in the Scene view
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, slamRadius);
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -84,9 +124,14 @@ public class BossController : MonoBehaviour, IDamageable
         }
         else if (other.gameObject.CompareTag("Bullet"))
         {
-            Damage(10); // Take damage when hit by a bullet
+            Damage(10); // Take damage
             Destroy(other.gameObject);
         }
+    }
+
+    public void StartJumpAttack()
+    {
+        StartCoroutine(JumpAttack());
     }
 
     public void Damage(int damageAmount)
@@ -103,6 +148,6 @@ public class BossController : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log(gameObject.name + " has died!");
-        Destroy(gameObject); // Destroy the boss
+        Destroy(gameObject);
     }
 }
