@@ -1,32 +1,32 @@
 using UnityEngine;
-using TMPro; 
+using TMPro;
 
-public class DamageUpgradeStation : MonoBehaviour, IInteractable
+public class HealthUpgradeStation : MonoBehaviour, IInteractable
 {
-    [SerializeField] private int[] upgradeCosts = { 10, 25, 50, 75, 100 };  
+    [SerializeField] private int[] healthUpgradeCosts = { 15, 30, 60, 90, 120 };  
     private int currentUpgradeLevel = 0;  
     private const int maxUpgradeLevel = 5;  
 
-    [SerializeField] private TMP_Text upgradeMessageText; 
+    [SerializeField] private TMP_Text upgradeMessageText;  
     private bool isPlayerInRange = false;  
 
-   
     public void Interact(NewPlayerMovement player)
     {
         if (currentUpgradeLevel < maxUpgradeLevel)
         {
-            int cost = upgradeCosts[currentUpgradeLevel];
+            int cost = healthUpgradeCosts[currentUpgradeLevel]; 
 
-            if (player.GetCoins() >= cost)
+            if (player.GetCoins() >= cost)  
             {
                 player.AddCoins(-cost);  
-                currentUpgradeLevel++;   
-                player.UpgradeDamage(10);  
-                Debug.Log($"Damage upgraded to level {currentUpgradeLevel}! Current damage: {player.GetDamage()}.");
+                currentUpgradeLevel++;  
+                player.IncreaseMaxHealth(20);  
+                player.RestoreHealth(20);  
+                Debug.Log($"Health upgraded to level {currentUpgradeLevel}! Current max health: {player.maxHealth}.");
             }
             else
             {
-                Debug.Log("Not enough coins to upgrade damage.");
+                Debug.Log("Not enough coins to upgrade health.");
             }
         }
         else
@@ -35,7 +35,6 @@ public class DamageUpgradeStation : MonoBehaviour, IInteractable
         }
     }
 
-    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -45,12 +44,10 @@ public class DamageUpgradeStation : MonoBehaviour, IInteractable
             NewPlayerMovement player = other.GetComponent<NewPlayerMovement>();
             player.SetInteractable(this);  
 
-           
-            UpdateUpgradeMessage(player);
+            UpdateUpgradeMessage(player);  
         }
     }
 
-    
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -60,34 +57,31 @@ public class DamageUpgradeStation : MonoBehaviour, IInteractable
             NewPlayerMovement player = other.GetComponent<NewPlayerMovement>();
             player.SetInteractable(null);  
 
-            
-            ClearUpgradeMessage();
+            ClearUpgradeMessage();  
         }
     }
 
-    
     private void Update()
     {
         if (isPlayerInRange)
         {
-            NewPlayerMovement player = FindObjectOfType<NewPlayerMovement>(); 
+            NewPlayerMovement player = FindObjectOfType<NewPlayerMovement>();
             UpdateUpgradeMessage(player);  
         }
     }
 
-    
     private void UpdateUpgradeMessage(NewPlayerMovement player)
     {
         if (upgradeMessageText != null)
         {
-            if (currentUpgradeLevel >= maxUpgradeLevel)
+            if (currentUpgradeLevel >= maxUpgradeLevel)  
             {
-                upgradeMessageText.text = "Maximum level reached"; 
+                upgradeMessageText.text = "Maximum level reached";
             }
             else
             {
-                int nextCost = upgradeCosts[currentUpgradeLevel];
-                if (player.GetCoins() >= nextCost)
+                int nextCost = healthUpgradeCosts[currentUpgradeLevel];  
+                if (player.GetCoins() >= nextCost)  
                 {
                     upgradeMessageText.text = $"Level ({currentUpgradeLevel}) {nextCost} gold required for next upgrade\nPress E to upgrade";
                 }
@@ -99,12 +93,11 @@ public class DamageUpgradeStation : MonoBehaviour, IInteractable
         }
     }
 
-    
     private void ClearUpgradeMessage()
     {
         if (upgradeMessageText != null)
         {
-            upgradeMessageText.text = string.Empty;
+            upgradeMessageText.text = string.Empty;  
         }
     }
 }

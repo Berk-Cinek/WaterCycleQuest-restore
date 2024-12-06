@@ -12,11 +12,13 @@ public class NewPlayerMovement : MonoBehaviour
 
     public IInteractable Interactable { get; set; }
 
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] public float moveSpeed = 5f;
+    [SerializeField] public float dashSpeed = 20f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] public int maxHealth = 100;
+
+    private PlayerHealthBar playerHealthBar;
     public int health = 100;
 
     private int currentHealth;
@@ -39,6 +41,7 @@ public class NewPlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        playerHealthBar = GetComponentInChildren<PlayerHealthBar>();
         gameInput = new GameInput();
         currentHealth = maxHealth;
     }
@@ -216,6 +219,30 @@ public class NewPlayerMovement : MonoBehaviour
     {
         playerDamage += damageIncrease;
         Debug.Log("Damage upgraded to: " + playerDamage);
+    }
+
+    public void IncreaseMaxHealth(int amount)
+    {
+        maxHealth += amount;  
+        Debug.Log("Max health increased. Current max health: " + maxHealth);
+        RestoreHealth(amount);  
+
+        if (playerHealthBar != null)
+        {
+            playerHealthBar.UpdateHealthSlider();
+        }
+    }
+
+    public void UpgradeSpeed(float speedIncrease)
+    {
+        moveSpeed += speedIncrease;
+        Debug.Log($"Speed upgraded! Current move speed: {moveSpeed}");
+    }
+
+    public void UpgradeDashSpeed(float dashSpeedIncrease)
+    {
+        dashSpeed += dashSpeedIncrease;
+        Debug.Log($"Dash speed upgraded! Current dash speed: {dashSpeed}");
     }
 
     public int GetDamage()

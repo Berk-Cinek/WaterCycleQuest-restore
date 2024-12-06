@@ -1,16 +1,15 @@
 using UnityEngine;
-using TMPro; 
+using TMPro;
 
-public class DamageUpgradeStation : MonoBehaviour, IInteractable
+public class SpeedUpgradeStation : MonoBehaviour, IInteractable
 {
-    [SerializeField] private int[] upgradeCosts = { 10, 25, 50, 75, 100 };  
-    private int currentUpgradeLevel = 0;  
-    private const int maxUpgradeLevel = 5;  
+    [SerializeField] private int[] upgradeCosts = { 15, 30, 60, 100, 150 };
+    private int currentUpgradeLevel = 0;
+    private const int maxUpgradeLevel = 5;
 
-    [SerializeField] private TMP_Text upgradeMessageText; 
-    private bool isPlayerInRange = false;  
+    [SerializeField] private TMP_Text upgradeMessageText;
+    private bool isPlayerInRange = false;
 
-   
     public void Interact(NewPlayerMovement player)
     {
         if (currentUpgradeLevel < maxUpgradeLevel)
@@ -19,77 +18,71 @@ public class DamageUpgradeStation : MonoBehaviour, IInteractable
 
             if (player.GetCoins() >= cost)
             {
-                player.AddCoins(-cost);  
-                currentUpgradeLevel++;   
-                player.UpgradeDamage(10);  
-                Debug.Log($"Damage upgraded to level {currentUpgradeLevel}! Current damage: {player.GetDamage()}.");
+                player.AddCoins(-cost);
+                currentUpgradeLevel++;
+                player.UpgradeSpeed(0.5f);
+                Debug.Log($"Speed upgraded to level {currentUpgradeLevel}! Current speed: {player.moveSpeed}.");
             }
             else
             {
-                Debug.Log("Not enough coins to upgrade damage.");
+                Debug.Log("Not enough coins to upgrade speed.");
             }
         }
         else
         {
-            Debug.Log("Maximum upgrade level reached. Cannot upgrade further.");
+            Debug.Log("Maximum speed upgrade level reached.");
         }
     }
 
-    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInRange = true;  
+            isPlayerInRange = true;
 
             NewPlayerMovement player = other.GetComponent<NewPlayerMovement>();
-            player.SetInteractable(this);  
+            player.SetInteractable(this);
 
-           
             UpdateUpgradeMessage(player);
         }
     }
 
-    
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInRange = false;  
+            isPlayerInRange = false;
 
             NewPlayerMovement player = other.GetComponent<NewPlayerMovement>();
-            player.SetInteractable(null);  
+            player.SetInteractable(null);
 
-            
             ClearUpgradeMessage();
         }
     }
 
-    
     private void Update()
     {
         if (isPlayerInRange)
         {
-            NewPlayerMovement player = FindObjectOfType<NewPlayerMovement>(); 
-            UpdateUpgradeMessage(player);  
+            NewPlayerMovement player = FindObjectOfType<NewPlayerMovement>();
+            UpdateUpgradeMessage(player);
         }
     }
 
-    
     private void UpdateUpgradeMessage(NewPlayerMovement player)
     {
         if (upgradeMessageText != null)
         {
             if (currentUpgradeLevel >= maxUpgradeLevel)
             {
-                upgradeMessageText.text = "Maximum level reached"; 
+                upgradeMessageText.text = "Speed at maximum level";
             }
             else
             {
                 int nextCost = upgradeCosts[currentUpgradeLevel];
                 if (player.GetCoins() >= nextCost)
                 {
-                    upgradeMessageText.text = $"Level ({currentUpgradeLevel}) {nextCost} gold required for next upgrade\nPress E to upgrade";
+                    upgradeMessageText.text = $"Level ({currentUpgradeLevel}) {nextCost} gold required for next upgrade\nPress E to upgrade speed";
                 }
                 else
                 {
@@ -99,7 +92,6 @@ public class DamageUpgradeStation : MonoBehaviour, IInteractable
         }
     }
 
-    
     private void ClearUpgradeMessage()
     {
         if (upgradeMessageText != null)
