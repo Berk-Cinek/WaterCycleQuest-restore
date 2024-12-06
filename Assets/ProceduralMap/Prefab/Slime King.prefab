@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6026328225371988954}
   - component: {fileID: 6555687034246282450}
-  - component: {fileID: 2467158543493005847}
+  - component: {fileID: 4991668701468730869}
   m_Layer: 0
   m_Name: Slam area
   m_TagString: Untagged
@@ -149,8 +149,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140330871246730898}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.06, y: -1.94, z: 0}
-  m_LocalScale: {x: 7.703674, y: 2.1715288, z: 1}
+  m_LocalPosition: {x: 0.1148, y: -1.503, z: 0}
+  m_LocalScale: {x: 7.23375, y: 3.2335684, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5002668830349954699}
@@ -198,7 +198,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a0e35f6b808bb7447826cc6c69ffe448, type: 3}
-  m_Color: {r: 0.6037736, g: 0.04215021, b: 0.06995351, a: 0.39215687}
+  m_Color: {r: 0.6792453, g: 0.09227479, b: 0.09227479, a: 0.39215687}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -208,14 +208,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &2467158543493005847
-CircleCollider2D:
+--- !u!70 &4991668701468730869
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140330871246730898}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -237,12 +237,12 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.028450448, y: 0.64162636}
-  serializedVersion: 2
-  m_Radius: 0.38823065
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1}
+  m_Direction: 1
 --- !u!1 &8527929080052887272
 GameObject:
   m_ObjectHideFlags: 0

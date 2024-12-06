@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossController : MonoBehaviour, IDamageable
@@ -13,12 +14,13 @@ public class BossController : MonoBehaviour, IDamageable
     public float stoppingDistance = 0f;
     public float attackCooldown = 2f;
     private float lastAttackTime;
+    private int jumpCoolDown = 10;
 
     public Transform player;
     public GameObject aoeMarkerPrefab; 
-    public float jumpHeight = 5f; 
-    public float jumpDuration = 1f; 
-    public float slamDelay = 1f; 
+    public float jumpHeight = 15f; 
+    public float jumpDuration = 10f;
+    public float slamDelay = 5f; 
     public float slamRadius = 2f;
     public int damage = 20;
     private Vector3 originalPosition;
@@ -58,9 +60,12 @@ public class BossController : MonoBehaviour, IDamageable
             GetTarget(); // Continuously look for the player
         }
 
-        if (target != null && Vector2.Distance(target.position, transform.position) <= stoppingDistance)
+        if (isJumping)
         {
-            StartJumpAttack();
+           
+        }else
+        {
+           
         }
     }
 
@@ -76,37 +81,49 @@ public class BossController : MonoBehaviour, IDamageable
     private IEnumerator JumpAttack()
     {
         //Jump
-        Vector3 peakPosition = new Vector3(transform.position.x, transform.position.y + jumpHeight, transform.position.z);
+        Vector3 startPosition = transform.position; // Starting position of the slime
+        Vector3 offScreenPosition = new Vector3(transform.position.x, transform.position.y + jumpHeight, transform.position.z); // Off-screen target position
         float elapsedTime = 0f;
 
         while (elapsedTime < jumpDuration)
         {
-            transform.position = Vector3.Lerp(transform.position, peakPosition, elapsedTime / jumpDuration);
+            transform.position = Vector3.Lerp(startPosition, offScreenPosition, elapsedTime / jumpDuration); // Smoothly move upwards
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // AoE Marker
+        // Place AoE Marker
         GameObject aoeMarker = Instantiate(aoeMarkerPrefab, player.position, Quaternion.identity);
-        Destroy(aoeMarker, slamDelay); // Auto-destroy marker 
+        Vector3 slamPosition = player.position; // Store the player's last position before slam
 
-        yield return new WaitForSeconds(slamDelay);
-
-        //Slam
-        transform.position = originalPosition;
-
-        // Check players in AoE
-        Collider2D[] hits = Physics2D.OverlapCircleAll(target.position, slamRadius);
-        foreach (var hit in hits)
+        float markerFollowTime = slamDelay;
+        while (markerFollowTime > 0f)
         {
-            if (hit.CompareTag("Player"))
+            if (aoeMarker != null)
             {
-                // Deal damage to the player
-                Debug.Log("Player hit by slam!");
-                // Add player damage logic here
+                aoeMarker.transform.position = player.position; // Update marker
+                slamPosition = player.position; // update slam
             }
+            markerFollowTime -= Time.deltaTime;
+            yield return null;
         }
-    }   
+
+        Destroy(aoeMarker);
+
+        // Slam
+        transform.position = player.position;
+
+        //// check in AoE
+        //Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, slamRadius);
+        //foreach (var hit in hits)
+        //{
+        //    if (hit.CompareTag("Player"))
+        //    {
+        //        Debug.Log("Player hit by slam!");
+                   
+        //    }
+        //}
+    }
 
     private void OnDrawGizmosSelected()
     {
@@ -149,5 +166,18 @@ private void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log(gameObject.name + " has died!");
         Destroy(gameObject);
+    }
+    public bool isJumping()
+    {
+        if (jumpCoolDown == 0)
+        {
+           jumpCoolDown = 10;
+           return true;
+        }
+        else
+        {
+            jumpCoolDown -= 1;
+            return false;
+        }
     }
 }

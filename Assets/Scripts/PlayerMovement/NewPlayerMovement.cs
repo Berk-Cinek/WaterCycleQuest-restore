@@ -81,7 +81,6 @@ public class NewPlayerMovement : MonoBehaviour
     {
         if (isDashing || dialogueUI.IsOpen) return;
 
-        // Regular movement
         rigidbody2D.MovePosition(rigidbody2D.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
