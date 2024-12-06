@@ -5,12 +5,11 @@ using UnityEngine;
 public class ShootProjectiles : MonoBehaviour
 {
     [SerializeField] private Transform pfBullet;
-    [SerializeField] private float cooldownTime = 2f; 
-    private float lastShootTime = 0f; 
+    [SerializeField] private float cooldownTime = 2f;
+    private float lastShootTime = 0f;
 
     private void Awake()
     {
-        
         GetComponent<PlayerAimWeapon>().OnShoot += PlayerShootProjectiles_OnShoot;
     }
 
@@ -24,18 +23,18 @@ public class ShootProjectiles : MonoBehaviour
 
             Transform bulletTransform = Instantiate(pfBullet, e.gunEndPointPosition, Quaternion.identity);
 
-           
             Vector3 shootDir = (e.shootPosition - e.gunEndPointPosition).normalized;
 
             
-            bulletTransform.GetComponent<Bullet>().Setup(shootDir, moveSpeed: 10f, damage: 10);
+            int playerDamage = GetComponent<NewPlayerMovement>().GetDamage();
 
             
+            bulletTransform.GetComponent<Bullet>().Setup(shootDir, moveSpeed: 10f, damage: playerDamage);
+
             lastShootTime = Time.time;
         }
         else
         {
-            
             Debug.Log("Cooldown in effect, please wait before shooting again.");
         }
     }

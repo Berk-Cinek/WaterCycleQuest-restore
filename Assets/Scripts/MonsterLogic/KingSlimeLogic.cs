@@ -60,13 +60,13 @@ public class BossController : MonoBehaviour, IDamageable
             GetTarget(); // Continuously look for the player
         }
 
-        if (isJumping)
-        {
+        //if (isJumping)
+        //{
            
-        }else
-        {
+        //}else
+        //{
            
-        }
+        //}
     }
 
     private void GetTarget()

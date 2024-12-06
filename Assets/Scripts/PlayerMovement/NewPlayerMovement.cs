@@ -31,10 +31,11 @@ public class NewPlayerMovement : MonoBehaviour
     private Vector2 lastMoveDir;
     private Vector2 movement;
 
-    
-    [SerializeField] private Image coinIcon;  
-    [SerializeField] private TMP_Text coinCounterText;  
-    private int currentCoins = 0;  
+    [SerializeField] private Image coinIcon;
+    [SerializeField] private TMP_Text coinCounterText;
+    private int currentCoins = 0;
+
+    private int playerDamage = 10;  
 
     private void Awake()
     {
@@ -197,7 +198,6 @@ public class NewPlayerMovement : MonoBehaviour
         Debug.Log(gameObject.name + " restored " + amount + " health. Current health: " + health);
     }
 
-    
     public void AddCoins(int amount)
     {
         currentCoins += amount;
@@ -208,11 +208,21 @@ public class NewPlayerMovement : MonoBehaviour
     {
         if (coinCounterText != null)
         {
-            coinCounterText.text = currentCoins.ToString();  
+            coinCounterText.text = currentCoins.ToString();
         }
     }
 
-   
+    public void UpgradeDamage(int damageIncrease)
+    {
+        playerDamage += damageIncrease;
+        Debug.Log("Damage upgraded to: " + playerDamage);
+    }
+
+    public int GetDamage()
+    {
+        return playerDamage;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
@@ -220,5 +230,15 @@ public class NewPlayerMovement : MonoBehaviour
             AddCoins(0);  
             Destroy(other.gameObject);  
         }
+    }
+
+    public int GetCoins()
+    {
+        return currentCoins;
+    }
+
+    public void SetInteractable(IInteractable interactable)
+    {
+        Interactable = interactable;
     }
 }
