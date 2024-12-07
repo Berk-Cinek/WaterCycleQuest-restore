@@ -363,6 +363,67 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &603832650
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269705074736604404, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5550928488978343695, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
+      propertyPath: m_Name
+      value: ChatBoxController
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2e3f93cf78ff20747b2adc51f02b6558, type: 3}
 --- !u!1 &604103589
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,7 +590,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1114940869
 GameObject:
@@ -43347,6 +43408,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1338075127
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224557106563700243, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8089857258857954653, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
+      propertyPath: m_Name
+      value: ChatbotAPI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 25a54b2cf11fef643bb515d4f9e1640e, type: 3}
 --- !u!1 &1408427275
 GameObject:
   m_ObjectHideFlags: 3
