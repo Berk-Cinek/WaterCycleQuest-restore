@@ -25,6 +25,10 @@ public class BossController : MonoBehaviour, IDamageable
     public int damage = 20;
     private Vector3 originalPosition;
 
+    private float lastDamageTime = 0f;  
+    public float damageCooldown = 1f;   
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -60,13 +64,10 @@ public class BossController : MonoBehaviour, IDamageable
             GetTarget(); // Continuously look for the player
         }
 
-        //if (isJumping)
-        //{
-           
-        //}else
-        //{
-           
-        //}
+        if (isJumping())
+        {
+            StartCoroutine(JumpAttack());
+        }
     }
 
     private void GetTarget()
@@ -80,49 +81,53 @@ public class BossController : MonoBehaviour, IDamageable
 
     private IEnumerator JumpAttack()
     {
-        //Jump
-        Vector3 startPosition = transform.position; // Starting position of the slime
-        Vector3 offScreenPosition = new Vector3(transform.position.x, transform.position.y + jumpHeight, transform.position.z); // Off-screen target position
+        // Jump
+        Vector3 startPosition = transform.position;
+        Vector3 offScreenPosition = new Vector3(transform.position.x, transform.position.y + jumpHeight, transform.position.z);
         float elapsedTime = 0f;
 
+        Debug.Log("Slime is jumping up!");
         while (elapsedTime < jumpDuration)
         {
-            transform.position = Vector3.Lerp(startPosition, offScreenPosition, elapsedTime / jumpDuration); // Smoothly move upwards
+            transform.position = Vector3.Lerp(startPosition, offScreenPosition, elapsedTime / jumpDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        // Place AoE Marker
+        // activate AoE marker
+        Debug.Log("AoE marker is being activated!");
         GameObject aoeMarker = Instantiate(aoeMarkerPrefab, player.position, Quaternion.identity);
-        Vector3 slamPosition = player.position; // Store the player's last position before slam
+        Vector3 slamPosition = player.position; // Track the player’s position for the slam
 
         float markerFollowTime = slamDelay;
         while (markerFollowTime > 0f)
         {
             if (aoeMarker != null)
             {
-                aoeMarker.transform.position = player.position; // Update marker
-                slamPosition = player.position; // update slam
+                // Update the AoE marker to follow the player
+                aoeMarker.transform.position = player.position;
+                slamPosition = player.position; // track conteniously
             }
             markerFollowTime -= Time.deltaTime;
             yield return null;
         }
 
-        Destroy(aoeMarker);
+        // destroy aoemarker
+        if (aoeMarker != null)
+        {
+            Destroy(aoeMarker);
+            Debug.Log("AoE marker destroyed before slam.");
+        }
 
-        // Slam
-        transform.position = player.position;
-
-        //// check in AoE
-        //Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, slamRadius);
-        //foreach (var hit in hits)
-        //{
-        //    if (hit.CompareTag("Player"))
-        //    {
-        //        Debug.Log("Player hit by slam!");
-                   
-        //    }
-        //}
+        // Slam down at the last tracked position
+        elapsedTime = 0f;
+        Debug.Log("Slime is slamming down!");
+        while (elapsedTime < jumpDuration)
+        {
+            transform.position = Vector3.Lerp(offScreenPosition, slamPosition, elapsedTime / jumpDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -131,18 +136,27 @@ public class BossController : MonoBehaviour, IDamageable
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, slamRadius);
     }
-
-private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Destroy(other.gameObject); //killing the player
-            target = null;
+            // Only apply damage if enough time has passed since the last damage application
+            if (Time.time - lastDamageTime >= damageCooldown)
+            {
+                lastDamageTime = Time.time; // Update
+                Damage(10); 
+                Destroy(other.gameObject); // Killing the player
+                target = null;
+            }
         }
         else if (other.gameObject.CompareTag("Bullet"))
         {
-            Damage(10); // Take damage
-            Destroy(other.gameObject);
+            if (Time.time - lastDamageTime >= damageCooldown)
+            {
+                lastDamageTime = Time.time;
+                Damage(10);
+                Destroy(other.gameObject); 
+            }
         }
     }
 

@@ -123,6 +123,7 @@ MonoBehaviour:
   slamDelay: 1
   slamRadius: 2
   damage: 20
+  damageCooldown: 1
 --- !u!1 &140330871246730898
 GameObject:
   m_ObjectHideFlags: 0
