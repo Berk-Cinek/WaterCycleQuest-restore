@@ -204,18 +204,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemapVisualizer: {fileID: 2101860329}
-  bushNumber: 100
-  treeNumber: 50
+  bushNumber: 10
+  treeNumber: 5
   bushPrefabs:
-  - {fileID: 4662556810578485477, guid: 8acb05739917e05419fd7bc6d8320fb3, type: 3}
-  - {fileID: 4662556810578485477, guid: 595ba366170ace448a49ab28d0457f16, type: 3}
-  - {fileID: 4662556810578485477, guid: 63247f1cf2096b54fb72e22c2962254f, type: 3}
-  - {fileID: 4662556810578485477, guid: 8ae5c90e794f58d46ad1490206611fce, type: 3}
-  - {fileID: 4662556810578485477, guid: c9b07b15c6fbeca44a0c64c01b5ca609, type: 3}
+  - {fileID: 826222656475038048, guid: b1084d737968b2246bdbe92371a2a122, type: 3}
+  - {fileID: 8393323671144863475, guid: 5bd21320dd0694443981ec5ca15a9d54, type: 3}
   treePrefabs:
-  - {fileID: 4662556810578485477, guid: a2a5ead1c6296584c9d102d756469f6e, type: 3}
-  - {fileID: 4662556810578485477, guid: 444c3b56083bcc24c8f19877d500dbfa, type: 3}
-  - {fileID: 4662556810578485477, guid: cfd4e07dd8c09714a9d449fe2bf9b057, type: 3}
+  - {fileID: 920084202309207350, guid: 97d246f7cbc9ff14aa498bef4ccad5c9, type: 3}
+  - {fileID: 2891529960289075589, guid: 13b99fef183c29145ac890aa0d6d4f4e, type: 3}
+  - {fileID: 7016568564220247499, guid: 84b9ae5d2535ee84db5c1a4b6bf32536, type: 3}
+  - {fileID: 2823654641953100160, guid: a98c5a88e0ed73b4aa90b3928c606010, type: 3}
+  - {fileID: 2662904821066780079, guid: aaf1abd851e9bf04a8f0bfcf86359938, type: 3}
+  - {fileID: 6156334140834586117, guid: 35c822b2fb316bc409294425eaa21c9c, type: 3}
+  enemyPrefabs: []
   playerPrefab: {fileID: 1407959022413416075, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
   minDistanceFromWalls: 5
   minDistanceFromCorners: 5
@@ -43283,7 +43284,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 22edb748d50901c47b5a994f0184f893, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -54788,6 +54789,7 @@ GameObject:
   - component: {fileID: 2117890943}
   - component: {fileID: 2117890942}
   - component: {fileID: 2117890944}
+  - component: {fileID: 2117890946}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -54863,6 +54865,57 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabGenerator: {fileID: 338830331}
+--- !u!20 &2117890946
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2117890941}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 100
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1 &2129285406
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,11 +15,16 @@ public class WaveGenerator : MonoBehaviour
     [SerializeField]
     private string enemyTag = "Enemy"; // Düşman GameObject'lerinin etiketi
     [SerializeField]
-    private int waiteWave = 5;
+    private int waiteWave1 = 5;
+    [SerializeField]
+    private int waiteWave2 = 10;
 
     private int currentWave = 1; // Şu anki dalga sayısı
     private int enemiesToSpawn; // O dalgada yaratılacak düşman sayısı
     private bool isWaveActive = false;
+
+    private float waveStartTime; // Dalga başladığındaki zaman
+    private float totalElapsedTime; // Toplam geçen süre
 
     void Start()
     {
@@ -29,21 +34,31 @@ public class WaveGenerator : MonoBehaviour
             return;
         }
 
+        totalElapsedTime = 0f; // Toplam süre başlangıçta sıfır
         StartCoroutine(StartNextWave());
     }
 
     void Update()
     {
-        if (currentWave == waiteWave)
+        if (currentWave == waiteWave1 || currentWave == waiteWave2)
         {
             timeBetweenWaves = 20f;
         }
+
+        // Eğer dalga aktifse ve tüm düşmanlar öldüyse, dalga tamamlandı
         if (isWaveActive && AreAllEnemiesDead())
         {
             isWaveActive = false;
+
+            // Dalga süresini hesapla
+            float waveDuration = Time.time - waveStartTime;
+            totalElapsedTime += waveDuration;
+
+            Debug.Log($"Wave {currentWave - 1} completed in {waveDuration:F2} seconds. Total elapsed time: {totalElapsedTime:F2} seconds.");
+
+            // Bir sonraki dalgayı başlat
             StartCoroutine(StartNextWave());
         }
-        
     }
 
     private bool AreAllEnemiesDead()
@@ -81,9 +96,10 @@ public class WaveGenerator : MonoBehaviour
 
         // Yeni dalgayı başlat
         isWaveActive = true;
+        waveStartTime = Time.time; // Dalganın başlangıç zamanını kaydet
         StartEnemyWave();
 
-        // Dalga tamamlandıktan sonra sonraki dalgaya geçiş için dalga sayısını arttır
+        // Dalga sayısını artır
         currentWave++;
         timeBetweenWaves = 5f;
     }
