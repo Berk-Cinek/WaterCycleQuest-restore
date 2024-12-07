@@ -25,13 +25,15 @@ public class ChatBoxController : MonoBehaviour
         chatBoxPanel.SetActive(!chatBoxPanel.activeSelf);
         if (chatBoxPanel.activeSelf)
         {
+            Time.timeScale = 0f;
             userInputField.Select();  
         }
     }
 
     public void CloseChatBox()
     {
-        chatBoxPanel.SetActive(false);  
+        chatBoxPanel.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
     
