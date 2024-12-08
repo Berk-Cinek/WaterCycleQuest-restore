@@ -179,6 +179,15 @@ public class NewPlayerMovement : MonoBehaviour
 
     public void Damage(int damageAmount)
     {
+     
+        InvincibilitySkill invincibilitySkill = GetComponent<InvincibilitySkill>();
+        if (invincibilitySkill != null && invincibilitySkill.IsInvincible())
+        {
+            Debug.Log("Player is invincible and took no damage!");
+            return;
+        }
+
+        
         health -= damageAmount;
         Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
 
@@ -187,6 +196,7 @@ public class NewPlayerMovement : MonoBehaviour
             Die();
         }
     }
+
 
     private void Die()
     {
@@ -268,4 +278,14 @@ public class NewPlayerMovement : MonoBehaviour
     {
         Interactable = interactable;
     }
+
+    public void SetInvincibility(bool value)
+    {
+        
+        Debug.Log($"Invincibility set to: {value}");
+    }
+
+
+
+
 }

@@ -38,4 +38,9 @@ public class ShootProjectiles : MonoBehaviour
             Debug.Log("Cooldown in effect, please wait before shooting again.");
         }
     }
+    public void SetShootingCooldown(float newCooldownTime)
+    {
+        cooldownTime = newCooldownTime;
+        Debug.Log($"Shooting cooldown is now: {cooldownTime} seconds.");
+    }
 }

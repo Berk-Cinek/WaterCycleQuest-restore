@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target2 : MonoBehaviour, IDamageable
+public class Target2 : MonoBehaviour, IDamageable, IFreezeable
 {
-    public int health = 100; 
-    public Transform target; 
-    public float speed = 3f; 
-    public float attackRange = 1.5f; 
-    public int damage = 20; 
-    public float attackCooldown = 1f; 
+    public int health = 100;
+    public Transform target;
+    public float speed = 3f;
+    public float attackRange = 1.5f;
+    public int damage = 20;
+    public float attackCooldown = 1f;
 
     private Rigidbody2D rb;
     private float timeSinceLastAttack;
+    private bool isFrozen = false; 
+
     public GameObject healthItemPrefab;
     public GameObject coinPrefab;
 
@@ -24,6 +26,8 @@ public class Target2 : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        if (isFrozen) return; 
+
         timeSinceLastAttack += Time.deltaTime;
 
         if (!target)
@@ -43,6 +47,12 @@ public class Target2 : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
+        if (isFrozen)
+        {
+            rb.velocity = Vector2.zero; 
+            return;
+        }
+
         if (target != null && Vector2.Distance(target.position, transform.position) > attackRange)
         {
             rb.velocity = (target.position - transform.position).normalized * speed;
@@ -95,10 +105,8 @@ public class Target2 : MonoBehaviour, IDamageable
         Debug.Log(gameObject.name + " has died!");
 
         DropHealthItem();
-
         DropCoin();
-
-        Destroy(gameObject); 
+        Destroy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -113,7 +121,7 @@ public class Target2 : MonoBehaviour, IDamageable
     {
         if (healthItemPrefab != null)
         {
-            Instantiate(healthItemPrefab, transform.position, Quaternion.identity); 
+            Instantiate(healthItemPrefab, transform.position, Quaternion.identity);
         }
     }
 
@@ -121,13 +129,26 @@ public class Target2 : MonoBehaviour, IDamageable
     {
         if (coinPrefab != null)
         {
-            
-            float spawnOffset = Random.Range(-3f, 1f); 
-
-            // Adjust spawn position based on the offset
+            float spawnOffset = Random.Range(-3f, 1f);
             Vector2 spawnPosition = new Vector2(transform.position.x + spawnOffset, transform.position.y);
 
-            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);  
+            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
         }
     }
+
+    public void SetFrozen(bool frozen)
+    {
+        isFrozen = frozen;
+
+        if (isFrozen)
+        {
+            rb.velocity = Vector2.zero; 
+            Debug.Log($"{gameObject.name} is frozen.");
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name} is unfrozen.");
+        }
+    }
+
 }
