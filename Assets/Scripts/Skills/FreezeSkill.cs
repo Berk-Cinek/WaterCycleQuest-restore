@@ -9,6 +9,13 @@ public class FreezeSkill : MonoBehaviour
     private bool canActivateSkill = true;
     private float skillCooldownTimer = 0f;
 
+    private SkillBarUI skillBarUI;
+
+    private void Awake()
+    {
+        skillBarUI = FindObjectOfType<SkillBarUI>();
+    }
+
     private void Update()
     {
         if (!canActivateSkill)
@@ -18,20 +25,23 @@ public class FreezeSkill : MonoBehaviour
             {
                 skillCooldownTimer = 0;
                 canActivateSkill = true;
-                Debug.Log("Freeze skill cooldown complete. Skill is ready to use.");
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        UpdateCooldownUI();
+
+        if (Input.GetKeyDown(KeyCode.Alpha3) && canActivateSkill)
         {
-            if (canActivateSkill)
-            {
-                ActivateSkill();
-            }
-            else
-            {
-                Debug.Log($"Cannot activate Freeze skill yet. Still in cooldown. Remaining time: {skillCooldownTimer:F2} seconds.");
-            }
+            ActivateSkill();
+        }
+    }
+
+    private void UpdateCooldownUI()
+    {
+        if (skillBarUI != null)
+        {
+            float normalizedTime = 1 - (skillCooldownTimer / skillCooldown);
+            skillBarUI.UpdateFreezeCooldown(normalizedTime);
         }
     }
 
@@ -41,7 +51,6 @@ public class FreezeSkill : MonoBehaviour
         StartCoroutine(FreezeEnemiesCoroutine());
         canActivateSkill = false;
         skillCooldownTimer = skillCooldown;
-        Debug.Log($"Skill put on cooldown for {skillCooldown} seconds.");
     }
 
     private IEnumerator FreezeEnemiesCoroutine()
