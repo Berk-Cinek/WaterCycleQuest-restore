@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pfBullet: {fileID: 5837022172074878894, guid: c8c08a023baf55b478b84e00ea949520, type: 3}
-  cooldownTime: 1
+  cooldownTime: 2
 --- !u!1 &4975782216609311206
 GameObject:
   m_ObjectHideFlags: 0

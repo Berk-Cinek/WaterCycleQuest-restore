@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Target3 : MonoBehaviour, IDamageable
+public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 {
     public int health = 100;
     public Transform target;
@@ -16,6 +16,7 @@ public class Target3 : MonoBehaviour, IDamageable
     private bool isDashing = false;
     private bool hasDealtDamage = false;
     private float dashCooldownTimer;
+    private bool isFrozen = false; 
     public GameObject healthItemPrefab;
     public GameObject coinPrefab;
 
@@ -27,6 +28,12 @@ public class Target3 : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        if (isFrozen)
+        {
+            rb.velocity = Vector2.zero; 
+            return;
+        }
+
         if (!target)
         {
             GetTarget();
@@ -97,9 +104,7 @@ public class Target3 : MonoBehaviour, IDamageable
         Debug.Log(gameObject.name + " has died!");
 
         DropHealthItem();
-
         DropCoin();
-
         Destroy(gameObject);
     }
 
@@ -116,7 +121,7 @@ public class Target3 : MonoBehaviour, IDamageable
     {
         if (healthItemPrefab != null)
         {
-            Instantiate(healthItemPrefab, transform.position, Quaternion.identity); 
+            Instantiate(healthItemPrefab, transform.position, Quaternion.identity);
         }
     }
 
@@ -124,15 +129,27 @@ public class Target3 : MonoBehaviour, IDamageable
     {
         if (coinPrefab != null)
         {
-            
-            float spawnOffset = Random.Range(-3f, 1f); 
-
-            
+            float spawnOffset = Random.Range(-3f, 1f);
             Vector2 spawnPosition = new Vector2(transform.position.x + spawnOffset, transform.position.y);
 
-            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);  
+            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
         }
     }
 
+    
+    public void SetFrozen(bool frozen)
+    {
+        isFrozen = frozen;
 
+        if (isFrozen)
+        {
+            rb.velocity = Vector2.zero; 
+            Debug.Log($"{gameObject.name} is frozen.");
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name} is unfrozen.");
+        }
+    }
+    
 }

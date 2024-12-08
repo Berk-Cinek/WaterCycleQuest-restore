@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target : MonoBehaviour, IDamageable
+public class Target : MonoBehaviour, IDamageable, IFreezeable
 {
     public int health = 100;
     public Transform target;
@@ -21,6 +21,8 @@ public class Target : MonoBehaviour, IDamageable
     public GameObject healthItemPrefab;
     public GameObject coinPrefab;
 
+    private bool isFrozen = false; 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,6 +30,13 @@ public class Target : MonoBehaviour, IDamageable
 
     private void Update()
     {
+        if (isFrozen)
+        {
+           
+            rb.velocity = Vector2.zero;
+            return;
+        }
+
         if (!target)
         {
             GetTarget();
@@ -45,6 +54,8 @@ public class Target : MonoBehaviour, IDamageable
 
     private void Shoot()
     {
+        if (isFrozen) return;
+
         if (timeToFire <= 0f)
         {
             Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
@@ -59,17 +70,17 @@ public class Target : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
+        if (isFrozen) return; 
+
         if (target != null)
         {
             if (Vector2.Distance(target.position, transform.position) >= distanceToStop)
             {
                 rb.velocity = transform.up * speed;
             }
-
             else
             {
                 rb.velocity = Vector2.zero;
-
             }
         }
     }
@@ -120,9 +131,7 @@ public class Target : MonoBehaviour, IDamageable
         Debug.Log(gameObject.name + " has died!");
 
         DropHealthItem();
-
         DropCoin();
-
         Destroy(gameObject);
     }
 
@@ -138,16 +147,24 @@ public class Target : MonoBehaviour, IDamageable
     {
         if (coinPrefab != null)
         {
-            
-            float spawnOffset = Random.Range(-3f, 1f); 
-
-            
+            float spawnOffset = Random.Range(-3f, 1f);
             Vector2 spawnPosition = new Vector2(transform.position.x + spawnOffset, transform.position.y);
-
-            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);  
+            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
         }
     }
 
+    public void SetFrozen(bool frozen)
+    {
+        isFrozen = frozen;
 
-
+        if (isFrozen)
+        {
+            rb.velocity = Vector2.zero;
+            Debug.Log($"{gameObject.name} is frozen.");
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name} is unfrozen.");
+        }
+    }
 }
