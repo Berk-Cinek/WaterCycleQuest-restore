@@ -14,10 +14,9 @@ public class BossController : MonoBehaviour, IDamageable
     public float stoppingDistance = 0f;
     public float attackCooldown = 2f;
     private float lastAttackTime;
-    private int jumpCoolDown = 10;
+    private float jumpCooldownTimer = 10f;
 
     public Transform player;
-    public GameObject aoeMarkerPrefab; 
     public float jumpHeight = 15f; 
     public float jumpDuration = 10f;
     public float slamDelay = 5f; 
@@ -94,45 +93,37 @@ public class BossController : MonoBehaviour, IDamageable
             yield return null;
         }
 
-        // activate AoE marker
-        Debug.Log("AoE marker is being activated!");
-        GameObject aoeMarker = Instantiate(aoeMarkerPrefab, player.position, Quaternion.identity);
-        Vector3 slamPosition = player.position; // Track the player’s position for the slam
-
+        // Delay and track
+        Debug.Log("Tracking player's position for the slam.");
+        Vector3 slamPosition = player.position;
         float markerFollowTime = slamDelay;
+
         while (markerFollowTime > 0f)
         {
-            if (aoeMarker != null)
-            {
-                // Update the AoE marker to follow the player
-                aoeMarker.transform.position = player.position;
-                slamPosition = player.position; // track conteniously
-            }
+            // Continuously update the slam
+            slamPosition = player.position;
+            Debug.Log("Tracking player at position: " + slamPosition);
             markerFollowTime -= Time.deltaTime;
             yield return null;
         }
 
-        // destroy aoemarker
-        if (aoeMarker != null)
-        {
-            Destroy(aoeMarker);
-            Debug.Log("AoE marker destroyed before slam.");
-        }
-
         // Slam down at the last tracked position
         elapsedTime = 0f;
-        Debug.Log("Slime is slamming down!");
+        Debug.Log("Slime is slamming down at position: " + slamPosition);
         while (elapsedTime < jumpDuration)
         {
             transform.position = Vector3.Lerp(offScreenPosition, slamPosition, elapsedTime / jumpDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        Debug.Log("Slam completed at position: " + slamPosition);
     }
 
+    // This does not work
     private void OnDrawGizmosSelected()
     {
-        // Visualize the slam radius in the Scene view
+        // visualize the slam radius
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, slamRadius);
     }
@@ -140,7 +131,7 @@ public class BossController : MonoBehaviour, IDamageable
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            // Only apply damage if enough time has passed since the last damage application
+            // only apply damage if enough time has passed since the last damage 
             if (Time.time - lastDamageTime >= damageCooldown)
             {
                 lastDamageTime = Time.time; // Update
@@ -183,14 +174,14 @@ public class BossController : MonoBehaviour, IDamageable
     }
     public bool isJumping()
     {
-        if (jumpCoolDown == 0)
+        if (jumpCooldownTimer <= 0f)
         {
-           jumpCoolDown = 10;
-           return true;
+            jumpCooldownTimer = 10f;
+            return true;
         }
         else
         {
-            jumpCoolDown -= 1;
+            jumpCooldownTimer -= Time.deltaTime;
             return false;
         }
     }

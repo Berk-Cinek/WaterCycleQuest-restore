@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  target: {fileID: 0}
+  target: {fileID: 6772294754747481523, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
   speed: 3
   bulletPrefab: {fileID: 0}
   stoppingDistance: 4
