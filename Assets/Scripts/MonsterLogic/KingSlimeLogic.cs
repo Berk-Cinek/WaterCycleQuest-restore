@@ -6,7 +6,6 @@ using UnityEngine;
 public class BossController : MonoBehaviour, IDamageable
 {
     public int health = 100;
-    public Transform target;
     public float speed = 3f;
     private Rigidbody2D rb;
     public GameObject bulletPrefab;
@@ -16,7 +15,6 @@ public class BossController : MonoBehaviour, IDamageable
     private float lastAttackTime;
     private float jumpCooldownTimer = 10f;
 
-    public Transform player;
     public float jumpHeight = 15f; 
     public float jumpDuration = 10f;
     public float slamDelay = 5f; 
@@ -24,6 +22,7 @@ public class BossController : MonoBehaviour, IDamageable
     public int damage = 20;
     private Vector3 originalPosition;
 
+    [SerializeField] private Transform playerTransform;
     private float lastDamageTime = 0f;  
     public float damageCooldown = 1f;   
 
@@ -37,14 +36,14 @@ public class BossController : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        if (target != null)
+        if (playerTransform != null)
         {
-            float distanceToTarget = Vector2.Distance(target.position, transform.position);
+            float distanceToTarget = Vector2.Distance(playerTransform.position, transform.position);
 
             if (distanceToTarget > stoppingDistance)
             {
                 // Calculate direction to the player
-                Vector2 direction = (target.position - transform.position).normalized;
+                Vector2 direction = (playerTransform.position - transform.position).normalized;
 
                 // Move
                 rb.velocity = direction * speed;
@@ -58,7 +57,7 @@ public class BossController : MonoBehaviour, IDamageable
 
     private void Update()
     {
-        if (!target)
+        if (!playerTransform)
         {
             GetTarget(); // Continuously look for the player
         }
@@ -72,9 +71,14 @@ public class BossController : MonoBehaviour, IDamageable
     private void GetTarget()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player)
+        if (player != null)
         {
-            target = player.transform;
+            playerTransform = player.transform;
+            Debug.Log("Player found and assigned to target: " + playerTransform.position);
+        }
+        else
+        {
+            Debug.LogWarning("Player not found! Ensure the player GameObject is tagged correctly.");
         }
     }
 
@@ -95,13 +99,13 @@ public class BossController : MonoBehaviour, IDamageable
 
         // Delay and track
         Debug.Log("Tracking player's position for the slam.");
-        Vector3 slamPosition = player.position;
+        Vector3 slamPosition = playerTransform.position;
         float markerFollowTime = slamDelay;
 
         while (markerFollowTime > 0f)
         {
             // Continuously update the slam
-            slamPosition = player.position;
+            slamPosition = playerTransform.position;
             Debug.Log("Tracking player at position: " + slamPosition);
             markerFollowTime -= Time.deltaTime;
             yield return null;
@@ -137,7 +141,7 @@ public class BossController : MonoBehaviour, IDamageable
                 lastDamageTime = Time.time; // Update
                 Damage(10); 
                 Destroy(other.gameObject); // Killing the player
-                target = null;
+                playerTransform = null;
             }
         }
         else if (other.gameObject.CompareTag("Bullet"))
