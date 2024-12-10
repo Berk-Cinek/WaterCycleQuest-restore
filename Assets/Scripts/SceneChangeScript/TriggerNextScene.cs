@@ -7,14 +7,16 @@ public class TriggerNextScene : MonoBehaviour
 {
     [SerializeField] private bool requireKeyPress = true;                         // Tuþa basýlmasý gereksinimini inspector'e ekler
     private bool isPlayerNearby = false;
+    public Animator transition;
+    public float transitionTime = 1f;
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Player"))
+        if (collider.gameObject.CompareTag("Player"))                            // Eðer tuþa basýlmasý gerekmiyorsa player'i collider içine girdiðinde sonraki scene ýþýnlar
         {
             isPlayerNearby = true;
 
-            if (!requireKeyPress)                                                // Eðer tuþa basýlmasý gerekmiyorsa player'i collider içine girdiðinde sonraki scene ýþýnlar
+            if (!requireKeyPress)                                               
             {
                 LoadNextScene();
             }
@@ -39,4 +41,12 @@ public class TriggerNextScene : MonoBehaviour
             Debug.LogWarning("Son sahneye ulaþýldý");
         }
     }
+
+    IEnumerator LoadLevel(int levelIndex)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+    }
+
 }
