@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -124,13 +124,7 @@ public class BossController : MonoBehaviour, IDamageable
         Debug.Log("Slam completed at position: " + slamPosition);
     }
 
-    // This does not work
-    private void OnDrawGizmosSelected()
-    {
-        // visualize the slam radius
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, slamRadius);
-    }
+    
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -150,6 +144,7 @@ public class BossController : MonoBehaviour, IDamageable
             {
                 lastDamageTime = Time.time;
                 Damage(10);
+                //yağıza sor tek yiyor
                 Destroy(other.gameObject); 
             }
         }
