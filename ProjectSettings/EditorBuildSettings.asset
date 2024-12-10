@@ -15,8 +15,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Village.unity
     guid: 782a98f8d604da34ebc8e9a794c79554
   - enabled: 1
+    path: Assets/Scenes/DroughtVillageProceduralMap.unity
+    guid: c013ac65528e56b4a8080eaf89cea986
+  - enabled: 1
     path: Assets/Scenes/RuledProceduralMap.unity
-    guid: 39144b99dd0de9b428966fbea57feb61
+    guid: fadead72b3e59314291cc96204947f92
   - enabled: 0
     path: Assets/Settings/Scenes/URP2DSceneTemplate.unity
     guid: 2cda990e2423bbf4892e6590ba056729
