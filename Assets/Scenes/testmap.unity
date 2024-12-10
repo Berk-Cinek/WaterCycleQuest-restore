@@ -46118,8 +46118,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8093046004466436869, guid: f92ab7482949d684facc5ef8352f7557, type: 3}
+      propertyPath: damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093046004466436869, guid: f92ab7482949d684facc5ef8352f7557, type: 3}
       propertyPath: health
-      value: 10
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093046004466436869, guid: f92ab7482949d684facc5ef8352f7557, type: 3}
+      propertyPath: stoppingDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

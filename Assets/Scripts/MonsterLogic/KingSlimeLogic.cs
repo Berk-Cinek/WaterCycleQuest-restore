@@ -5,21 +5,28 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour, IDamageable
 {
-    public int health = 100;
-    public float speed = 3f;
+    [SerializeField] private int health = 100;
+    [SerializeField] private float speed = 3f;
     private Rigidbody2D rb;
     public GameObject bulletPrefab;
+    private bool isDashing = true;
+    private bool hasDealtDamage = false;
+    private float dashCooldownTimer;
+    private bool isFrozen = false;
+    [SerializeField] private float dashCooldown = 0.2f;
+    [SerializeField] private float dashSpeed = 10f;
+    [SerializeField] private float detectionRange = 10f;
 
-    public float stoppingDistance = 0f;
-    public float attackCooldown = 2f;
-    private float lastAttackTime;
-    private float jumpCooldownTimer = 10f;
+    [SerializeField] private float stoppingDistance = 0f;
+    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private float lastAttackTime;
+    [SerializeField] private float jumpCooldownTimer = 10f;
 
-    public float jumpHeight = 15f; 
-    public float jumpDuration = 10f;
-    public float slamDelay = 5f; 
-    public float slamRadius = 2f;
-    public int damage = 20;
+    [SerializeField] private float jumpHeight = 100f;
+    [SerializeField] private float jumpDuration = 10f;
+    [SerializeField] private float slamDelay = 5f;
+    [SerializeField] private float slamRadius = 2f;
+    [SerializeField] private int damage = 20;
     private Vector3 originalPosition;
 
     [SerializeField] private Transform playerTransform;
@@ -30,8 +37,9 @@ public class BossController : MonoBehaviour, IDamageable
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        GetTarget(); // Initialize target
-        originalPosition = transform.position; // Save starting position
+        GetTarget();
+        originalPosition = transform.position;
+        dashCooldownTimer = dashCooldown;
     }
 
     private void FixedUpdate()
@@ -54,7 +62,7 @@ public class BossController : MonoBehaviour, IDamageable
             }
         }
     }
-
+    
     private void Update()
     {
         if (!playerTransform)
@@ -65,6 +73,16 @@ public class BossController : MonoBehaviour, IDamageable
         if (isJumping())
         {
             StartCoroutine(JumpAttack());
+        }
+        else if (isDashing)
+        {
+            Debug.Log("is dashing");
+            dashCooldownTimer -= Time.deltaTime;
+
+            if (dashCooldownTimer <= 0f)
+            {
+                StartCoroutine(Dash());
+            }
         }
     }
 
@@ -84,12 +102,12 @@ public class BossController : MonoBehaviour, IDamageable
 
     private IEnumerator JumpAttack()
     {
+        isDashing = false;
         // Jump
         Vector3 startPosition = transform.position;
         Vector3 offScreenPosition = new Vector3(transform.position.x, transform.position.y + jumpHeight, transform.position.z);
         float elapsedTime = 0f;
 
-        Debug.Log("Slime is jumping up!");
         while (elapsedTime < jumpDuration)
         {
             transform.position = Vector3.Lerp(startPosition, offScreenPosition, elapsedTime / jumpDuration);
@@ -98,7 +116,6 @@ public class BossController : MonoBehaviour, IDamageable
         }
 
         // Delay and track
-        Debug.Log("Tracking player's position for the slam.");
         Vector3 slamPosition = playerTransform.position;
         float markerFollowTime = slamDelay;
 
@@ -106,14 +123,12 @@ public class BossController : MonoBehaviour, IDamageable
         {
             // Continuously update the slam
             slamPosition = playerTransform.position;
-            Debug.Log("Tracking player at position: " + slamPosition);
             markerFollowTime -= Time.deltaTime;
             yield return null;
         }
 
         // Slam down at the last tracked position
         elapsedTime = 0f;
-        Debug.Log("Slime is slamming down at position: " + slamPosition);
         while (elapsedTime < jumpDuration)
         {
             transform.position = Vector3.Lerp(offScreenPosition, slamPosition, elapsedTime / jumpDuration);
@@ -121,10 +136,25 @@ public class BossController : MonoBehaviour, IDamageable
             yield return null;
         }
 
-        Debug.Log("Slam completed at position: " + slamPosition);
+        isDashing = true;
     }
 
-    
+
+    private IEnumerator Dash()
+    {
+        isDashing = true;
+        hasDealtDamage = false;
+        rb.velocity = (playerTransform.position - transform.position).normalized * dashSpeed;
+
+        yield return new WaitForSeconds(0.5f);
+
+        rb.velocity = Vector2.zero;
+        dashCooldownTimer = dashCooldown;
+
+        isDashing = false;
+    }
+
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -133,8 +163,7 @@ public class BossController : MonoBehaviour, IDamageable
             if (Time.time - lastDamageTime >= damageCooldown)
             {
                 lastDamageTime = Time.time; // Update
-                Damage(10); 
-                Destroy(other.gameObject); // Killing the player
+                playerTransform.GetComponent<NewPlayerMovement>()?.Damage(damage); 
                 playerTransform = null;
             }
         }
