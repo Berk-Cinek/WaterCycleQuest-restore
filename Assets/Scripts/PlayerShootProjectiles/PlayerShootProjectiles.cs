@@ -6,11 +6,12 @@ public class ShootProjectiles : MonoBehaviour
 {
     [SerializeField] private Transform pfBullet;
     [SerializeField] private float cooldownTime = 2f; 
-    private float lastShootTime = 0f; 
+    private float lastShootTime = 0f;
+    AudioManager audioManager;
 
     private void Awake()
     {
-        
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         GetComponent<PlayerAimWeapon>().OnShoot += PlayerShootProjectiles_OnShoot;
     }
 
@@ -20,6 +21,7 @@ public class ShootProjectiles : MonoBehaviour
 
         if (Time.time - lastShootTime >= cooldownTime)
         {
+            
             Debug.Log("Shoot");
 
             Transform bulletTransform = Instantiate(pfBullet, e.gunEndPointPosition, Quaternion.identity);
@@ -32,6 +34,8 @@ public class ShootProjectiles : MonoBehaviour
 
             
             lastShootTime = Time.time;
+
+            audioManager.PlaySFX(audioManager.ShootSound);
         }
         else
         {

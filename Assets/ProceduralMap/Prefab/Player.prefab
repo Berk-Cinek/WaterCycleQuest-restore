@@ -810,6 +810,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1569823057655509653, guid: 72f4f366f51a37a458a034c39b01e6fa, type: 3}
+      propertyPath: m_MinValue
+      value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1569823057655509653, guid: 72f4f366f51a37a458a034c39b01e6fa, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetMasterVolume
       objectReference: {fileID: 0}
@@ -909,6 +913,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4355933620707216813, guid: 72f4f366f51a37a458a034c39b01e6fa, type: 3}
+      propertyPath: m_MaxValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355933620707216813, guid: 72f4f366f51a37a458a034c39b01e6fa, type: 3}
+      propertyPath: m_MinValue
+      value: -80
+      objectReference: {fileID: 0}
     - target: {fileID: 4481480095930986377, guid: 72f4f366f51a37a458a034c39b01e6fa, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
@@ -932,6 +944,10 @@ PrefabInstance:
     - target: {fileID: 4659257602479736126, guid: 72f4f366f51a37a458a034c39b01e6fa, type: 3}
       propertyPath: m_AnchorMin.x
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948654738486057303, guid: 72f4f366f51a37a458a034c39b01e6fa, type: 3}
+      propertyPath: m_MinValue
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 5519453946757941380, guid: 72f4f366f51a37a458a034c39b01e6fa, type: 3}
       propertyPath: m_AnchorMax.x
