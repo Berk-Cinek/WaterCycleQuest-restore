@@ -74,7 +74,7 @@ public class BossController : MonoBehaviour, IDamageable
         {
             StartCoroutine(JumpAttack());
         }
-        else if (isDashing)
+        else if (Vector2.Distance(playerTransform.position, transform.position) <= detectionRange && dashCooldownTimer <= 0f)
         {
             Debug.Log("is dashing");
             dashCooldownTimer -= Time.deltaTime;
