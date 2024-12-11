@@ -9,6 +9,7 @@ public class BossController : MonoBehaviour, IDamageable
     [SerializeField] private float speed = 3f;
     private Rigidbody2D rb;
     public GameObject bulletPrefab;
+    [SerializeField] private GameObject instructorPrefab;
     private bool isDashing = true;
     private bool hasDealtDamage = false;
     private float dashCooldownTimer;
@@ -211,6 +212,17 @@ public class BossController : MonoBehaviour, IDamageable
         {
             jumpCooldownTimer -= Time.deltaTime;
             return false;
+        }
+    }
+
+    private void DropCoin()
+    {
+        if (instructorPrefab != null)
+        {
+            float spawnOffset = Random.Range(-3f, 1f);
+            Vector2 spawnPosition = new Vector2(transform.position.x + spawnOffset, transform.position.y);
+
+            Instantiate(instructorPrefab, spawnPosition, Quaternion.identity);
         }
     }
 }
