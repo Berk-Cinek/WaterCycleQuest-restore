@@ -217,7 +217,9 @@ MonoBehaviour:
   - {fileID: 4662556810578485477, guid: 444c3b56083bcc24c8f19877d500dbfa, type: 3}
   - {fileID: 4662556810578485477, guid: cfd4e07dd8c09714a9d449fe2bf9b057, type: 3}
   enemyPrefabs:
-  - {fileID: 3339746677193753828, guid: 5e698a70c099b994a802c0b232c4d0cc, type: 3}
+  - {fileID: 3207111880940741906, guid: 566c56d44b7bf874583a8833b78dbf38, type: 3}
+  - {fileID: 8696749635992184783, guid: 1ec57ebc3045d344d927d8a864ec42e6, type: 3}
+  - {fileID: 9208507616655695219, guid: 6b79986939b6d6746ac1c03a63cba245, type: 3}
   playerPrefab: {fileID: 1407959022413416075, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
   minDistanceFromWalls: 5
   minDistanceFromCorners: 5
