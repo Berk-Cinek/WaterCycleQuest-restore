@@ -218,6 +218,9 @@ MonoBehaviour:
   playerPrefab: {fileID: 1407959022413416075, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
   minDistanceFromWalls: 5
   minDistanceFromCorners: 5
+  bosses:
+  - {fileID: 4775616457342377086, guid: d47d937685dbe594d8008b2cafa70135, type: 3}
+  isBossDead: 0
 --- !u!4 &338830332
 Transform:
   m_ObjectHideFlags: 0
@@ -512,8 +515,7 @@ MonoBehaviour:
   initialEnemyCount: 10
   enemyIncrementPerWave: 5
   enemyTag: Enemy
-  waiteWave1: 5
-  waiteWave2: 10
+  lastWave: 4
 --- !u!4 &1007886614
 Transform:
   m_ObjectHideFlags: 0
