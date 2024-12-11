@@ -13,20 +13,33 @@ MonoBehaviour:
   m_Name: Lesson1
   m_EditorClassIdentifier: 
   dialogue:
-  - Oh welcome kid! So you want to become a water cycle expert?
-  - You are at the right place!
+  - 'Oh welcome kid! So you want to become a water cycle expert? '
+  - 'You are at the right place! '
   - I will teach you the basics.
   - We are going to have five lessons here.
-  - 'After each lesson, I will send you into a simulation where you will play as
-    the Water Spirit to deepen your understanding while having fun.
-
-
-'
+  - After each lesson, I will send you into a simulation where you will play as the
+    Water Spirit to deepen your understanding while having fun.
   - Your mission will be to defeat the threats endangering the water cycle and help
-    people preserve their water resources!
-  - But the lessons are still incomplete, so for now, let's enter the simulation
-    and observe the atmosphere!
-  - Are you ready to save the world???!
+    people preserve their water resources! Now let's start our first lesson!
+  - "Today, we\u2019ll learn about water and why it\u2019s so important. Water isn\u2019t
+    just for drinking\u2014it keeps plants, animals, and the whole planet alive.
+    But in many places, especially in villages, pollution is making water unsafe."
+  - "Let\u2019s explore this together!\r\nDid you know that pollution in villages
+    can come from things like: Farming chemicals (like fertilizers and pesticides)
+    that get washed into rivers and lakes. Trash and waste being thrown into water
+    sources.\r\n"
+  - "Factories dumping harmful chemicals into streams. These things make the water
+    dirty, which can harm plants, animals, and people. It\u2019s up to us to protect
+    it!"
+  - "We need to build a conscience! If this goes on we won't be able to find water
+    anymore! But we are lucky to have youngsters like you here! Also, Let me tell
+    you some fun facts about water! Water covers about 70% of the Earth\u2019s surface,
+    but most of it is salty and in oceans."
+  - "Only a tiny amount of water is fresh and safe for drinking\u2014about 1% of
+    all the water on Earth! Also, Water changes form, it can be a liquid, a solid
+    (like ice), or a gas (like steam). Cool, right? For now we can conclude our lesson!
+    Thanks for your attention!"
+  - Are you ready to save the world now???!
   responses:
   - responseText: Yes
     dialogueObject: {fileID: 11400000, guid: d9e3a486d73db2c40aa06dd707a334c0, type: 2}

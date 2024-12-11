@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Yes
   m_EditorClassIdentifier: 
   dialogue:
-  - That is the spirit!
+  - That is the spirit! You can proceed to the teleporter!
   responses: []

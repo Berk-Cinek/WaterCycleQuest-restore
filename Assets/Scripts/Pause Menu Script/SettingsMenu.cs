@@ -30,6 +30,7 @@ public class SettingsMenu : MonoBehaviour
             SetSFXVolume();
         }
 
+
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
@@ -51,6 +52,15 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
     }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Back();
+        }
+    }
+
     public void SetResolution (int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
