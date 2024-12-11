@@ -15,18 +15,32 @@ public class PlayerHealthBar : MonoBehaviour
         }
     }
 
+    public void UpdateHealthSlider()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = player.maxHealth;  
+            healthSlider.value = player.health;  
+        }
+    }
+
+
     private void Update()
     {
         if (player != null)
         {
-            healthSlider.value = player.health; 
+            
+            healthSlider.value = player.health;
 
             
-            if (player.health > 50)
+            float healthPercentage = (float)player.health / player.maxHealth;
+
+            
+            if (healthPercentage > 0.6f)
             {
                 healthSlider.fillRect.GetComponent<Image>().color = Color.green;
             }
-            else if (player.health > 20)
+            else if (healthPercentage > 0.3f)
             {
                 healthSlider.fillRect.GetComponent<Image>().color = Color.yellow;
             }
@@ -36,4 +50,5 @@ public class PlayerHealthBar : MonoBehaviour
             }
         }
     }
+
 }

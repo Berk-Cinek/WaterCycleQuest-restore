@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private int coinValue = 0;
-    private bool isCollected = false;  
+    [SerializeField] private int coinValue = 10;  
+    private bool isCollected = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -20,5 +20,4 @@ public class Coin : MonoBehaviour
             Destroy(gameObject); 
         }
     }
-
 }

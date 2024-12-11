@@ -12,11 +12,13 @@ public class NewPlayerMovement : MonoBehaviour
 
     public IInteractable Interactable { get; set; }
 
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] public float moveSpeed = 5f;
+    [SerializeField] public float dashSpeed = 20f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 1f;
     [SerializeField] public int maxHealth = 100;
+
+    private PlayerHealthBar playerHealthBar;
     public int health = 100;
 
     private int currentHealth;
@@ -31,13 +33,15 @@ public class NewPlayerMovement : MonoBehaviour
     private Vector2 lastMoveDir;
     private Vector2 movement;
 
-    
-    [SerializeField] private Image coinIcon;  
-    [SerializeField] private TMP_Text coinCounterText;  
-    private int currentCoins = 0;  
+    [SerializeField] private Image coinIcon;
+    [SerializeField] private TMP_Text coinCounterText;
+    private int currentCoins = 0;
+
+    private int playerDamage = 10;  
 
     private void Awake()
     {
+        playerHealthBar = GetComponentInChildren<PlayerHealthBar>();
         gameInput = new GameInput();
         currentHealth = maxHealth;
     }
@@ -81,7 +85,6 @@ public class NewPlayerMovement : MonoBehaviour
     {
         if (isDashing || dialogueUI.IsOpen) return;
 
-        // Regular movement
         rigidbody2D.MovePosition(rigidbody2D.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
@@ -176,6 +179,15 @@ public class NewPlayerMovement : MonoBehaviour
 
     public void Damage(int damageAmount)
     {
+     
+        InvincibilitySkill invincibilitySkill = GetComponent<InvincibilitySkill>();
+        if (invincibilitySkill != null && invincibilitySkill.IsInvincible())
+        {
+            Debug.Log("Player is invincible and took no damage!");
+            return;
+        }
+
+        
         health -= damageAmount;
         Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
 
@@ -184,6 +196,7 @@ public class NewPlayerMovement : MonoBehaviour
             Die();
         }
     }
+
 
     private void Die()
     {
@@ -198,7 +211,6 @@ public class NewPlayerMovement : MonoBehaviour
         Debug.Log(gameObject.name + " restored " + amount + " health. Current health: " + health);
     }
 
-    
     public void AddCoins(int amount)
     {
         currentCoins += amount;
@@ -209,11 +221,45 @@ public class NewPlayerMovement : MonoBehaviour
     {
         if (coinCounterText != null)
         {
-            coinCounterText.text = currentCoins.ToString();  
+            coinCounterText.text = currentCoins.ToString();
         }
     }
 
-   
+    public void UpgradeDamage(int damageIncrease)
+    {
+        playerDamage += damageIncrease;
+        Debug.Log("Damage upgraded to: " + playerDamage);
+    }
+
+    public void IncreaseMaxHealth(int amount)
+    {
+        maxHealth += amount;  
+        Debug.Log("Max health increased. Current max health: " + maxHealth);
+        RestoreHealth(amount);  
+
+        if (playerHealthBar != null)
+        {
+            playerHealthBar.UpdateHealthSlider();
+        }
+    }
+
+    public void UpgradeSpeed(float speedIncrease)
+    {
+        moveSpeed += speedIncrease;
+        Debug.Log($"Speed upgraded! Current move speed: {moveSpeed}");
+    }
+
+    public void UpgradeDashSpeed(float dashSpeedIncrease)
+    {
+        dashSpeed += dashSpeedIncrease;
+        Debug.Log($"Dash speed upgraded! Current dash speed: {dashSpeed}");
+    }
+
+    public int GetDamage()
+    {
+        return playerDamage;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Coin"))
@@ -222,4 +268,24 @@ public class NewPlayerMovement : MonoBehaviour
             Destroy(other.gameObject);  
         }
     }
+
+    public int GetCoins()
+    {
+        return currentCoins;
+    }
+
+    public void SetInteractable(IInteractable interactable)
+    {
+        Interactable = interactable;
+    }
+
+    public void SetInvincibility(bool value)
+    {
+        
+        Debug.Log($"Invincibility set to: {value}");
+    }
+
+
+
+
 }
