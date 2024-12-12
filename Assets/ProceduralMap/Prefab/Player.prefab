@@ -324,7 +324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pfBullet: {fileID: 5837022172074878894, guid: c8c08a023baf55b478b84e00ea949520, type: 3}
-  cooldownTime: 2
+  cooldownTime: 1
 --- !u!114 &-4204200844789632637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1082,6 +1082,10 @@ PrefabInstance:
     - target: {fileID: 7344372051660391873, guid: c4fd099bfd1248c45b9a97865a91dc6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798464228595840492, guid: c4fd099bfd1248c45b9a97865a91dc6f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -152
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
