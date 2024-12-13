@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Facility.unity
     guid: ec47cf597efcc314c98102653508e65a
   - enabled: 1
-    path: Assets/Scenes/Village.unity
+    path: Assets/Scenes/DroughtVillage.unity
     guid: 782a98f8d604da34ebc8e9a794c79554
   - enabled: 1
     path: Assets/Scenes/DroughtVillageMap.unity
