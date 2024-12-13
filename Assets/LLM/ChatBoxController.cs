@@ -30,11 +30,13 @@ public class ChatBoxController : MonoBehaviour
         {
             Time.timeScale = 0f;
             userInputField.Select();
+            animator.enabled = false;
         }
         else
         {
             Time.timeScale = 1.0f;
             userInputField.Select();
+            animator.enabled = true;
         }
     }
 
@@ -42,6 +44,7 @@ public class ChatBoxController : MonoBehaviour
     {
         chatBoxPanel.SetActive(false);
         Time.timeScale = 1.0f;
+        animator.enabled = true;
 
     }
 
