@@ -10,23 +10,18 @@ public class BossController : MonoBehaviour, IDamageable
     private Rigidbody2D rb;
     public GameObject bulletPrefab;
     [SerializeField] private GameObject instructorPrefab;
-    private bool isDashing = true;
-    private bool hasDealtDamage = false;
     private float dashCooldownTimer;
-    private bool isFrozen = false;
     [SerializeField] private float dashCooldown = 0.2f;
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private float detectionRange = 10f;
 
     [SerializeField] private float stoppingDistance = 0f;
-    [SerializeField] private float attackCooldown = 2f;
     [SerializeField] private float lastAttackTime;
     [SerializeField] private float jumpCooldownTimer = 10f;
 
     [SerializeField] private float jumpHeight = 100f;
     [SerializeField] private float jumpDuration = 10f;
     [SerializeField] private float slamDelay = 5f;
-    [SerializeField] private float slamRadius = 2f;
     [SerializeField] private int damage = 20;
     private Vector3 originalPosition;
 
@@ -103,7 +98,6 @@ public class BossController : MonoBehaviour, IDamageable
 
     private IEnumerator JumpAttack()
     {
-        isDashing = false;
         // Jump
         Vector3 startPosition = transform.position;
         Vector3 offScreenPosition = new Vector3(transform.position.x, transform.position.y + jumpHeight, transform.position.z);
@@ -137,22 +131,17 @@ public class BossController : MonoBehaviour, IDamageable
             yield return null;
         }
 
-        isDashing = true;
     }
 
 
     private IEnumerator Dash()
     {
-        isDashing = true;
-        hasDealtDamage = false;
         rb.velocity = (playerTransform.position - transform.position).normalized * dashSpeed;
 
         yield return new WaitForSeconds(0.5f);
 
         rb.velocity = Vector2.zero;
         dashCooldownTimer = dashCooldown;
-
-        isDashing = false;
     }
 
 
