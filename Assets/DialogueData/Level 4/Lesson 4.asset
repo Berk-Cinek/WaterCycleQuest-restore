@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ae2f62d08dd8544bd426c20bd0caeb, type: 3}
+  m_Name: Lesson 4
+  m_EditorClassIdentifier: 
+  dialogue:
+  - "Welcome back, kid! You\u2019ve reached the final challenge!\n"
+  - "This time, you\u2019re inside an evil factory. Factories can have serious effects
+    on the water cycle and the environment.\n"
+  - 'Factories often release harmful chemicals into the air and water. When these
+    pollutants mix with water vapor in the atmosphere, they can lead to acid rain.
+    Acid rain damages plants, animals, and even buildings.
+
+'
+  - 'Factories also use large amounts of water for cooling and manufacturing processes.
+    This excessive use can deplete freshwater supplies, leaving less water available
+    for people, animals, and agriculture.
+
+'
+  - 'In addition, waste from factories can contaminate rivers, lakes, and oceans,
+    disrupting ecosystems and making water unsafe to drink.
+
+'
+  - "Factories play a role in the water cycle, but it\u2019s up to us to ensure they
+    operate responsibly. Let\u2019s defeat the evil forces behind this factory and
+    protect our water!\n"
+  responses:
+  - responseText: I'm Ready!!
+    dialogueObject: {fileID: 11400000, guid: d9e3a486d73db2c40aa06dd707a334c0, type: 2}
+  - responseText: Not now
+    dialogueObject: {fileID: 11400000, guid: 9faab0822faaa8949ac67813994904fa, type: 2}

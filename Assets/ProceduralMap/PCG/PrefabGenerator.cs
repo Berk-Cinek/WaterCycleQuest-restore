@@ -6,6 +6,8 @@ using Random = UnityEngine.Random;
 
 public class PrefabGenerator : MonoBehaviour
 {
+    //[SerializeField]
+    //private GameObject npc;
     private HashSet<Vector2Int> positions;
     [SerializeField]
     private TilemapVisualizer tilemapVisualizer;
@@ -25,9 +27,20 @@ public class PrefabGenerator : MonoBehaviour
     private float minDistanceFromWalls = 2.0f;
     [SerializeField]
     private float minDistanceFromCorners = 2.0f;
-
+    [SerializeField]
+    private List<GameObject> bosses;
+    //private string playerTag = "Player";
+    public bool isBossDead = false;
     private Vector2 center;
 
+    private void Update()
+    {
+        //if (isBossDead)
+        //{
+        //    CreateNpc();
+        //    isBossDead = false;
+        //}
+    }
     public void GetPosition(HashSet<Vector2Int> positions)
     {
         this.positions = positions;
@@ -84,8 +97,6 @@ public class PrefabGenerator : MonoBehaviour
             }
         }
     }
-
-
     public void PlacePrefabs()
     {
         // Duvar ve köşe pozisyonlarını al
@@ -240,4 +251,97 @@ public class PrefabGenerator : MonoBehaviour
         }
         return true;
     }
+    //public void CreateNpc()
+    //{
+    //    // Player GameObject'ini bul
+    //    GameObject player = GameObject.FindGameObjectWithTag(playerTag);
+    //    if (player == null)
+    //    {
+    //        Debug.LogError("Player objesi bulunamadı!");
+    //        return;
+    //    }
+
+    //    // Player'ın pozisyonunu al
+    //    Vector2 playerPosition = player.transform.position;
+
+    //    // NPC'nin yaratılacağı konumu belirle
+    //    Vector3 spawnPosition = playerPosition + (Random.insideUnitCircle.normalized * 30f);
+
+    //    // Z eksenini sabitle (-1 gibi)
+    //    spawnPosition.z = -1;
+
+    //    // NPC prefab'ını instantiate et
+    //    GameObject instantiatedNpc = Instantiate(npc, spawnPosition, Quaternion.identity);
+
+    //    Debug.Log($"NPC yaratıldı. Pozisyon: {spawnPosition}");
+    //}
+    public void CreateBoss()
+    {
+        // Player GameObject'ini bul
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player objesi bulunamadı!");
+            return;
+        }
+
+        // Player'ın pozisyonunu al
+        Vector2 playerPosition = player.transform.position;
+
+        // Eğer pozisyonlar tanımlı değilse işlem yapma
+        if (positions == null || positions.Count == 0)
+        {
+            Debug.LogWarning("CreateBoss için geçerli pozisyonlar mevcut değil.");
+            return;
+        }
+
+        // Kullanılan pozisyonları takip etmek için bir set
+        HashSet<Vector2Int> usedPositions = new HashSet<Vector2Int>();
+
+        // Boss Parent nesnesi oluştur
+        GameObject bossParent = new GameObject("Bosses");
+
+        // Pozisyonları listeye dönüştür
+        List<Vector2Int> positionList = new List<Vector2Int>(positions);
+
+        // Eğer pozisyon yoksa işlem yapma
+        if (positionList.Count == 0) return;
+
+        // Boss prefab'ını al
+        if (bosses.Count > 0)
+        {
+            GameObject bossPrefab = bosses[0];  // İlk bossu seç
+
+            // Boss'u player'a 10 birim uzaklıkta spawn et
+            Vector2 spawnPosition = playerPosition + (Random.insideUnitCircle.normalized * 10f);
+
+            // Pozisyonu integer'a çevir (Grid pozisyonuna göre)
+            Vector2Int spawnPositionInt = new Vector2Int(Mathf.RoundToInt(spawnPosition.x), Mathf.RoundToInt(spawnPosition.y));
+
+            // Eğer spawn pozisyonu geçerli ve kullanılabilir ise
+            if (Vector2.Distance(playerPosition, spawnPosition) <= 10f && !usedPositions.Contains(spawnPositionInt))
+            {
+                // Boss'u spawn et
+                GameObject instantiatedBoss = Instantiate(bossPrefab, new Vector3(spawnPositionInt.x, spawnPositionInt.y, -1), Quaternion.identity);
+
+                // Boss'u Bosses objesinin child'ı yap
+                instantiatedBoss.transform.parent = bossParent.transform;
+
+                // Kullanılan pozisyonu kaydet
+                usedPositions.Add(spawnPositionInt);
+
+                Debug.Log($"Boss spawned at {spawnPositionInt}");
+            }
+            else
+            {
+                Debug.LogWarning("Geçerli bir pozisyon bulunamadı, boss spawn edilemedi.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Boss prefab listesi boş.");
+        }
+    }
+
+
 }

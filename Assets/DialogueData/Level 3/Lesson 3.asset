@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ae2f62d08dd8544bd426c20bd0caeb, type: 3}
+  m_Name: Lesson 3
+  m_EditorClassIdentifier: 
+  dialogue:
+  - Welcome to your next adventure, kid!
+  - "This time, you\u2019ve arrived in a snowy village. It\u2019s cold, and the ground
+    is covered in snow and ice."
+  - 'Snow and ice are important components of the water cycle. When snow falls, it
+    stores water in the form of frozen precipitation. This water remains trapped
+    in glaciers, snowpacks, or ice caps until it melts.
+
+'
+  - 'When temperatures rise, snow and ice melt, turning into liquid water. This water
+    then flows into rivers and lakes, replenishing water supplies and helping maintain
+    the balance of the water cycle.
+
+'
+  - "However, if snow melts too quickly due to climate change or other factors, it
+    can cause flooding. If it doesn\u2019t melt in time, it can lead to droughts
+    in areas that rely on it for freshwater.\n"
+  - 'Snow and ice are crucial for maintaining the stability of the water cycle, especially
+    in regions that depend on them for freshwater. Stay vigilant, as changes in the
+    climate can affect the amount of snow and ice in these areas!
+
+'
+  - Are you ready to go your next adventure?
+  responses:
+  - responseText: Yes
+    dialogueObject: {fileID: 11400000, guid: d9e3a486d73db2c40aa06dd707a334c0, type: 2}
+  - responseText: No
+    dialogueObject: {fileID: 11400000, guid: 9faab0822faaa8949ac67813994904fa, type: 2}

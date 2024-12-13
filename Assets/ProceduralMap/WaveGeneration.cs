@@ -13,11 +13,9 @@ public class WaveGenerator : MonoBehaviour
     [SerializeField]
     private int enemyIncrementPerWave = 2; // Her dalgada artan düşman sayısı
     [SerializeField]
-    private string enemyTag = "Enemy"; // Düşman GameObject'lerinin etiketi
+    private string enemyTag = "Enemy"; // Düşman GameObject'lerinin etiketi    
     [SerializeField]
-    private int waiteWave1 = 5;
-    [SerializeField]
-    private int waiteWave2 = 10;
+    private int lastWave = 5;
 
     private int currentWave = 1; // Şu anki dalga sayısı
     private int enemiesToSpawn; // O dalgada yaratılacak düşman sayısı
@@ -25,6 +23,8 @@ public class WaveGenerator : MonoBehaviour
 
     private float waveStartTime; // Dalga başladığındaki zaman
     private float totalElapsedTime; // Toplam geçen süre
+
+    private bool bossCreated = false;
 
     void Start()
     {
@@ -40,24 +40,29 @@ public class WaveGenerator : MonoBehaviour
 
     void Update()
     {
-        if (currentWave == waiteWave1 || currentWave == waiteWave2)
+        if (currentWave <= lastWave)
         {
-            timeBetweenWaves = 20f;
-        }
+            // Eğer dalga aktifse ve tüm düşmanlar öldüyse, dalga tamamlandı
+            if (isWaveActive && AreAllEnemiesDead())
+            {
+                isWaveActive = false;
 
-        // Eğer dalga aktifse ve tüm düşmanlar öldüyse, dalga tamamlandı
-        if (isWaveActive && AreAllEnemiesDead())
-        {
-            isWaveActive = false;
+                // Dalga süresini hesapla
+                float waveDuration = Time.time - waveStartTime;
+                totalElapsedTime += waveDuration;
 
-            // Dalga süresini hesapla
-            float waveDuration = Time.time - waveStartTime;
-            totalElapsedTime += waveDuration;
+                Debug.Log($"Wave {currentWave - 1} completed in {waveDuration:F2} seconds. Total elapsed time: {totalElapsedTime:F2} seconds.");
 
-            Debug.Log($"Wave {currentWave - 1} completed in {waveDuration:F2} seconds. Total elapsed time: {totalElapsedTime:F2} seconds.");
-
-            // Bir sonraki dalgayı başlat
-            StartCoroutine(StartNextWave());
+                // Bir sonraki dalgayı başlat
+                if (currentWave < lastWave)
+                {
+                    StartCoroutine(StartNextWave());
+                }
+                else if (!bossCreated)
+                {
+                    CreateBoss();
+                }
+            }
         }
     }
 
@@ -101,6 +106,18 @@ public class WaveGenerator : MonoBehaviour
 
         // Dalga sayısını artır
         currentWave++;
-        timeBetweenWaves = 5f;
+    }
+
+    private void CreateBoss()
+    {
+        if (placePrefab == null)
+        {
+            Debug.LogError("PlacePrefab referansı eksik!");
+            return;
+        }
+
+        placePrefab.CreateBoss();
+        Debug.Log("Boss create method");
+        bossCreated = true;
     }
 }
