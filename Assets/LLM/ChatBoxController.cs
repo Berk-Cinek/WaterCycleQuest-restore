@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class ChatBoxController : MonoBehaviour
 {
+    [SerializeField] private Animator animator;
     public GameObject chatBoxPanel;          
     public TMP_InputField userInputField;    
     public TMP_Text responseText;            
@@ -23,10 +24,17 @@ public class ChatBoxController : MonoBehaviour
     public void ToggleChatBox()
     {
         chatBoxPanel.SetActive(!chatBoxPanel.activeSelf);
-        if (chatBoxPanel.activeSelf)
+        int i = 0;
+
+        if (chatBoxPanel.activeSelf && i%2==0)
         {
             Time.timeScale = 0f;
-            userInputField.Select();  
+            userInputField.Select();
+        }
+        else
+        {
+            Time.timeScale = 1.0f;
+            userInputField.Select();
         }
     }
 
@@ -34,9 +42,10 @@ public class ChatBoxController : MonoBehaviour
     {
         chatBoxPanel.SetActive(false);
         Time.timeScale = 1.0f;
+
     }
 
-    
+
     private void SendQuestion()
     {
         string question = userInputField.text;
