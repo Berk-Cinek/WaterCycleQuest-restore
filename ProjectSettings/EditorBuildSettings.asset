@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Scenes/DroughtVillage.unity
     guid: 782a98f8d604da34ebc8e9a794c79554
   - enabled: 1
-    path: Assets/Scenes/DroughtVillageMap.unity
+    path: Assets/Scenes/DroughtProceduralMap.unity
     guid: 58736d148b085554b81587a08cb35804
   - enabled: 1
     path: Assets/Scenes/Facility 2.unity
@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/ForestVillage.unity
     guid: a91f509487187084585a6a9704e8b12f
   - enabled: 1
-    path: Assets/Scenes/RuledProceduralMap.unity
+    path: Assets/Scenes/ForestProceduralMap.unity
     guid: fadead72b3e59314291cc96204947f92
   - enabled: 1
     path: Assets/Scenes/Facility 3.unity
