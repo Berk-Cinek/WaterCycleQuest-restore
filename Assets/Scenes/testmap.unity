@@ -277,6 +277,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 1407959022413416075, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
   minDistanceFromWalls: 2
   minDistanceFromCorners: 2
+  bosses: []
+  isBossDead: 0
 --- !u!4 &338830332
 Transform:
   m_ObjectHideFlags: 0
@@ -604,7 +606,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7907595240456125516, guid: 6b79986939b6d6746ac1c03a63cba245, type: 3}
       propertyPath: health
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7907595240456125516, guid: 6b79986939b6d6746ac1c03a63cba245, type: 3}
       propertyPath: coinPrefab
