@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 781d890784cfcc44ba6a09f884d7f4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueObject: {fileID: 11400000, guid: e85dac9f409715b48ae028d9b29b49b4, type: 2}
+  dialogueObject: {fileID: 11400000, guid: f639694d98e07334f894a1f27f6d9f32, type: 2}
 --- !u!114 &751764639563396703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,13 +153,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d099e4422bbf546bf7f47d1b7f95f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueObject: {fileID: 11400000, guid: fa3214e145266094bb5e21c2a76d17dd, type: 2}
+  dialogueObject: {fileID: 11400000, guid: f639694d98e07334f894a1f27f6d9f32, type: 2}
   events:
-  - name: Fishing
+  - name: It increases transpiration
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Agriculture using chemical fertilizers
+  - name: 'It decreases transpiration and cloud formation '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -168,18 +168,18 @@ MonoBehaviour:
           m_MethodName: UpdateDialogueObject
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 358b133911bad1b4eb4e4e35f3c3108c, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: 05dc870fe4009e14db9af3372cd05bfc, type: 2}
             m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: Swimming in lakes
+  - name: 'It stops water from evaporating from oceans '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Building dams
+  - name: 'It increases water flow in rivers '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
@@ -195,13 +195,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d099e4422bbf546bf7f47d1b7f95f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueObject: {fileID: 11400000, guid: fa3214e145266094bb5e21c2a76d17dd, type: 2}
+  dialogueObject: {fileID: 11400000, guid: 05dc870fe4009e14db9af3372cd05bfc, type: 2}
   events:
-  - name: Condensation
+  - name: 'Evaporation '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Evaporation
+  - name: 'Condensation '
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 'Transpiration '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -210,18 +214,14 @@ MonoBehaviour:
           m_MethodName: UpdateDialogueObject
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: cc3ce66eb4dcb874d80104102a8619a9, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: bb8f22c208608d942befab898344e6c2, type: 2}
             m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: Precipitation
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Transpiration
+  - name: 'Precipitation '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
@@ -237,17 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d099e4422bbf546bf7f47d1b7f95f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueObject: {fileID: 11400000, guid: 1672b0e222aa71f47a7435d0172d4c7e, type: 2}
+  dialogueObject: {fileID: 11400000, guid: bb8f22c208608d942befab898344e6c2, type: 2}
   events:
-  - name: Rivers
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Lakes
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Glaciers and ice caps
+  - name: 'It erodes and loses its ability to hold water '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -256,14 +248,22 @@ MonoBehaviour:
           m_MethodName: UpdateDialogueObject
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: b471a1b646bfb6146bc7c430f5b6e1ae, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: e2ed143e32845914da0140b0f8d28955, type: 2}
             m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: Underground aquifers
+  - name: It becomes stronger and retains more water
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 'It absorbs more water from rainfall '
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 'It gets covered with grass quickly '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
@@ -279,13 +279,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d099e4422bbf546bf7f47d1b7f95f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueObject: {fileID: 11400000, guid: 43c59440a7151ac43a2dbde8d9488ea0, type: 2}
+  dialogueObject: {fileID: 11400000, guid: e2ed143e32845914da0140b0f8d28955, type: 2}
   events:
-  - name: H2O2
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: H2O
+  - name: It can lead to both droughts and floods
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -294,18 +290,22 @@ MonoBehaviour:
           m_MethodName: UpdateDialogueObject
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 807270068a970814a873b53619fab7ee, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: 12fd79f073652704baf7bc1a59e4e97b, type: 2}
             m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: CO2
+  - name: It always causes droughts
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: O2
+  - name: 'It always causes floods '
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: It has no significant impact
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
@@ -321,9 +321,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0d099e4422bbf546bf7f47d1b7f95f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueObject: {fileID: 11400000, guid: 57e940336ca4a33469189b5f0cc9c305, type: 2}
+  dialogueObject: {fileID: 11400000, guid: 12fd79f073652704baf7bc1a59e4e97b, type: 2}
   events:
-  - name: Aquifers
+  - name: 'They store large amounts of saltwater '
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 'They prevent water from being absorbed by the soil '
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 'They reduce the amount of rainfall '
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 'They release water vapor and help form clouds '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -339,18 +351,6 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: Reservoirs
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Basins
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Wells
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!114 &8436337670610143491
 MonoBehaviour:
   m_ObjectHideFlags: 0

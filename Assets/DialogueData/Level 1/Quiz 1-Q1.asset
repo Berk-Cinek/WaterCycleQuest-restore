@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Quiz 1-Q1
   m_EditorClassIdentifier: 
   dialogue:
-  - Which of the following human activities is a major cause of water pollution?
+  - Well done kid. Now in order to proceed to the next level answer my questions.
+    Which of the following human activities is a major cause of water pollution?
   responses:
   - responseText: Fishing
     dialogueObject: {fileID: 11400000, guid: da93ee8354f03c24fab807b255da8ea4, type: 2}

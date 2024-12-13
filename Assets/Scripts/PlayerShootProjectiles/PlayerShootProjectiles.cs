@@ -15,6 +15,13 @@ public class ShootProjectiles : MonoBehaviour
 
     private void PlayerShootProjectiles_OnShoot(object sender, PlayerAimWeapon.OnShootEventArgs e)
     {
+        NewPlayerMovement playerMovement = GetComponent<NewPlayerMovement>();
+        if (playerMovement.DialogueUI.IsOpen)
+        {
+            Debug.Log("Cannot shoot while dialogue is open.");
+            return;
+        }
+
         Debug.Log("Inside Event");
 
         if (Time.time - lastShootTime >= cooldownTime)
@@ -25,10 +32,8 @@ public class ShootProjectiles : MonoBehaviour
 
             Vector3 shootDir = (e.shootPosition - e.gunEndPointPosition).normalized;
 
-            
-            int playerDamage = GetComponent<NewPlayerMovement>().GetDamage();
+            int playerDamage = playerMovement.GetDamage();
 
-            
             bulletTransform.GetComponent<Bullet>().Setup(shootDir, moveSpeed: 10f, damage: playerDamage);
 
             lastShootTime = Time.time;
@@ -38,6 +43,7 @@ public class ShootProjectiles : MonoBehaviour
             Debug.Log("Cooldown in effect, please wait before shooting again.");
         }
     }
+
     public void SetShootingCooldown(float newCooldownTime)
     {
         cooldownTime = newCooldownTime;

@@ -189,6 +189,7 @@ public class BossController : MonoBehaviour, IDamageable
     {
         Debug.Log(gameObject.name + " has died!");
         Destroy(gameObject);
+        DropCoin();
     }
     public bool isJumping()
     {

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Quiz 4-Q1
   m_EditorClassIdentifier: 
   dialogue:
-  - 'How do factories contribute to acid rain?
+  - 'Congrats on beating the evil company! Now in order to finish the game you need
+    to complete your final assignment! First question, how do factories contribute
+    to acid rain?
 
 '
   responses:

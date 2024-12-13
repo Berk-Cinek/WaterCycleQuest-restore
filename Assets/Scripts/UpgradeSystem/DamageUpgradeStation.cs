@@ -82,14 +82,14 @@ public class DamageUpgradeStation : MonoBehaviour, IInteractable
         {
             if (currentUpgradeLevel >= maxUpgradeLevel)
             {
-                upgradeMessageText.text = "Maximum level reached"; 
+                upgradeMessageText.text = "Damage at maximum level"; 
             }
             else
             {
                 int nextCost = upgradeCosts[currentUpgradeLevel];
                 if (player.GetCoins() >= nextCost)
                 {
-                    upgradeMessageText.text = $"Level ({currentUpgradeLevel}) {nextCost} gold required for next upgrade\nPress E to upgrade";
+                    upgradeMessageText.text = $"Level ({currentUpgradeLevel}) {nextCost} gold required for next upgrade\nPress E to upgrade damage";
                 }
                 else
                 {

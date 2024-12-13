@@ -155,11 +155,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueObject: {fileID: 11400000, guid: 736d430cafae30e46a7260bd7c71051e, type: 2}
   events:
-  - name: Fishing
+  - name: By releasing water vapor into the air
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Agriculture using chemical fertilizers
+  - name: By releasing pollutants that mix with water vapor
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -168,18 +168,18 @@ MonoBehaviour:
           m_MethodName: UpdateDialogueObject
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 358b133911bad1b4eb4e4e35f3c3108c, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: bb6b32a504948ce4c8133ddb49f04c89, type: 2}
             m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: Swimming in lakes
+  - name: By cooling down the atmosphere
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Building dams
+  - name: By increasing rainfall in forests
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
@@ -197,11 +197,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueObject: {fileID: 11400000, guid: bb6b32a504948ce4c8133ddb49f04c89, type: 2}
   events:
-  - name: Condensation
+  - name: It causes more clouds to form
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Evaporation
+  - name: It increases the quality of drinking water
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: It depletes freshwater supplies
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -210,18 +214,14 @@ MonoBehaviour:
           m_MethodName: UpdateDialogueObject
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: cc3ce66eb4dcb874d80104102a8619a9, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: 574feae8106d30f4d99f9cdb6d2cf4ec, type: 2}
             m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: Precipitation
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: Transpiration
+  - name: It reduces the need for rivers
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
@@ -239,15 +239,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueObject: {fileID: 11400000, guid: 574feae8106d30f4d99f9cdb6d2cf4ec, type: 2}
   events:
-  - name: Rivers
+  - name: 'By making water cleaner and safer '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Lakes
+  - name: By making rivers flow faster
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Glaciers and ice caps
+  - name: By preventing evaporation
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: By contaminating water and disrupting ecosystems
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -256,17 +260,13 @@ MonoBehaviour:
           m_MethodName: UpdateDialogueObject
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: b471a1b646bfb6146bc7c430f5b6e1ae, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: e03e9ee1ac2345b4c871f947d10e283a, type: 2}
             m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: Underground aquifers
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
 --- !u!114 &5667285790222106488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,11 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueObject: {fileID: 11400000, guid: e03e9ee1ac2345b4c871f947d10e283a, type: 2}
   events:
-  - name: H2O2
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
-  - name: H2O
+  - name: 'Damage to plants, animals, and buildings '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -294,18 +290,22 @@ MonoBehaviour:
           m_MethodName: UpdateDialogueObject
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 807270068a970814a873b53619fab7ee, type: 2}
+            m_ObjectArgument: {fileID: 11400000, guid: 21ac3dbde25eee44c8a91e10904f9c40, type: 2}
             m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: CO2
+  - name: 'Increased growth of plants and trees '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: O2
+  - name: More water stored in glaciers
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
+  - name: 'Faster melting of snow '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueObject: {fileID: 11400000, guid: 21ac3dbde25eee44c8a91e10904f9c40, type: 2}
   events:
-  - name: Aquifers
+  - name: To protect water resources and ecosystems
     onPickedResponse:
       m_PersistentCalls:
         m_Calls:
@@ -339,15 +339,15 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - name: Reservoirs
+  - name: To ensure they produce more goods
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Basins
+  - name: 'To reduce the amount of water vapor in the air '
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []
-  - name: Wells
+  - name: To prevent factories from using any water
     onPickedResponse:
       m_PersistentCalls:
         m_Calls: []

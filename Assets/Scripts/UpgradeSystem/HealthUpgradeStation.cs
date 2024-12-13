@@ -76,14 +76,14 @@ public class HealthUpgradeStation : MonoBehaviour, IInteractable
         {
             if (currentUpgradeLevel >= maxUpgradeLevel)  
             {
-                upgradeMessageText.text = "Maximum level reached";
+                upgradeMessageText.text = "Health at maximum level";
             }
             else
             {
                 int nextCost = healthUpgradeCosts[currentUpgradeLevel];  
                 if (player.GetCoins() >= nextCost)  
                 {
-                    upgradeMessageText.text = $"Level ({currentUpgradeLevel}) {nextCost} gold required for next upgrade\nPress E to upgrade";
+                    upgradeMessageText.text = $"Level ({currentUpgradeLevel}) {nextCost} gold required for next upgrade\nPress E to upgrade health";
                 }
                 else
                 {

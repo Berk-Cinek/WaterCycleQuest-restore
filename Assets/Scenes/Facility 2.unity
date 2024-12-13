@@ -6958,6 +6958,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: (Lesson) Level 2 Instructor
       objectReference: {fileID: 0}
+    - target: {fileID: 7936964383040133225, guid: 3ce6adf4f75a99a4a9871a392310eb8c, type: 3}
+      propertyPath: interactionText
+      value: 
+      objectReference: {fileID: 1142246242}
     - target: {fileID: 8926834058772976163, guid: 3ce6adf4f75a99a4a9871a392310eb8c, type: 3}
       propertyPath: m_RootOrder
       value: 7
