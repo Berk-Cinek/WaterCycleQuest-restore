@@ -659,7 +659,6 @@ MonoBehaviour:
   dashDuration: 0.2
   dashCooldown: 1
   maxHealth: 100
-  deathCanvas: {fileID: 3046170326831841632}
   health: 100
   rigidbody2D: {fileID: 9194462844290473160}
   animator: {fileID: 294034887408761958}
@@ -1250,8 +1249,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -106.633514, y: 0}
-  m_SizeDelta: {x: 213.26703, y: 579.2173}
+  m_AnchoredPosition: {x: -106.633514, y: 5.189399}
+  m_SizeDelta: {x: 213.267, y: 521.2232}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8848686899481562056
 CanvasRenderer:
@@ -3788,11 +3787,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2de0a113d76eec43b307df176261610, type: 3}
---- !u!223 &3046170326831841632 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 6904058054328491872, guid: d2de0a113d76eec43b307df176261610, type: 3}
-  m_PrefabInstance: {fileID: 8472977330338881024}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3384129320400048967 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6584500504542612807, guid: d2de0a113d76eec43b307df176261610, type: 3}
