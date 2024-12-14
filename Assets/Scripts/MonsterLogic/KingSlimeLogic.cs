@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour, IDamageable
 {
+    public event System.Action OnDeath;
     [SerializeField] private int health = 100;
     [SerializeField] private float speed = 3f;
     private Rigidbody2D rb;
@@ -187,6 +188,7 @@ public class BossController : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        OnDeath?.Invoke();
         Debug.Log(gameObject.name + " has died!");
         Destroy(gameObject);
         DropCoin();

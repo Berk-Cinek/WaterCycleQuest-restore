@@ -178,4 +178,4 @@ MonoBehaviour:
   damage: 20
   attackCooldown: 1
   healthItemPrefab: {fileID: 7705171074137219524, guid: e733c4c51a32f434ea31936128cf20ca, type: 3}
-  coinPrefab: {fileID: 0}
+  coinPrefab: {fileID: 1717945976952784386, guid: ab63f39d5947e6f4aa86d0b2b0f363d8, type: 3}

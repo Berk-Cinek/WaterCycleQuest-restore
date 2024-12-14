@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Target2 : MonoBehaviour, IDamageable, IFreezeable
 {
+    public event System.Action OnDeath;
     public int health = 100;
     public Transform target;
     public float speed = 3f;
@@ -102,6 +103,7 @@ public class Target2 : MonoBehaviour, IDamageable, IFreezeable
 
     private void Die()
     {
+        OnDeath?.Invoke();
         Debug.Log(gameObject.name + " has died!");
 
         DropHealthItem();
