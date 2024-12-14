@@ -11,6 +11,10 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("Facility");
     }
+    public void ReturnMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
     public void Settings()
     {

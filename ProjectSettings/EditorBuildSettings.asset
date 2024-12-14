@@ -41,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EvilFactoryProceduralMap.unity
     guid: 4eff3608f306ac04db982a3e4844e0bd
+  - enabled: 1
+    path: Assets/Scenes/Final.unity
+    guid: fe60ee7dab81dd440ab34dc2512314de
   - enabled: 0
     path: Assets/Scenes/Facility 5.unity
     guid: b552cab9f8f249a4ca30555c18e6bc8a
