@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 {
+    private Animator animator;
     public event System.Action OnDeath;
     public int health = 100;
     public Transform target;
@@ -23,6 +24,7 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dashCooldownTimer = dashCooldown;
     }
@@ -45,16 +47,19 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 
         if (Vector2.Distance(target.position, transform.position) <= detectionRange && dashCooldownTimer <= 0f)
         {
+            animator.SetBool("inRange", true);
             StartCoroutine(Dash());
         }
         else if (!isDashing)
         {
+            animator.SetBool("inRange", false);
             MoveTowardsPlayer();
         }
     }
 
     private void MoveTowardsPlayer()
     {
+        animator.SetBool("canWalk", true);
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * speed;
     }
@@ -63,6 +68,7 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
     {
         isDashing = true;
         hasDealtDamage = false;
+        animator.SetTrigger("attackTrigger");
         rb.velocity = (target.position - transform.position).normalized * dashSpeed;
 
         yield return new WaitForSeconds(0.5f);
@@ -93,10 +99,15 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
     {
         health -= damageAmount;
         Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
+        animator.SetTrigger("takeHitTrigger");
 
         if (health <= 0)
         {
             Die();
+        }
+        else
+        {
+            animator.SetTrigger("hitWalkTrigger");
         }
     }
 
@@ -104,7 +115,7 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
     {
         OnDeath?.Invoke();
         Debug.Log(gameObject.name + " has died!");
-
+        animator.SetTrigger("deathTrigger");
         DropHealthItem();
         DropCoin();
         Destroy(gameObject);
