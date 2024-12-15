@@ -204,18 +204,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemapVisualizer: {fileID: 2101860329}
-  bushNumber: 100
-  treeNumber: 50
+  bushNumber: 20
+  treeNumber: 10
   bushPrefabs:
-  - {fileID: 4662556810578485477, guid: 8acb05739917e05419fd7bc6d8320fb3, type: 3}
-  - {fileID: 4662556810578485477, guid: 595ba366170ace448a49ab28d0457f16, type: 3}
-  - {fileID: 4662556810578485477, guid: 63247f1cf2096b54fb72e22c2962254f, type: 3}
-  - {fileID: 4662556810578485477, guid: 8ae5c90e794f58d46ad1490206611fce, type: 3}
-  - {fileID: 4662556810578485477, guid: c9b07b15c6fbeca44a0c64c01b5ca609, type: 3}
+  - {fileID: 2831026039844765734, guid: 8983dda3a5979df488149e697221abdc, type: 3}
+  - {fileID: 2831026039844765734, guid: 1f0bc241874ea29429a688ead901a480, type: 3}
+  - {fileID: 2831026039844765734, guid: 6d41e89a667f7bb46a1ee8f329a4694a, type: 3}
+  - {fileID: 2831026039844765734, guid: d227b5144623a534288cdf7dfcd87086, type: 3}
   treePrefabs:
-  - {fileID: 4662556810578485477, guid: a2a5ead1c6296584c9d102d756469f6e, type: 3}
-  - {fileID: 4662556810578485477, guid: 444c3b56083bcc24c8f19877d500dbfa, type: 3}
-  - {fileID: 4662556810578485477, guid: cfd4e07dd8c09714a9d449fe2bf9b057, type: 3}
+  - {fileID: 2831026039844765734, guid: eeccaa64009ea274faed45b540e2eb70, type: 3}
   enemyPrefabs:
   - {fileID: 3339746677193753828, guid: 5e698a70c099b994a802c0b232c4d0cc, type: 3}
   playerPrefab: {fileID: 1407959022413416075, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
