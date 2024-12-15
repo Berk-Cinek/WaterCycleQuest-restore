@@ -201,7 +201,7 @@ public class NewPlayerMovement : MonoBehaviour
     private void Die()
     {
         Debug.Log(gameObject.name + " has died!");
-        Destroy(gameObject);
+       // Destroy(gameObject);
     }
 
     public void RestoreHealth(int amount)

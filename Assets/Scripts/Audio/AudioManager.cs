@@ -17,16 +17,14 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton kontrolü
-        if (instance == null)
+       
+        if (instance != null && instance != this)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(instance.gameObject); 
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+
+        instance = this; 
+        DontDestroyOnLoad(gameObject); 
     }
 
     private void Start()
