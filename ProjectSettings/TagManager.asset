@@ -6,7 +6,13 @@ TagManager:
   tags:
   - Target
   - Enemy
+<<<<<<< Updated upstream
   - Audio
+=======
+  - EnemyBullet
+  - Coin
+  - Wall
+>>>>>>> Stashed changes
   layers:
   - Default
   - TransparentFX
@@ -14,7 +20,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - wall
   - 
   - 
   - 
