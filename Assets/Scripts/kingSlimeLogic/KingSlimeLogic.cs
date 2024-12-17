@@ -64,7 +64,7 @@ public class BossController : MonoBehaviour, IDamageable
     {
         if (!playerTransform)
         {
-            GetTarget(); // Continuously look for the player
+            GetTarget(); // continuously look for the player
         }
 
         if (isJumping())
@@ -99,7 +99,7 @@ public class BossController : MonoBehaviour, IDamageable
 
     private IEnumerator JumpAttack()
     {
-        // Jump
+        // jump
         Vector3 startPosition = transform.position;
         Vector3 offScreenPosition = new Vector3(transform.position.x, transform.position.y + jumpHeight, transform.position.z);
         float elapsedTime = 0f;
@@ -111,19 +111,19 @@ public class BossController : MonoBehaviour, IDamageable
             yield return null;
         }
 
-        // Delay and track
+        // delay and track
         Vector3 slamPosition = playerTransform.position;
         float markerFollowTime = slamDelay;
 
         while (markerFollowTime > 0f)
         {
-            // Continuously update the slam
+            // continuously update the slam
             slamPosition = playerTransform.position;
             markerFollowTime -= Time.deltaTime;
             yield return null;
         }
 
-        // Slam down at the last tracked position
+        // slam down at the last tracked position
         elapsedTime = 0f;
         while (elapsedTime < jumpDuration)
         {

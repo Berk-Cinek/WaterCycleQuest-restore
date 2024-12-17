@@ -1,5 +1,54 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3067706933489136801
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2247454384319829253}
+  - component: {fileID: 475991973234082010}
+  m_Layer: 0
+  m_Name: spin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2247454384319829253
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3067706933489136801}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1056383505219122392}
+  m_Father: {fileID: 3814783527513883473}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &475991973234082010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3067706933489136801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0310ca53e15ce504895c83aafd29c336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firingPoint: {fileID: 0}
+  fireRate: 0
+  rotateSpeed: 0.0025
+  target: {fileID: 0}
 --- !u!1 &3207111880940741906
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,6 +62,7 @@ GameObject:
   - component: {fileID: 8602062464990297652}
   - component: {fileID: 6415568320902781620}
   - component: {fileID: 2905649371034565473}
+  - component: {fileID: 5398026981550053083}
   m_Layer: 0
   m_Name: RangedTarget(Enemy)
   m_TagString: Untagged
@@ -32,9 +82,9 @@ Transform:
   m_LocalScale: {x: 0.7754, y: 0.7272, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1056383505219122392}
+  - {fileID: 2247454384319829253}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &303703402559761171
 SpriteRenderer:
@@ -77,7 +127,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +135,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!50 &8602062464990297652
@@ -175,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43ee089da32f47499991b4da3b863f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
   health: 10
   target: {fileID: 0}
   speed: 3
@@ -186,6 +237,27 @@ MonoBehaviour:
   firingPoint: {fileID: 1056383505219122392}
   healthItemPrefab: {fileID: 7705171074137219524, guid: e733c4c51a32f434ea31936128cf20ca, type: 3}
   coinPrefab: {fileID: 1717945976952784386, guid: ab63f39d5947e6f4aa86d0b2b0f363d8, type: 3}
+--- !u!95 &5398026981550053083
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207111880940741906}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 22158dd57dfda3c45ace632e0e8f85b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7092862585268073090
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,11 +281,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7092862585268073090}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.911, z: 0}
-  m_LocalScale: {x: 1, y: 0.975, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.010000421, y: 0.9110003, z: 0}
+  m_LocalScale: {x: 1, y: 0.9750001, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3814783527513883473}
+  m_Father: {fileID: 2247454384319829253}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Target : MonoBehaviour, IDamageable, IFreezeable
 {
+    private Animator animator;
     public event System.Action OnDeath;
     public int health = 100;
     public Transform target;
@@ -27,6 +28,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -42,11 +44,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         {
             GetTarget();
         }
-        else
-        {
-            RotateTowardsTarget();
-        }
-
+        
         if (Vector2.Distance(target.position, transform.position) <= distanceToShoot)
         {
             Shoot();
@@ -59,12 +57,14 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
 
         if (timeToFire <= 0f)
         {
+            animator.SetBool("inRange", true);
             Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
             Debug.Log("Shoot");
             timeToFire = fireRate;
         }
         else
         {
+            animator.SetBool("inRange", false);
             timeToFire -= Time.deltaTime;
         }
     }
@@ -77,22 +77,19 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         {
             if (Vector2.Distance(target.position, transform.position) >= distanceToStop)
             {
-                rb.velocity = transform.up * speed;
+                animator.SetBool("canwalk", true );
+                Vector2 direction = (target.position - transform.position).normalized;
+                rb.velocity = direction * speed;
             }
             else
             {
+                animator.SetBool("canwalk", false);
                 rb.velocity = Vector2.zero;
             }
         }
     }
 
-    private void RotateTowardsTarget()
-    {
-        Vector2 targetDirection = target.position - transform.position;
-        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
-        Quaternion q = Quaternion.Euler(new Vector3(0, 0, angle));
-        transform.localRotation = Quaternion.Slerp(transform.localRotation, q, rotateSpeed);
-    }
+    
 
     private void GetTarget()
     {
@@ -108,6 +105,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         {
             Destroy(other.gameObject);
             target = null;
+            animator.SetTrigger("takeHitTrigger");
         }
         else if (other.gameObject.CompareTag("Bullet"))
         {
@@ -125,10 +123,15 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         {
             Die();
         }
+        else
+        {
+            animator.SetTrigger("hitWalkTrigger");
+        }
     }
 
     private void Die()
     {
+        animator.SetTrigger("deathTrigger");
         OnDeath?.Invoke();
         Debug.Log(gameObject.name + " has died!");
 
@@ -144,7 +147,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
             Instantiate(healthItemPrefab, transform.position, Quaternion.identity);
         }
     }
-
+    
     private void DropCoin()
     {
         if (coinPrefab != null)
