@@ -4590,6 +4590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneTriggerEvent
       objectReference: {fileID: 0}
+    - target: {fileID: 1653784481760769870, guid: 4290a21c96cc426498041e5181fba5db, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1929078632596575252, guid: 4290a21c96cc426498041e5181fba5db, type: 3}
       propertyPath: interactionText
       value: 
@@ -4785,6 +4789,30 @@ PrefabInstance:
     - target: {fileID: 6792649745453262408, guid: c95bfcded4d7596438e57cf5cf677203, type: 3}
       propertyPath: m_Name
       value: Interaction Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421660781751928350, guid: c95bfcded4d7596438e57cf5cf677203, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421660781751928350, guid: c95bfcded4d7596438e57cf5cf677203, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421660781751928350, guid: c95bfcded4d7596438e57cf5cf677203, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421660781751928350, guid: c95bfcded4d7596438e57cf5cf677203, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421660781751928350, guid: c95bfcded4d7596438e57cf5cf677203, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 74.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7421660781751928350, guid: c95bfcded4d7596438e57cf5cf677203, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 40.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

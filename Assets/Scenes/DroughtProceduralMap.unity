@@ -576,6 +576,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: bc2eef7f2f5df5c4eac073ec8374b299, type: 3}
+    - target: {fileID: 7866656928689807078, guid: 67acc523d55816042920cd72795604b3, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -676,6 +680,10 @@ PrefabInstance:
     - target: {fileID: 7446695532382834652, guid: aacadf44ba65a3b478d92f3892437fe7, type: 3}
       propertyPath: m_Color.r
       value: 0.73812425
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446695532382834652, guid: aacadf44ba65a3b478d92f3892437fe7, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36594,6 +36602,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0.3160377
       objectReference: {fileID: 0}
+    - target: {fileID: 5987486820486003100, guid: fb64040e7d6f5ed468846366b3dcdfa5, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6425174102933917145, guid: fb64040e7d6f5ed468846366b3dcdfa5, type: 3}
       propertyPath: m_Name
       value: HealthStatue
@@ -37160,6 +37172,10 @@ PrefabInstance:
     - target: {fileID: 5093156605608037126, guid: a9a5c3d0a77e8d64ba3182ff6c884fc2, type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093156605608037126, guid: a9a5c3d0a77e8d64ba3182ff6c884fc2, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7268925341907758070, guid: a9a5c3d0a77e8d64ba3182ff6c884fc2, type: 3}
       propertyPath: m_Name
