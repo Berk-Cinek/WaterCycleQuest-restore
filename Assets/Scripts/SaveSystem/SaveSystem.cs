@@ -3,7 +3,6 @@ using System.IO;
 
 public class SaveSystem : MonoBehaviour
 {
-    // Save the game data (scene name)
     public void SaveGame(string sceneName)
     {
         SaveData saveData = new SaveData();
@@ -13,7 +12,6 @@ public class SaveSystem : MonoBehaviour
         File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
     }
 
-    // Load the game data (scene name)
     public SaveData LoadGame()
     {
         string path = Application.persistentDataPath + "/savefile.json";

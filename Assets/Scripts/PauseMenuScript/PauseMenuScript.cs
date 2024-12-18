@@ -8,6 +8,9 @@ public class PauseMenuScript : MonoBehaviour
     public static bool GameIsPaused = false;
     public GameObject SettingsCanvas;
     public GameObject pauseMenuUI;
+    public GameObject QuitMenuPanel;
+    public GameObject MainMenuPanel;
+
 
     void Update()
     {
@@ -40,8 +43,7 @@ public class PauseMenuScript : MonoBehaviour
 
     public void LoadMenu()
     {
-        Time.timeScale = 1.0f;
-        SceneManager.LoadScene("MainMenu");
+        MainMenuPanel.SetActive(true);
     }
 
     public void Settings()
@@ -51,6 +53,6 @@ public class PauseMenuScript : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        QuitMenuPanel.SetActive(true);
     }
 }
