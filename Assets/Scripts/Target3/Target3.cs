@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 {
+    private bool isAnimated = false;
     private Animator animator;
     public event System.Action OnDeath;
     public int health = 100;
@@ -97,9 +98,17 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 
     public void Damage(int damageAmount)
     {
+        
+        animator.SetBool("takeDamageState", true);
         health -= damageAmount;
         Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
-        animator.SetTrigger("takeHitTrigger");
+        if (!isAnimated)
+        {
+
+            animator.SetTrigger("takeHitTrigger");
+        }
+        
+        isAnimated = true;
 
         if (health <= 0)
         {
@@ -107,7 +116,9 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
         }
         else
         {
+            isAnimated = false;
             animator.SetTrigger("hitWalkTrigger");
+            
         }
     }
 

@@ -35,7 +35,6 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
     {
         if (isFrozen)
         {
-           
             rb.velocity = Vector2.zero;
             return;
         }
@@ -61,6 +60,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
             Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
             Debug.Log("Shoot");
             timeToFire = fireRate;
+            animator.SetBool("inRange", false);
         }
         else
         {
@@ -77,13 +77,13 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         {
             if (Vector2.Distance(target.position, transform.position) >= distanceToStop)
             {
-                animator.SetBool("canwalk", true );
+                animator.SetBool("canWalk", true );
                 Vector2 direction = (target.position - transform.position).normalized;
                 rb.velocity = direction * speed;
             }
             else
             {
-                animator.SetBool("canwalk", false);
+                animator.SetBool("canWalk", false);
                 rb.velocity = Vector2.zero;
             }
         }
@@ -99,7 +99,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnTrigger2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
