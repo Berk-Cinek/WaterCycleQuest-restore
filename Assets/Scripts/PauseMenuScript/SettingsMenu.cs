@@ -14,12 +14,12 @@ public class SettingsMenu : MonoBehaviour
     public Dropdown resolutionDropdown;
     public GameObject SettingsCanvas;
 
-
     Resolution[] resolutions;
+    List<Resolution> uniqueResolutions = new List<Resolution>(); // To store unique resolutions
 
     private void Start()
     {
-        if(PlayerPrefs.HasKey("MasterVolume"))
+        if (PlayerPrefs.HasKey("MasterVolume"))
         {
             LoadVolume();
         }
@@ -30,21 +30,27 @@ public class SettingsMenu : MonoBehaviour
             SetSFXVolume();
         }
 
-
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
 
         int currentResolutionIndex = 0;
         List<string> options = new List<string>();
+
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
+            Resolution resolution = resolutions[i];
+            string option = resolution.width + " x " + resolution.height;
 
-            if (resolutions[i].width == Screen.currentResolution.width &&
-                resolutions[i].height == Screen.currentResolution.height)
+            if (!uniqueResolutions.Exists(r => r.width == resolution.width && r.height == resolution.height))
             {
-                currentResolutionIndex = i;
+                uniqueResolutions.Add(resolution);
+                options.Add(option);
+            }
+
+            if (resolution.width == Screen.currentResolution.width &&
+                resolution.height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = options.Count - 1;
             }
         }
 
@@ -55,15 +61,15 @@ public class SettingsMenu : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Back();
         }
     }
 
-    public void SetResolution (int resolutionIndex)
+    public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[resolutionIndex];
+        Resolution resolution = uniqueResolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 
@@ -73,19 +79,19 @@ public class SettingsMenu : MonoBehaviour
         myMixer.SetFloat("MasterVolume", volume);
         PlayerPrefs.SetFloat("MasterVolume", volume);
     }
+
     public void SetMusicVolume()
     {
         float volume = musicSlider.value;
         myMixer.SetFloat("MusicVolume", volume);
         PlayerPrefs.SetFloat("MusicVolume", volume);
-
     }
+
     public void SetSFXVolume()
     {
         float volume = SFXSlider.value;
         myMixer.SetFloat("SFXVolume", volume);
         PlayerPrefs.SetFloat("SFXVolume", volume);
-
     }
 
     private void LoadVolume()
@@ -99,12 +105,12 @@ public class SettingsMenu : MonoBehaviour
         SetSFXVolume();
     }
 
-    public void SetQuality (int qualityIndex)
+    public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
 
-    public void SetFullscreen (bool isFullscreen)
+    public void SetFullscreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
     }

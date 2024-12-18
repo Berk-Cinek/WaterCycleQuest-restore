@@ -4808,6 +4808,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5715940127884639314, guid: 0087e3fb3c0c18d4d997cc7b164cd307, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715940127884639314, guid: 0087e3fb3c0c18d4d997cc7b164cd307, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715940127884639314, guid: 0087e3fb3c0c18d4d997cc7b164cd307, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715940127884639314, guid: 0087e3fb3c0c18d4d997cc7b164cd307, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715940127884639314, guid: 0087e3fb3c0c18d4d997cc7b164cd307, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 856
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715940127884639314, guid: 0087e3fb3c0c18d4d997cc7b164cd307, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 610
+      objectReference: {fileID: 0}
     - target: {fileID: 7432616450855292693, guid: 0087e3fb3c0c18d4d997cc7b164cd307, type: 3}
       propertyPath: SettingsCanvas
       value: 

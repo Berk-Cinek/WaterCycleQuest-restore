@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Done(Yes)
   m_EditorClassIdentifier: 
   dialogue:
-  - What are you waiting for kid! Go save the world already!!!
+  - What are you waiting for kid! Head to the teleporters in the upper right corner
+    of the room above. Go save the world already!!!
   responses: []
