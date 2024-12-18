@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 7636458134724275304}
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &2719769487103272160
 Rigidbody2D:
@@ -189,6 +189,9 @@ MonoBehaviour:
   isRunning: 1
   damage: 20
   bulletPrefab: {fileID: 0}
+  instructorPrefab: {fileID: 8852241614143420195, guid: 62340df765daabd46816b55c94f65353, type: 3}
+  healthItemPrefab: {fileID: 7705171074137219524, guid: e733c4c51a32f434ea31936128cf20ca, type: 3}
+  coinPrefab: {fileID: 1717945976952784386, guid: ab63f39d5947e6f4aa86d0b2b0f363d8, type: 3}
 --- !u!1 &1951984914534229845
 GameObject:
   m_ObjectHideFlags: 0

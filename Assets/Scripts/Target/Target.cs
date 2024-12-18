@@ -10,6 +10,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
     public Transform target;
     public float speed = 3f;
     public float rotateSpeed = 0.0025f;
+    private SpriteRenderer bodySprite;
     private Rigidbody2D rb;
     public GameObject bulletPrefab;
 
@@ -27,6 +28,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
 
     private void Start()
     {
+        bodySprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
     }
@@ -39,6 +41,8 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
             return;
         }
 
+        SetSpriteFlip();
+
         if (!target)
         {
             GetTarget();
@@ -48,6 +52,19 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         {
             Shoot();
         }
+    }
+
+    void SetSpriteFlip()
+    {
+        if (target.position.x - transform.position.x < 0)
+        {
+            bodySprite.flipX = false;
+        }
+        else if (target.position.x - transform.position.x > 0)
+        {
+            bodySprite.flipX = true;
+        }
+
     }
 
     private void Shoot()
@@ -99,7 +116,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         }
     }
 
-    private void OnTrigger2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -134,11 +151,15 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         animator.SetTrigger("deathTrigger");
         OnDeath?.Invoke();
         Debug.Log(gameObject.name + " has died!");
-
         DropHealthItem();
         DropCoin();
+    }
+
+    private void destroy()
+    {
         Destroy(gameObject);
     }
+
 
     private void DropHealthItem()
     {

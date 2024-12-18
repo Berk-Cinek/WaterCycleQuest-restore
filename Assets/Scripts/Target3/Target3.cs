@@ -15,6 +15,7 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
     public int damage = 10;
     public float dashCooldown = 3f;
 
+    private SpriteRenderer bodySprite;
     private Rigidbody2D rb;
     private bool isDashing = false;
     private bool hasDealtDamage = false;
@@ -25,6 +26,7 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 
     private void Start()
     {
+        bodySprite = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         dashCooldownTimer = dashCooldown;
@@ -44,6 +46,7 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
             return;
         }
 
+        SetSpriteFlip();
         dashCooldownTimer -= Time.deltaTime;
 
         if (Vector2.Distance(target.position, transform.position) <= detectionRange && dashCooldownTimer <= 0f)
@@ -58,13 +61,26 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
         }
     }
 
+    
+
     private void MoveTowardsPlayer()
     {
         animator.SetBool("canWalk", true);
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * speed;
     }
+    void SetSpriteFlip()
+    {
+        if (target.position.x - transform.position.x < 0)
+        {
+            bodySprite.flipX = false;
+        }
+        else if (target.position.x - transform.position.x > 0)
+        {
+            bodySprite.flipX = true;
+        }
 
+    }
     private IEnumerator Dash()
     {
         isDashing = true;
@@ -104,7 +120,6 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
         Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
         if (!isAnimated)
         {
-
             animator.SetTrigger("takeHitTrigger");
         }
         
@@ -118,7 +133,6 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
         {
             isAnimated = false;
             animator.SetTrigger("hitWalkTrigger");
-            
         }
     }
 
@@ -129,6 +143,9 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
         animator.SetTrigger("deathTrigger");
         DropHealthItem();
         DropCoin();
+    }
+    private void destroy()
+    {
         Destroy(gameObject);
     }
 
