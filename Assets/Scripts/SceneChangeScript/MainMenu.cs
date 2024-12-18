@@ -1,26 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
-{ 
-    public GameObject SettingsCanvas;
+{
+    public GameManager gameManager;
 
+    // Start a new game (loads the first level, e.g., Facility scene)
     public void StartGame()
     {
         SceneManager.LoadScene("Facility");
     }
+
+    // Load the saved game (reloads the last saved scene and resets the player to the initial position)
+    public void LoadGame()
+    {
+        gameManager.LoadGame();
+    }
+
+    // Return to the main menu
     public void ReturnMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void Settings()
-    {
-        SettingsCanvas.SetActive(true);
-    }
-
+    // Quit the game
     public void QuitGame()
     {
         Application.Quit();
