@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public GameManager gameManager;
+    public GameObject SettingsCanvas;
 
     // Start a new game (loads the first level, e.g., Facility scene)
     public void StartGame()
@@ -15,6 +16,11 @@ public class MainMenu : MonoBehaviour
     public void LoadGame()
     {
         gameManager.LoadGame();
+    }
+
+    public void Settings()
+    {
+        SettingsCanvas.SetActive(true);
     }
 
     // Return to the main menu
