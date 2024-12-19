@@ -31,6 +31,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         bodySprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        GetTarget();
     }
 
     private void Update()
@@ -151,15 +152,10 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         animator.SetTrigger("deathTrigger");
         OnDeath?.Invoke();
         Debug.Log(gameObject.name + " has died!");
+        Destroy(gameObject);
         DropHealthItem();
         DropCoin();
     }
-
-    private void destroy()
-    {
-        Destroy(gameObject);
-    }
-
 
     private void DropHealthItem()
     {

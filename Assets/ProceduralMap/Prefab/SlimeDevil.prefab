@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 300
-  rayDistance: 30
+  rayDistance: 3
   isRunning: 1
   damage: 25
   bulletPrefab: {fileID: 0}
