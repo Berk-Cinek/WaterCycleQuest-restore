@@ -73,11 +73,11 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
     {
         if (target.position.x - transform.position.x < 0)
         {
-            bodySprite.flipX = false;
+            bodySprite.flipX = true;
         }
         else if (target.position.x - transform.position.x > 0)
         {
-            bodySprite.flipX = true;
+            bodySprite.flipX = false;
         }
 
     }
