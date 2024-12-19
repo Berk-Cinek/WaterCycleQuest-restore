@@ -184,9 +184,9 @@ MonoBehaviour:
   - {fileID: 1359094074}
   - {fileID: 1040027834}
   target1Prefab: {fileID: 3207111880940741906, guid: 566c56d44b7bf874583a8833b78dbf38, type: 3}
-  target2Prefab: {fileID: 8696749635992184783, guid: 1ec57ebc3045d344d927d8a864ec42e6, type: 3}
+  target2Prefab: {fileID: 9208507616655695219, guid: 6b79986939b6d6746ac1c03a63cba245, type: 3}
   target3Prefab: {fileID: 9208507616655695219, guid: 6b79986939b6d6746ac1c03a63cba245, type: 3}
-  bossPrefab: {fileID: 134946955708538656, guid: f92ab7482949d684facc5ef8352f7557, type: 3}
+  bossPrefab: {fileID: 1607374132698854687, guid: d569938ed92dbea409ade80789133c90, type: 3}
   waveText: {fileID: 1271840103}
   countdownText: {fileID: 1323272195}
   timeBetweenSpawns: 0.5
