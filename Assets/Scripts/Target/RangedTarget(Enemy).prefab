@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e43ee089da32f47499991b4da3b863f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 20
   target: {fileID: 0}
   speed: 3
   rotateSpeed: 0.0075
