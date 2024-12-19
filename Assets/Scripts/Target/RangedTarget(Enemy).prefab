@@ -60,9 +60,9 @@ GameObject:
   - component: {fileID: 3814783527513883473}
   - component: {fileID: 303703402559761171}
   - component: {fileID: 8602062464990297652}
+  - component: {fileID: -6736805932232267630}
   - component: {fileID: 2905649371034565473}
   - component: {fileID: 5398026981550053083}
-  - component: {fileID: -6736805932232267630}
   m_Layer: 0
   m_Name: RangedTarget(Enemy)
   m_TagString: Untagged
@@ -165,50 +165,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2905649371034565473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3207111880940741906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e43ee089da32f47499991b4da3b863f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
-  target: {fileID: 0}
-  speed: 3
-  rotateSpeed: 0.0075
-  bulletPrefab: {fileID: 2569701799366833726, guid: 32e313ce7e5ea034aa131aebe679aaac, type: 3}
-  distanceToShoot: 8
-  distanceToStop: 5
-  fireRate: 1
-  firingPoint: {fileID: 1056383505219122392}
-  healthItemPrefab: {fileID: 7705171074137219524, guid: e733c4c51a32f434ea31936128cf20ca, type: 3}
-  coinPrefab: {fileID: 1717945976952784386, guid: ab63f39d5947e6f4aa86d0b2b0f363d8, type: 3}
---- !u!95 &5398026981550053083
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3207111880940741906}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 22158dd57dfda3c45ace632e0e8f85b0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &-6736805932232267630
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -254,6 +210,50 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2905649371034565473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207111880940741906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e43ee089da32f47499991b4da3b863f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+  target: {fileID: 0}
+  speed: 3
+  rotateSpeed: 0.0075
+  bulletPrefab: {fileID: 2569701799366833726, guid: 32e313ce7e5ea034aa131aebe679aaac, type: 3}
+  distanceToShoot: 8
+  distanceToStop: 5
+  fireRate: 1
+  firingPoint: {fileID: 1056383505219122392}
+  healthItemPrefab: {fileID: 7705171074137219524, guid: e733c4c51a32f434ea31936128cf20ca, type: 3}
+  coinPrefab: {fileID: 1717945976952784386, guid: ab63f39d5947e6f4aa86d0b2b0f363d8, type: 3}
+--- !u!95 &5398026981550053083
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3207111880940741906}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 22158dd57dfda3c45ace632e0e8f85b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7092862585268073090
 GameObject:
   m_ObjectHideFlags: 0
