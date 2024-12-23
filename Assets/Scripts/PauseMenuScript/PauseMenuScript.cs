@@ -9,19 +9,20 @@ public class PauseMenuScript : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject QuitMenuPanel;
     public GameObject MainMenuPanel;
+    public GameObject SaveSuccessPanel;
+
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // Check if the chat box is open
+
             if (ChatBoxController.IsChatBoxActive)
             {
                 Debug.Log("Chat box is active. ESC will not toggle pause menu.");
-                return; // Prevent pause menu from opening if chat box is active
+                return; 
             }
 
-            // Toggle pause menu
             if (GameIsPaused)
             {
                 Resume();
@@ -62,5 +63,10 @@ public class PauseMenuScript : MonoBehaviour
     public void QuitGame()
     {
         QuitMenuPanel.SetActive(true);
+    }
+
+    public void Save()
+    {
+        SaveSuccessPanel.SetActive(true);
     }
 }
