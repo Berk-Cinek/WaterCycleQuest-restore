@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PauseMenuScript : MonoBehaviour
 {
@@ -11,12 +10,19 @@ public class PauseMenuScript : MonoBehaviour
     public GameObject QuitMenuPanel;
     public GameObject MainMenuPanel;
 
-
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(GameIsPaused)
+            // Check if the chat box is open
+            if (ChatBoxController.IsChatBoxActive)
+            {
+                Debug.Log("Chat box is active. ESC will not toggle pause menu.");
+                return; // Prevent pause menu from opening if chat box is active
+            }
+
+            // Toggle pause menu
+            if (GameIsPaused)
             {
                 Resume();
             }
@@ -24,11 +30,12 @@ public class PauseMenuScript : MonoBehaviour
             {
                 Pause();
             }
-
         }
     }
+
     public void Resume()
     {
+        Debug.Log("Resuming game...");
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1.0f;
         GameIsPaused = false;
@@ -36,6 +43,7 @@ public class PauseMenuScript : MonoBehaviour
 
     void Pause()
     {
+        Debug.Log("Pausing game...");
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;

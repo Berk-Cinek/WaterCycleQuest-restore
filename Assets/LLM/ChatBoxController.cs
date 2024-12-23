@@ -11,22 +11,39 @@ public class ChatBoxController : MonoBehaviour
     public Button sendButton;
     public ChatbotAPI chatbotAPI;
 
+    public static bool IsChatBoxActive { get; private set; } // Global flag to indicate chatbox activity
+
     private void Start()
     {
-
         chatBoxPanel.SetActive(false);
+        IsChatBoxActive = false; // Initialize the flag
 
-
+        // Add listener for the send button
         sendButton.onClick.AddListener(SendQuestion);
+
+        // Add listener for the Enter key (onSubmit event)
+        userInputField.onSubmit.AddListener(delegate { SendQuestion(); });
     }
 
+    private void Update()
+    {
+        // Check if ESC key is pressed
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Close the chat box if it's active
+            if (chatBoxPanel.activeSelf)
+            {
+                CloseChatBox();
+            }
+        }
+    }
 
     public void ToggleChatBox()
     {
         chatBoxPanel.SetActive(!chatBoxPanel.activeSelf);
-        int i = 0;
+        IsChatBoxActive = chatBoxPanel.activeSelf; // Update the flag
 
-        if (chatBoxPanel.activeSelf && i % 2 == 0)
+        if (IsChatBoxActive)
         {
             Time.timeScale = 0f;
             userInputField.Select();
@@ -35,7 +52,6 @@ public class ChatBoxController : MonoBehaviour
         else
         {
             Time.timeScale = 1.0f;
-            userInputField.Select();
             animator.enabled = true;
         }
     }
@@ -43,11 +59,10 @@ public class ChatBoxController : MonoBehaviour
     public void CloseChatBox()
     {
         chatBoxPanel.SetActive(false);
+        IsChatBoxActive = false; // Update the flag
         Time.timeScale = 1.0f;
         animator.enabled = true;
-
     }
-
 
     private void SendQuestion()
     {
@@ -56,14 +71,15 @@ public class ChatBoxController : MonoBehaviour
         {
             responseText.text = "Waiting for response...";
             chatbotAPI.SendQuestionToChatbot(question);
+
+            // Clear the input field after sending the question
+            userInputField.text = string.Empty;
+            userInputField.ActivateInputField();
         }
     }
-
 
     public void DisplayResponse(string response)
     {
         responseText.text = response;
     }
-
-
 }
