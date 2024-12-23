@@ -441,8 +441,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -24.890995, y: 15.568508}
-  m_SizeDelta: {x: 49.781998, y: 31.136993}
+  m_AnchoredPosition: {x: -27.058289, y: 15.568512}
+  m_SizeDelta: {x: 54.5322, y: 31.137}
   m_Pivot: {x: 0.50000006, y: 0.50000036}
 --- !u!222 &1460521360871782339
 CanvasRenderer:
@@ -735,8 +735,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280682752
-  m_fontColor: {r: 0, g: 0.034968395, b: 0.1509434, a: 1}
+    rgba: 4291952462
+  m_fontColor: {r: 0.3066038, g: 1, b: 0.8204113, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -916,8 +916,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 86.2637, y: 15.569458}
-  m_SizeDelta: {x: 172.5274, y: 31.138916}
+  m_AnchoredPosition: {x: 90.14282, y: 15.569458}
+  m_SizeDelta: {x: 174.813, y: 31.1389}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7349657199570480410
 CanvasRenderer:
@@ -2187,10 +2187,10 @@ RectTransform:
   m_Father: {fileID: 4467172532514140491}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000009536743, y: 0.0000038146973}
-  m_SizeDelta: {x: 209.8091, y: 254.765}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 1.3682022, y: 8.240814}
+  m_SizeDelta: {x: -2.7364, y: -66.4816}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1618786693535856745
 CanvasRenderer:
@@ -2247,8 +2247,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17
-  m_fontSizeBase: 17
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2283,7 +2283,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -124.489075, z: 0, w: -104.41016}
+  m_margin: {x: 0, y: 2.1308594, z: 0, w: -1.4741821}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2664,7 +2664,7 @@ RectTransform:
   m_GameObject: {fileID: 3641382948164687868}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.125, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 702944415243874683}
@@ -2675,10 +2675,10 @@ RectTransform:
   m_Father: {fileID: 276948527755201666}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -106.633514, y: 5.189399}
-  m_SizeDelta: {x: 213.267, y: 521.2232}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -129, y: 0}
+  m_SizeDelta: {x: 233.0311, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8848686899481562056
 CanvasRenderer:
@@ -2701,7 +2701,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.6084906, g: 0.6565059, b: 1, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.8509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3098,7 +3098,7 @@ RectTransform:
   m_GameObject: {fileID: 4515239358747236870}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.25, y: 1.15, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2820477291505444907}
@@ -3107,7 +3107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 56.532288, y: 13.933289}
+  m_AnchoredPosition: {x: 71, y: 13.933289}
   m_SizeDelta: {x: 113.064606, y: 27.866608}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5505862224197848804
