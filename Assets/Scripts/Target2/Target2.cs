@@ -14,20 +14,23 @@ public class Target2 : MonoBehaviour, IDamageable, IFreezeable
 
     private Rigidbody2D rb;
     private float timeSinceLastAttack;
-    private bool isFrozen = false; 
+    private bool isFrozen = false;
 
     public GameObject healthItemPrefab;
     public GameObject coinPrefab;
 
+    private Animator anim;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         timeSinceLastAttack = 0f;
     }
 
     private void Update()
     {
-        if (isFrozen) return; 
+        if (isFrozen) return;
 
         timeSinceLastAttack += Time.deltaTime;
 
@@ -37,11 +40,18 @@ public class Target2 : MonoBehaviour, IDamageable, IFreezeable
         }
         else
         {
-            RotateTowardsTarget();
-
             if (Vector2.Distance(target.position, transform.position) <= attackRange)
             {
                 AttemptAttack();
+            }
+            else
+            {
+                // Stop the attack animation if the target is out of range
+                if (anim.GetBool("attacking"))
+                {
+                    anim.SetBool("attacking", false); // Stop attacking animation
+                    anim.SetBool("moving", true);     // Transition to moving animation
+                }
             }
         }
     }
@@ -50,34 +60,111 @@ public class Target2 : MonoBehaviour, IDamageable, IFreezeable
     {
         if (isFrozen)
         {
-            rb.velocity = Vector2.zero; 
+            rb.velocity = Vector2.zero;
             return;
         }
 
         if (target != null && Vector2.Distance(target.position, transform.position) > attackRange)
         {
-            rb.velocity = (target.position - transform.position).normalized * speed;
+            Vector2 moveDirection = (target.position - transform.position).normalized;
+            rb.velocity = moveDirection * speed;
+
+            // Update animations
+            SetAnimationDirection(moveDirection);
+            anim.SetBool("moving", true); // Transition to walking animation
         }
         else
         {
             rb.velocity = Vector2.zero;
+            anim.SetBool("moving", false); // Transition to idle animation
         }
-    }
-
-    private void RotateTowardsTarget()
-    {
-        Vector2 targetDirection = target.position - transform.position;
-        float angle = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
     }
 
     private void AttemptAttack()
     {
+        // Check if enough time has passed for the next attack
         if (timeSinceLastAttack >= attackCooldown)
         {
-            Debug.Log("Melee attack on player!");
-            target.GetComponent<NewPlayerMovement>()?.Damage(damage);
-            timeSinceLastAttack = 0f;
+            // Calculate the direction to the target
+            Vector2 attackDirection = (target.position - transform.position).normalized;
+
+            // Log distance to check if the attack range condition is met
+            float distanceToTarget = Vector2.Distance(target.position, transform.position);
+            Debug.Log($"Distance to target: {distanceToTarget} | Attack range: {attackRange}");
+
+            // Check if the target is within the attack range
+            if (distanceToTarget <= attackRange)
+            {
+                // Set direction for attack animation
+                SetAnimationDirection(attackDirection);
+
+                // Trigger the attack animation if it's not already playing
+                if (!anim.GetBool("attacking"))  // Prevent retriggering the attack animation
+                {
+                    anim.SetBool("attacking", true);  // Trigger attack animation
+                    anim.SetBool("moving", false);    // Stop moving animation
+                    anim.SetTrigger("attack");        // Trigger the attack animation
+
+                    timeSinceLastAttack = 0f;
+
+                    // Deal damage to the player if the target is in range
+                    target.GetComponent<NewPlayerMovement>()?.Damage(damage);
+                }
+            }
+            else
+            {
+                // Ensure attack animation stops if the target is out of range
+                if (anim.GetBool("attacking"))
+                {
+                    anim.SetBool("attacking", false);  // Stop attack animation
+                    anim.SetBool("moving", true);      // Transition to moving animation
+                }
+            }
+        }
+        else
+        {
+            // Ensure attack animation stops after cooldown period
+            if (anim.GetBool("attacking"))
+            {
+                anim.SetBool("attacking", false);  // Stop attack animation if cooldown isn't met
+                anim.SetBool("moving", true);      // Transition to moving animation
+            }
+        }
+    }
+
+    private void SetAnimationDirection(Vector2 direction)
+    {
+        direction.Normalize();
+
+        // Debug log to see values of moveX and moveY
+        Debug.Log($"SetAnimationDirection: {direction.x}, {direction.y}");
+
+        // Prioritize vertical movement over horizontal if Y direction is greater
+        if (Mathf.Abs(direction.y) > Mathf.Abs(direction.x)) // Prioritize vertical movement
+        {
+            if (direction.y > 0)
+            {
+                anim.SetFloat("moveX", 0f);
+                anim.SetFloat("moveY", 1f); // Upward
+            }
+            else
+            {
+                anim.SetFloat("moveX", 0f);
+                anim.SetFloat("moveY", -1f); // Downward
+            }
+        }
+        else // Prioritize horizontal movement
+        {
+            if (direction.x > 0)
+            {
+                anim.SetFloat("moveX", 1f);
+                anim.SetFloat("moveY", 0f);
+            }
+            else
+            {
+                anim.SetFloat("moveX", -1f);
+                anim.SetFloat("moveY", 0f);
+            }
         }
     }
 
@@ -144,7 +231,7 @@ public class Target2 : MonoBehaviour, IDamageable, IFreezeable
 
         if (isFrozen)
         {
-            rb.velocity = Vector2.zero; 
+            rb.velocity = Vector2.zero;
             Debug.Log($"{gameObject.name} is frozen.");
         }
         else
@@ -152,5 +239,4 @@ public class Target2 : MonoBehaviour, IDamageable, IFreezeable
             Debug.Log($"{gameObject.name} is unfrozen.");
         }
     }
-
 }
