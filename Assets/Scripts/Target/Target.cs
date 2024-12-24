@@ -5,6 +5,7 @@ using UnityEngine;
 public class Target : MonoBehaviour, IDamageable, IFreezeable
 {
     private Animator animator;
+    private bool isAnimated = false; // Added this line
     public event System.Action OnDeath;
     public int health = 100;
     public Transform target;
@@ -123,8 +124,6 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
             {
                 player.Damage(10); // Adjust damage as needed
             }
-
-            animator.SetTrigger("takeHitTrigger"); // Trigger the enemy's hit animation
         }
         else if (other.gameObject.CompareTag("Bullet"))
         {
@@ -136,16 +135,27 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
 
     public void Damage(int damageAmount)
     {
-        if (isDead) return;
+        if (isDead) return; // Don't process damage if already dead
 
+        animator.SetBool("takeDamageState", true);
         health -= damageAmount;
         Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
 
-        animator.SetTrigger("takeHitTrigger"); // Display hit animation
+        if (!isAnimated)
+        {
+            animator.SetTrigger("takeHitTrigger");
+        }
+
+        isAnimated = true;
 
         if (health <= 0)
         {
             Die();
+        }
+        else
+        {
+            isAnimated = false;
+            animator.SetTrigger("hitWalkTrigger");
         }
     }
 
@@ -165,7 +175,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         DropCoin();
 
         // Optionally destroy the object after the death animation
-        Destroy(gameObject, 1.5f); // Adjust the delay to match the death animation
+        Destroy(gameObject, 0.5f); // Adjust the delay to match the death animation
     }
 
     private void DropHealthItem()
