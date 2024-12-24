@@ -24,7 +24,8 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
     public GameObject healthItemPrefab;
     public GameObject coinPrefab;
 
-    private bool isFrozen = false; 
+    private bool isFrozen = false;
+    private bool isDead = false; // Added to prevent actions after death
 
     private void Start()
     {
@@ -36,11 +37,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
 
     private void Update()
     {
-        if (isFrozen)
-        {
-            rb.velocity = Vector2.zero;
-            return;
-        }
+        if (isFrozen || isDead) return;
 
         SetSpriteFlip();
 
@@ -48,54 +45,22 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         {
             GetTarget();
         }
-        
+
         if (Vector2.Distance(target.position, transform.position) <= distanceToShoot)
         {
             Shoot();
         }
     }
 
-    void SetSpriteFlip()
-    {
-        if (target.position.x - transform.position.x < 0)
-        {
-            bodySprite.flipX = true;
-        }
-        else if (target.position.x - transform.position.x > 0)
-        {
-            bodySprite.flipX = false;
-        }
-
-    }
-
-    private void Shoot()
-    {
-        if (isFrozen) return;
-
-        if (timeToFire <= 0f)
-        {
-            animator.SetBool("inRange", true);
-            Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
-            Debug.Log("Shoot");
-            timeToFire = fireRate;
-            animator.SetBool("inRange", false);
-        }
-        else
-        {
-            animator.SetBool("inRange", false);
-            timeToFire -= Time.deltaTime;
-        }
-    }
-
     private void FixedUpdate()
     {
-        if (isFrozen) return; 
+        if (isFrozen || isDead) return;
 
         if (target != null)
         {
             if (Vector2.Distance(target.position, transform.position) >= distanceToStop)
             {
-                animator.SetBool("canWalk", true );
+                animator.SetBool("canWalk", true);
                 Vector2 direction = (target.position - transform.position).normalized;
                 rb.velocity = direction * speed;
             }
@@ -107,7 +72,34 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
         }
     }
 
-    
+    private void SetSpriteFlip()
+    {
+        if (target && target.position.x - transform.position.x < 0)
+        {
+            bodySprite.flipX = true;
+        }
+        else if (target && target.position.x - transform.position.x > 0)
+        {
+            bodySprite.flipX = false;
+        }
+    }
+
+    private void Shoot()
+    {
+        if (isFrozen || isDead) return;
+
+        if (timeToFire <= 0f)
+        {
+            animator.SetBool("inRange", true);
+            Instantiate(bulletPrefab, firingPoint.position, firingPoint.rotation);
+            Debug.Log("Shoot");
+            timeToFire = fireRate;
+        }
+        else
+        {
+            timeToFire -= Time.deltaTime;
+        }
+    }
 
     private void GetTarget()
     {
@@ -119,42 +111,61 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDead) return;
+
         if (other.gameObject.CompareTag("Player"))
         {
-            Destroy(other.gameObject);
-            target = null;
-            animator.SetTrigger("takeHitTrigger");
+            Debug.Log("Player touched the enemy!");
+
+            // Damage the player instead of destroying instantly
+            NewPlayerMovement player = other.GetComponent<NewPlayerMovement>();
+            if (player != null)
+            {
+                player.Damage(10); // Adjust damage as needed
+            }
+
+            animator.SetTrigger("takeHitTrigger"); // Trigger the enemy's hit animation
         }
         else if (other.gameObject.CompareTag("Bullet"))
         {
+            Debug.Log("Bullet hit the enemy!");
             Destroy(other.gameObject);
-            Destroy(gameObject);
+            Damage(10); // Apply damage to the enemy when hit by a bullet
         }
     }
 
     public void Damage(int damageAmount)
     {
+        if (isDead) return;
+
         health -= damageAmount;
         Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
+
+        animator.SetTrigger("takeHitTrigger"); // Display hit animation
 
         if (health <= 0)
         {
             Die();
         }
-        else
-        {
-            animator.SetTrigger("hitWalkTrigger");
-        }
     }
 
     private void Die()
     {
+        if (isDead) return;
+
+        isDead = true;
         animator.SetTrigger("deathTrigger");
         OnDeath?.Invoke();
         Debug.Log(gameObject.name + " has died!");
-        Destroy(gameObject);
+
+        rb.velocity = Vector2.zero; // Stop movement
+        rb.isKinematic = true; // Disable physics interactions
+        GetComponent<Collider2D>().enabled = false; // Disable collider
         DropHealthItem();
         DropCoin();
+
+        // Optionally destroy the object after the death animation
+        Destroy(gameObject, 1.5f); // Adjust the delay to match the death animation
     }
 
     private void DropHealthItem()
@@ -164,7 +175,7 @@ public class Target : MonoBehaviour, IDamageable, IFreezeable
             Instantiate(healthItemPrefab, transform.position, Quaternion.identity);
         }
     }
-    
+
     private void DropCoin()
     {
         if (coinPrefab != null)

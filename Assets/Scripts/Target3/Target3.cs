@@ -20,7 +20,8 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
     private bool isDashing = false;
     private bool hasDealtDamage = false;
     private float dashCooldownTimer;
-    private bool isFrozen = false; 
+    private bool isFrozen = false;
+    private bool isDead = false; // New flag to track death state
     public GameObject healthItemPrefab;
     public GameObject coinPrefab;
 
@@ -34,9 +35,11 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 
     private void Update()
     {
+        if (isDead) return; // Skip all behavior if dead
+
         if (isFrozen)
         {
-            rb.velocity = Vector2.zero; 
+            rb.velocity = Vector2.zero;
             return;
         }
 
@@ -61,15 +64,14 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
         }
     }
 
-    
-
     private void MoveTowardsPlayer()
     {
         animator.SetBool("canWalk", true);
         Vector2 direction = (target.position - transform.position).normalized;
         rb.velocity = direction * speed;
     }
-    void SetSpriteFlip()
+
+    private void SetSpriteFlip()
     {
         if (target.position.x - transform.position.x < 0)
         {
@@ -79,8 +81,8 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
         {
             bodySprite.flipX = false;
         }
-
     }
+
     private IEnumerator Dash()
     {
         isDashing = true;
@@ -98,11 +100,10 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger detected with: " + collision.gameObject.name);
+        if (isDead) return; // Ignore interactions if dead
 
         if (isDashing && !hasDealtDamage && collision.CompareTag("Player"))
         {
-            Debug.Log("Player hit by dash!");
             NewPlayerMovement player = collision.GetComponent<NewPlayerMovement>();
             if (player != null)
             {
@@ -114,15 +115,17 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 
     public void Damage(int damageAmount)
     {
-        
+        if (isDead) return; // Don't process damage if already dead
+
         animator.SetBool("takeDamageState", true);
         health -= damageAmount;
         Debug.Log(gameObject.name + " took " + damageAmount + " damage. Remaining health: " + health);
+
         if (!isAnimated)
         {
             animator.SetTrigger("takeHitTrigger");
         }
-        
+
         isAnimated = true;
 
         if (health <= 0)
@@ -138,12 +141,19 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
 
     private void Die()
     {
+        if (isDead) return; // Prevent duplicate calls
+        isDead = true;
+
         OnDeath?.Invoke();
         Debug.Log(gameObject.name + " has died!");
         animator.SetTrigger("deathTrigger");
         DropHealthItem();
         DropCoin();
+        GetComponent<Collider2D>().enabled = false; // Disable the collider
+        rb.velocity = Vector2.zero; // Stop any movement
+        rb.isKinematic = true; // Prevent physics interactions
     }
+
     private void destroy()
     {
         Destroy(gameObject);
@@ -177,14 +187,13 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
         }
     }
 
-    
     public void SetFrozen(bool frozen)
     {
         isFrozen = frozen;
 
         if (isFrozen)
         {
-            rb.velocity = Vector2.zero; 
+            rb.velocity = Vector2.zero;
             Debug.Log($"{gameObject.name} is frozen.");
         }
         else
@@ -192,5 +201,4 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
             Debug.Log($"{gameObject.name} is unfrozen.");
         }
     }
-    
 }
