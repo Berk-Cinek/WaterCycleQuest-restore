@@ -172,7 +172,8 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
     {
         if (healthItemPrefab != null)
         {
-            Instantiate(healthItemPrefab, transform.position, Quaternion.identity);
+            GameObject heathItem = Instantiate(healthItemPrefab, transform.position, Quaternion.identity);
+            Destroy(heathItem, 15f);
         }
     }
 
@@ -183,7 +184,8 @@ public class Target3 : MonoBehaviour, IDamageable, IFreezeable
             float spawnOffset = Random.Range(-3f, 1f);
             Vector2 spawnPosition = new Vector2(transform.position.x + spawnOffset, transform.position.y);
 
-            Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
+            GameObject coin = Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
+            Destroy(coin, 15f);
         }
     }
 

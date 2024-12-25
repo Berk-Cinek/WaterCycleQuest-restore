@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2121d198125b29148bd1f7429da9470a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 200
+  health: 1200
   rayDistance: 3
   isRunning: 1
   damage: 20

@@ -29,6 +29,14 @@ public class PrefabGenerator : MonoBehaviour
     private float minDistanceFromCorners = 2.0f;
     [SerializeField]
     private List<GameObject> bosses;
+    [SerializeField]
+    private GameObject playerdamagePrefab;
+    [SerializeField]
+    private GameObject playerhealthPrefab;
+    [SerializeField]
+    private GameObject playerspeedPrefab;
+    [SerializeField]
+    private GameObject playerdashSpeedPrefab;
     //private string playerTag = "Player";
     public bool isBossDead = false;
     private Vector2 center;
@@ -41,6 +49,7 @@ public class PrefabGenerator : MonoBehaviour
         //    isBossDead = false;
         //}
     }
+
     public void GetPosition(HashSet<Vector2Int> positions)
     {
         this.positions = positions;
@@ -160,12 +169,47 @@ public class PrefabGenerator : MonoBehaviour
         }
     }
 
-
     public GameObject PlacePlayer()
     {
-        // Oyuncuyu merkeze yerleştir
+        // Place the player at the center position and return the player object
         GameObject _player = Instantiate(playerPrefab, new Vector3(center.x, center.y, -1), Quaternion.identity);
+        PlaceDamageUpgrade(_player);
+        PlaceHealthUpgrade(_player);
+        PlaceSpeedUpgrade(_player);
+        PlaceDashSpeedUpgrade(_player);
         return _player;
+    }
+
+    public GameObject PlaceDamageUpgrade(GameObject player)
+    {
+        // Place Damage Upgrade near the player with a larger offset to the right
+        Vector3 position = player.transform.position + new Vector3(5f, 0, 0); // Increased offset for more spacing
+        GameObject _damageUpgrade = Instantiate(playerdamagePrefab, position, Quaternion.identity);
+        return _damageUpgrade;
+    }
+
+    public GameObject PlaceHealthUpgrade(GameObject player)
+    {
+        // Place Health Upgrade further to the right of the damage upgrade
+        Vector3 position = player.transform.position + new Vector3(10f, 0, 0); // Increased offset for more spacing
+        GameObject _healthUpgrade = Instantiate(playerhealthPrefab, position, Quaternion.identity);
+        return _healthUpgrade;
+    }
+
+    public GameObject PlaceSpeedUpgrade(GameObject player)
+    {
+        // Place Speed Upgrade near the player to the left
+        Vector3 position = player.transform.position + new Vector3(-5f, 0, 0); // Increased offset for more spacing
+        GameObject _speedUpgrade = Instantiate(playerspeedPrefab, position, Quaternion.identity);
+        return _speedUpgrade;
+    }
+
+    public GameObject PlaceDashSpeedUpgrade(GameObject player)
+    {
+        // Place Dash Speed Upgrade further to the left of the speed upgrade
+        Vector3 position = player.transform.position + new Vector3(-10f, 0, 0); // Increased offset for more spacing
+        GameObject _dashSpeedUpgrade = Instantiate(playerdashSpeedPrefab, position, Quaternion.identity);
+        return _dashSpeedUpgrade;
     }
 
     private Vector2 CalculateCenter(IEnumerable<Vector2Int> positions)

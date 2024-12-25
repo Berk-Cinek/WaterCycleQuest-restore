@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c01bbbe986151574782d68a8ba2c985f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 1000
   speed: 3
   bulletPrefab: {fileID: 0}
   instructorPrefab: {fileID: 8852241614143420195, guid: 4c2f89cbde06d2f4db1c766a94f14dd6, type: 3}

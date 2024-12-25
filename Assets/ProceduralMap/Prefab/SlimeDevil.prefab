@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 604455e79ba1abf40a5ab7910e53517e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 300
+  health: 1400
   rayDistance: 3
   isRunning: 1
   damage: 25
