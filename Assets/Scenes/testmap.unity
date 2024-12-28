@@ -355,10 +355,14 @@ MonoBehaviour:
   bushPrefabs: []
   treePrefabs: []
   enemyPrefabs: []
-  playerPrefab: {fileID: 1407959022413416075, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
+  playerPrefab: {fileID: 1407959022413416075, guid: 768a19923d875c844a47a5d86c7ce2b8, type: 3}
   minDistanceFromWalls: 2
   minDistanceFromCorners: 2
   bosses: []
+  playerdamagePrefab: {fileID: 0}
+  playerhealthPrefab: {fileID: 0}
+  playerspeedPrefab: {fileID: 0}
+  playerdashSpeedPrefab: {fileID: 0}
   isBossDead: 0
 --- !u!4 &338830332
 Transform:
@@ -46864,7 +46868,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1930504997
 GameObject:
