@@ -355,7 +355,7 @@ MonoBehaviour:
   - {fileID: 3207111880940741906, guid: 566c56d44b7bf874583a8833b78dbf38, type: 3}
   - {fileID: 8696749635992184783, guid: 1ec57ebc3045d344d927d8a864ec42e6, type: 3}
   - {fileID: 9208507616655695219, guid: 6b79986939b6d6746ac1c03a63cba245, type: 3}
-  playerPrefab: {fileID: 1407959022413416075, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
+  playerPrefab: {fileID: 1407959022413416075, guid: fda6d59306d05624fbcd8a238cacee7d, type: 3}
   minDistanceFromWalls: 5
   minDistanceFromCorners: 5
   bosses: []
@@ -843,31 +843,6 @@ MonoBehaviour:
   - target1Count: 5
     target2Count: 5
     target3Count: 5
-    bossCount: 0
-    breakDuration: 10
-  - target1Count: 6
-    target2Count: 6
-    target3Count: 6
-    bossCount: 0
-    breakDuration: 10
-  - target1Count: 7
-    target2Count: 7
-    target3Count: 7
-    bossCount: 0
-    breakDuration: 10
-  - target1Count: 8
-    target2Count: 8
-    target3Count: 8
-    bossCount: 0
-    breakDuration: 10
-  - target1Count: 9
-    target2Count: 9
-    target3Count: 9
-    bossCount: 0
-    breakDuration: 10
-  - target1Count: 10
-    target2Count: 10
-    target3Count: 10
     bossCount: 1
     breakDuration: 0
   spawnPoints:

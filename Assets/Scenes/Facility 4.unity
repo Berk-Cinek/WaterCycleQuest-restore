@@ -4350,7 +4350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5191a7bc8f4c2d743ba7ba40447522f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1407959022413416075, guid: 542aa5549a1c0894885aad4ddf731051, type: 3}
+  player: {fileID: 1407959022413416075, guid: 768a19923d875c844a47a5d86c7ce2b8, type: 3}
   playerTransform: {fileID: 379874658}
 --- !u!4 &379874658
 Transform:

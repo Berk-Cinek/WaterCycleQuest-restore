@@ -18,7 +18,7 @@ public class FollowForFacility : MonoBehaviour
         // Oyuncuyu bulana kadar bekle
         while (player == null)
         {
-            player = GameObject.Find("Player(Clone)");
+            player = GameObject.FindWithTag("Player"); // Etikete göre oyuncuyu bul
             yield return null; // Bir sonraki frame'e kadar bekle
         }
 
