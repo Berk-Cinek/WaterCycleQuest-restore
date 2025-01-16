@@ -7,12 +7,12 @@ public class FrostGuardian : MonoBehaviour, IDamageable
 {
     Transform TargetPos;
     [SerializeField] private int health;
-    Vector3 direction;
-    RaycastHit2D ray;
+    private Vector3 direction;
+    private RaycastHit2D ray;
     SpriteRenderer bodySprite;
     [SerializeField] float rayDistance = 30;
     Animator animator;
-    float Speed = 5f;
+    [SerializeField] float Speed = 5f;
     public bool isRunning = true;
     private float lastDamageTime = 0f;
     private float damageCooldown = 1f;
@@ -55,10 +55,13 @@ public class FrostGuardian : MonoBehaviour, IDamageable
             TargetPos = GameObject.FindGameObjectWithTag("Player").transform;
         }
     }
-
     void GetDirection()
     {
-        direction = (TargetPos.position - transform.position).normalized;
+        if (TargetPos != null)
+        {
+            direction = (TargetPos.position - transform.position).normalized;
+            Debug.Log($"Direction towards player: {direction}");
+        }
     }
 
     void SetSpriteFlip()
@@ -91,13 +94,11 @@ public class FrostGuardian : MonoBehaviour, IDamageable
 
     void Run()
     {
-        if (isRunning)
+        if (isRunning && TargetPos != null)
         {
-            animator.Play("Base Layer.Running", default);
-            transform.position += direction * Speed * Time.deltaTime;
+            Debug.Log($"Boss moving towards {TargetPos.position}");
+            transform.position = Vector2.MoveTowards(transform.position, TargetPos.position, Speed * Time.deltaTime);
         }
-
-
     }
 
     public void Damage(int damageAmount)

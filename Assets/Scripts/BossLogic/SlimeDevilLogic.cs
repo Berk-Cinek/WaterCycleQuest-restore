@@ -6,48 +6,39 @@ using Unity.VisualScripting;
 
 public class SlimeDevilLogic : MonoBehaviour , IDamageable
 {
-    private Transform TargetPos;
-    [SerializeField] private int health = 100;
+    Transform TargetPos;
+    [SerializeField] private int health;
     private Vector3 direction;
     private RaycastHit2D ray;
-    private SpriteRenderer bodySprite;
+    SpriteRenderer bodySprite;
     [SerializeField] float rayDistance = 30;
-    private Animator animator;
-    float Speed = 5f;
+    Animator animator;
+    [SerializeField] float Speed = 5f;
     public bool isRunning = true;
     private float lastDamageTime = 0f;
     private float damageCooldown = 1f;
+    private Rigidbody2D rb;
     [SerializeField] private int damage = 20;
 
-    public GameObject bulletPrefab;
     [SerializeField] private GameObject instructorPrefab;
     [SerializeField] private GameObject healthItemPrefab;
     [SerializeField] private GameObject coinPrefab;
+    private bool isDead = false; // New flag to track death state
+    public GameObject bulletPrefab;
+    public event System.Action OnDeath;
 
-    public event Action OnDeath;
-
-    event Action IDamageable.OnDeath
+    // Start is called before the first frame update
+    void Start()
     {
-        add
-        {
-            throw new NotImplementedException();
-        }
-
-        remove
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    void Awake()
-    {
-        bodySprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        bodySprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDead) return; // Skip all behavior if dead
         GetTargetPos();
         SetSpriteFlip();
         GetDirection();
@@ -55,8 +46,8 @@ public class SlimeDevilLogic : MonoBehaviour , IDamageable
         Attack();
         Debug.DrawLine(transform.position, transform.position + direction * rayDistance, Color.red);
         ray = Physics2D.Raycast(transform.position, direction, rayDistance);
-
     }
+
 
     void GetTargetPos()
     {
@@ -65,10 +56,13 @@ public class SlimeDevilLogic : MonoBehaviour , IDamageable
             TargetPos = GameObject.FindGameObjectWithTag("Player").transform;
         }
     }
-
     void GetDirection()
     {
-        direction = (TargetPos.position - transform.position).normalized;
+        if (TargetPos != null)
+        {
+            direction = (TargetPos.position - transform.position).normalized;
+            Debug.Log($"Direction towards player: {direction}");
+        }
     }
 
     void SetSpriteFlip()
@@ -89,54 +83,49 @@ public class SlimeDevilLogic : MonoBehaviour , IDamageable
         if (ray.collider != null && ray.collider.CompareTag("Player"))
         {
             isRunning = false;
-            animator.SetBool("inRange", true);
+            animator.SetTrigger("Attack");
         }
-        else if (ray.collider != null && ray.collider.CompareTag("Wall"))
+        else
         {
-            isRunning = false;
-            animator.SetBool("inRange", true);
+            isRunning = true;
+            animator.SetTrigger("run");
         }
 
     }
 
     void Run()
     {
-        if (isRunning)
+        if (isRunning && TargetPos != null)
         {
-            animator.SetBool("canWalk", true);
-            transform.position += direction * Speed * Time.deltaTime;
+            Debug.Log($"Boss moving towards {TargetPos.position}");
+            transform.position = Vector2.MoveTowards(transform.position, TargetPos.position, Speed * Time.deltaTime);
         }
-        else
-        {
-            animator.SetBool("canWalk", false);
-        }
-
-
     }
-
-
 
     public void Damage(int damageAmount)
     {
+        if (isDead) return; // Don't process damage if already dead
+
         health -= damageAmount;
         if (health <= 0)
         {
             Die();
         }
-        else
-        {
-            animator.SetTrigger("takeHitTrigger");
-            animator.SetBool("hitWalk", true);
-        }
     }
 
     private void Die()
     {
+        if (isDead) return; // Prevent duplicate calls
+        isDead = true;
+
         OnDeath?.Invoke();
-        animator.SetTrigger("deathTrigger");
+        animator.SetTrigger("death");
         DropCoin();
         DropHealthItem();
         DropInstructor();
+        GetComponent<Collider2D>().enabled = false; // Disable the collider
+        rb.velocity = Vector2.zero; // Stop any movement
+        rb.isKinematic = true; // Prevent physics interactions
     }
 
     private void destroy()
@@ -146,6 +135,8 @@ public class SlimeDevilLogic : MonoBehaviour , IDamageable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (isDead) return; // Ignore interactions if dead
+
         if (other.gameObject.CompareTag("Player"))
         {
             // only apply damage if enough time has passed since the last damage 
@@ -180,7 +171,7 @@ public class SlimeDevilLogic : MonoBehaviour , IDamageable
             float spawnOffset = UnityEngine.Random.Range(-3f, 1f);
             Vector2 spawnPosition = new Vector2(transform.position.x + spawnOffset, transform.position.y);
 
-            Instantiate(healthItemPrefab, spawnPosition , Quaternion.identity);
+            Instantiate(healthItemPrefab, spawnPosition, Quaternion.identity);
         }
     }
 
@@ -194,5 +185,6 @@ public class SlimeDevilLogic : MonoBehaviour , IDamageable
             Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
         }
     }
+
 
 }
