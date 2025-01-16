@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00644d947b13bb048aa9bf1256c2adb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 150
+  health: 100
   target: {fileID: 0}
   speed: 3.5
   dashSpeed: 12

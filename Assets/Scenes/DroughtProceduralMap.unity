@@ -157,27 +157,17 @@ MonoBehaviour:
     target2Count: 1
     target3Count: 1
     bossCount: 0
-    breakDuration: 10
+    breakDuration: 5
   - target1Count: 2
     target2Count: 0
     target3Count: 2
     bossCount: 0
-    breakDuration: 10
+    breakDuration: 5
   - target1Count: 4
     target2Count: 4
     target3Count: 4
-    bossCount: 0
-    breakDuration: 10
-  - target1Count: 5
-    target2Count: 5
-    target3Count: 5
-    bossCount: 0
-    breakDuration: 10
-  - target1Count: 5
-    target2Count: 5
-    target3Count: 5
     bossCount: 1
-    breakDuration: 0
+    breakDuration: 5
   spawnPoints:
   - {fileID: 1572112414}
   - {fileID: 1672426649}

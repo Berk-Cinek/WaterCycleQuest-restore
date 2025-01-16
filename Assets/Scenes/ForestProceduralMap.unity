@@ -821,30 +821,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - target1Count: 1
-    target2Count: 1
+    target2Count: 0
     target3Count: 1
     bossCount: 0
-    breakDuration: 10
+    breakDuration: 5
   - target1Count: 2
-    target2Count: 2
+    target2Count: 0
     target3Count: 2
     bossCount: 0
-    breakDuration: 10
-  - target1Count: 3
-    target2Count: 3
-    target3Count: 3
-    bossCount: 0
-    breakDuration: 10
+    breakDuration: 5
   - target1Count: 4
     target2Count: 4
     target3Count: 4
-    bossCount: 0
-    breakDuration: 10
-  - target1Count: 5
-    target2Count: 5
-    target3Count: 5
     bossCount: 1
-    breakDuration: 0
+    breakDuration: 5
   spawnPoints:
   - {fileID: 777549771}
   - {fileID: 1544815530}
