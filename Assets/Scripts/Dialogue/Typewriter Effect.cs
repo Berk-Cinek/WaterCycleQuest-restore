@@ -9,22 +9,21 @@ public class TypewriterEffect : MonoBehaviour
 
     public bool IsRunning { get; private set; }
 
-    private readonly List<Punctuation> punctuations = new List<Punctuation>()
-    {
-        new Punctuation(new HashSet<char>() { '.', '!', '?' }, 0.6f),
-        new Punctuation(new HashSet<char>() { ',', ';', ':' }, 0.3f)
-    };
-
     private Coroutine typingCoroutine;
 
     public void Run(string textToType, TMP_Text textLabel)
     {
+        Stop(); // Ensure previous coroutine stops before starting a new one
         typingCoroutine = StartCoroutine(TypeText(textToType, textLabel));
     }
 
     public void Stop()
     {
-        StopCoroutine(typingCoroutine);
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
         IsRunning = false;
     }
 
@@ -47,45 +46,13 @@ public class TypewriterEffect : MonoBehaviour
 
             for (int i = lastCharIndex; i < charIndex; i++)
             {
-                bool isLast = i >= textToType.Length - 1;
-
                 textLabel.text = textToType.Substring(0, i + 1);
-
-                if (IsPunctuation(textToType[i], out float waitTime) && !isLast && !IsPunctuation(textToType[i + 1], out _))
-                {
-                    yield return new WaitForSeconds(waitTime);
-                }
             }
 
             yield return null;
         }
+
+        textLabel.text = textToType; // Ensure text completes
         IsRunning = false;
-    }
-
-    private bool IsPunctuation(char character, out float waitTime)
-    {
-        foreach (Punctuation punctuationCategory in punctuations)
-        {
-            if (punctuationCategory.Punctuations.Contains(character))
-            {
-                waitTime = punctuationCategory.WaitTime;
-                return true;
-            }
-        }
-
-        waitTime = default;
-        return false;
-    }
-
-    private readonly struct Punctuation
-    {
-        public readonly HashSet<char> Punctuations;
-        public readonly float WaitTime;
-
-        public Punctuation(HashSet<char> punctuations, float waitTime)
-        {
-            Punctuations = punctuations;
-            WaitTime = waitTime;
-        }
     }
 }
