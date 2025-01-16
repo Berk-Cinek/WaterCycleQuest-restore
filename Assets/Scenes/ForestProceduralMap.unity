@@ -834,7 +834,7 @@ MonoBehaviour:
     target2Count: 4
     target3Count: 4
     bossCount: 1
-    breakDuration: 5
+    breakDuration: 0
   spawnPoints:
   - {fileID: 777549771}
   - {fileID: 1544815530}
