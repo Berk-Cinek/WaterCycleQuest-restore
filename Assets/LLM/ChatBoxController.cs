@@ -11,14 +11,14 @@ public class ChatBoxController : MonoBehaviour
     public Button sendButton;
     public ChatbotAPI chatbotAPI;
 
-    public static bool IsChatBoxActive { get; private set; } // Global flag to indicate chatbox activity
+    public static bool IsChatBoxActive { get; private set; }
 
     private void Start()
     {
         chatBoxPanel.SetActive(false);
-        IsChatBoxActive = false; // Initialize the flag
+        IsChatBoxActive = false;
 
-        // Add listener for the send button
+        // add listener for send
         sendButton.onClick.AddListener(SendQuestion);
 
         // Add listener for the Enter key (onSubmit event)

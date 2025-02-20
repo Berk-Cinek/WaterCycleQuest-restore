@@ -37,7 +37,7 @@ public class NewPlayerMovement : MonoBehaviour
     [SerializeField] private TMP_Text coinCounterText;
     private int currentCoins = 0;
 
-    private int playerDamage = 10;  
+    private int playerDamage = 10;
 
     private void Awake()
     {

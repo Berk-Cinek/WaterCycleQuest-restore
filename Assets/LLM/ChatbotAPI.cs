@@ -1,8 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Diagnostics; // For managing processes
-using System.IO;          // For path management
+using System.Diagnostics;
+using System.IO;          
 
 public class ChatbotAPI : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class ChatbotAPI : MonoBehaviour
 
     void Start()
     {
-        StartFlaskServer(); // Start the Flask server when Unity starts
+        StartFlaskServer(); // Start when Unity starts
     }
 
     // Function to start the Flask server
@@ -26,14 +26,14 @@ public class ChatbotAPI : MonoBehaviour
             ProcessStartInfo startInfo = new ProcessStartInfo
             {
                 FileName = pythonPath,
-                Arguments = $"\"{flaskAppPath}\"", // Pass the path to app.py
+                Arguments = $"\"{flaskAppPath}\"", // Pass app.py
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 CreateNoWindow = true
             };
 
-            flaskProcess = Process.Start(startInfo); // Start the Flask server
+            flaskProcess = Process.Start(startInfo); // Start server
             UnityEngine.Debug.Log("Flask server started successfully.");
         }
         catch (System.Exception ex)
@@ -42,7 +42,7 @@ public class ChatbotAPI : MonoBehaviour
         }
     }
 
-    // Function to send a question to the chatbot
+    // Send a question to the chatbot
     public void SendQuestionToChatbot(string question)
     {
         StartCoroutine(PostRequest(question));
@@ -103,74 +103,3 @@ public class ChatbotAPI : MonoBehaviour
         public string answer;
     }
 }
-
-
-//using System.Collections;
-//using UnityEngine;
-//using UnityEngine.Networking;
-
-//public class ChatbotAPI : MonoBehaviour
-//{
-
-//    private string flaskUrl = "http://127.0.0.1:5000/chat";
-
-
-//    public ChatBoxController chatBoxController;
-
-
-//    public void SendQuestionToChatbot(string question)
-//    {
-//        StartCoroutine(PostRequest(question));
-//    }
-
-
-//    private IEnumerator PostRequest(string question)
-//    {
-
-//        string jsonData = JsonUtility.ToJson(new QuestionData { question = question });
-
-
-//        UnityWebRequest request = new UnityWebRequest(flaskUrl, "POST");
-//        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
-//        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-//        request.downloadHandler = new DownloadHandlerBuffer();
-//        request.SetRequestHeader("Content-Type", "application/json");
-
-
-//        yield return request.SendWebRequest();
-
-//        if (request.result == UnityWebRequest.Result.Success)
-//        {
-
-//            string responseText = request.downloadHandler.text;
-//            Debug.Log("Raw Chatbot Response: " + responseText);
-
-
-//            ChatbotResponse chatbotResponse = JsonUtility.FromJson<ChatbotResponse>(responseText);
-//            string answer = chatbotResponse.answer;
-
-
-//            chatBoxController.DisplayResponse(answer);
-//        }
-//        else
-//        {
-
-//            Debug.LogError("Error: " + request.error);
-//            chatBoxController.DisplayResponse("Error: Could not get response.");
-//        }
-//    }
-
-
-//    [System.Serializable]
-//    private class QuestionData
-//    {
-//        public string question;
-//    }
-
-//    [System.Serializable]
-//    private class ChatbotResponse
-//    {
-//        public string answer;
-//    }
-
-//}

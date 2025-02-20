@@ -22,11 +22,10 @@ public class FrostGuardian : MonoBehaviour, IDamageable
     [SerializeField] private GameObject instructorPrefab;
     [SerializeField] private GameObject healthItemPrefab;
     [SerializeField] private GameObject coinPrefab;
-    private bool isDead = false; // New flag to track death state
+    private bool isDead = false;
     public GameObject bulletPrefab;
     public event System.Action OnDeath;
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -34,7 +33,6 @@ public class FrostGuardian : MonoBehaviour, IDamageable
         bodySprite = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isDead) return; // Skip all behavior if dead
@@ -47,7 +45,6 @@ public class FrostGuardian : MonoBehaviour, IDamageable
         ray = Physics2D.Raycast(transform.position, direction, rayDistance);
     }
 
-
     void GetTargetPos()
     {
         if (GameObject.FindGameObjectWithTag("Player") != null)
@@ -55,6 +52,7 @@ public class FrostGuardian : MonoBehaviour, IDamageable
             TargetPos = GameObject.FindGameObjectWithTag("Player").transform;
         }
     }
+    ,
     void GetDirection()
     {
         if (TargetPos != null)
@@ -141,11 +139,12 @@ public class FrostGuardian : MonoBehaviour, IDamageable
             // only apply damage if enough time has passed since the last damage 
             if (Time.time - lastDamageTime >= damageCooldown)
             {
-                lastDamageTime = Time.time; // Update
+                lastDamageTime = Time.time;
                 TargetPos.GetComponent<NewPlayerMovement>()?.Damage(damage);
                 TargetPos = null;
             }
         }
+
         else if (other.gameObject.CompareTag("Bullet"))
         {
             if (Time.time - lastDamageTime >= damageCooldown)
@@ -156,6 +155,7 @@ public class FrostGuardian : MonoBehaviour, IDamageable
             }
         }
     }
+
     private void DropInstructor()
     {
         if (instructorPrefab != null)
@@ -163,6 +163,7 @@ public class FrostGuardian : MonoBehaviour, IDamageable
             Instantiate(instructorPrefab, transform.position, Quaternion.identity);
         }
     }
+
     private void DropHealthItem()
     {
         if (healthItemPrefab != null)
@@ -184,6 +185,5 @@ public class FrostGuardian : MonoBehaviour, IDamageable
             Instantiate(coinPrefab, spawnPosition, Quaternion.identity);
         }
     }
-
 
 }
